@@ -1,0 +1,59 @@
+{% comment %}
+  Meta tags snippet for SEO and social sharing
+{% endcomment %}
+
+{%- if template contains 'product' -%}
+  {%- assign og_title = product.title | strip_html -%}
+  {%- assign og_type = 'product' -%}
+  {%- assign og_description = product.description | strip_html | truncate: 160 -%}
+  {%- assign og_image = product.featured_image | img_url: '1200x630' -%}
+  {%- assign og_url = shop.url | append: product.url -%}
+{%- elsif template contains 'collection' -%}
+  {%- assign og_title = collection.title | strip_html -%}
+  {%- assign og_type = 'product.group' -%}
+  {%- assign og_description = collection.description | strip_html | truncate: 160 -%}
+  {%- assign og_image = collection.image | img_url: '1200x630' -%}
+  {%- assign og_url = shop.url | append: collection.url -%}
+{%- elsif template contains 'article' -%}
+  {%- assign og_title = article.title | strip_html -%}
+  {%- assign og_type = 'article' -%}
+  {%- assign og_description = article.excerpt | strip_html | truncate: 160 -%}
+  {%- assign og_image = article.image | img_url: '1200x630' -%}
+  {%- assign og_url = shop.url | append: article.url -%}
+{%- elsif template contains 'page' -%}
+  {%- assign og_title = page.title | strip_html -%}
+  {%- assign og_type = 'website' -%}
+  {%- assign og_description = page.content | strip_html | truncate: 160 -%}
+  {%- assign og_image = page.image | img_url: '1200x630' -%}
+  {%- assign og_url = shop.url | append: page.url -%}
+{%- else -%}
+  {%- assign og_title = shop.name -%}
+  {%- assign og_type = 'website' -%}
+  {%- assign og_description = shop.description | strip_html | truncate: 160 -%}
+  {%- assign og_image = shop.brand.logo | img_url: '1200x630' -%}
+  {%- assign og_url = shop.url -%}
+{%- endif -%}
+
+{%- unless og_image -%}
+  {%- assign og_image = 'logo.png' | asset_url -%}
+{%- endunless -%}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:url" content="{{ og_url }}">
+<meta property="og:title" content="{{ og_title }}">
+<meta property="og:description" content="{{ og_description }}">
+<meta property="og:image" content="{{ og_image }}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="{{ og_url }}">
+<meta property="twitter:title" content="{{ og_title }}">
+<meta property="twitter:description" content="{{ og_description }}">
+<meta property="twitter:image" content="{{ og_image }}">
+
+{%- if template contains 'product' -%}
+  <meta property="product:price:amount" content="{{ product.price | money_without_currency }}">
+  <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
+  <meta property="product:availability" content="{% if product.available %}in stock{% else %}out of stock{% endif %}">
+{%- endif -%}

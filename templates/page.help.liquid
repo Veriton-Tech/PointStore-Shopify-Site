@@ -1,0 +1,343 @@
+{% comment %}
+  Help page template
+{% endcomment %}
+
+<div class="help-page">
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">Help Center</h1>
+      <p class="page-description">Find answers to your questions</p>
+    </div>
+
+    <!-- Help Content -->
+    <div class="help-content">
+      <div class="help-layout">
+        <!-- Help Sidebar -->
+        <aside class="help-sidebar">
+          <div class="help-search">
+            <input type="search" placeholder="Search help articles..." class="help-search-input">
+            <button class="help-search-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <nav class="help-nav">
+            <h3 class="help-nav-title">Categories</h3>
+            <a href="#shipping" class="help-nav-link active" data-section="shipping">Shipping & Delivery</a>
+            <a href="#returns" class="help-nav-link" data-section="returns">Returns & Exchanges</a>
+            <a href="#sizing" class="help-nav-link" data-section="sizing">Sizing Guide</a>
+            <a href="#orders" class="help-nav-link" data-section="orders">Order Management</a>
+            <a href="#account" class="help-nav-link" data-section="account">Account & Billing</a>
+            <a href="#contact" class="help-nav-link" data-section="contact">Contact Support</a>
+          </nav>
+        </aside>
+
+        <!-- Help Main Content -->
+        <main class="help-main">
+          <!-- Shipping Section -->
+          <div class="help-section active" id="shipping-section">
+            <h2 class="section-title">Shipping & Delivery</h2>
+            <div class="help-articles">
+              <div class="help-article">
+                <h3>How long does shipping take?</h3>
+                <p>Standard shipping takes 3-5 business days, while express shipping takes 1-2 business days. International shipping may take 7-14 business days depending on the destination.</p>
+              </div>
+              <div class="help-article">
+                <h3>What are the shipping costs?</h3>
+                <p>We offer free shipping on orders over $50. Standard shipping is $5.99, express shipping is $12.99, and overnight shipping is $24.99.</p>
+              </div>
+              <div class="help-article">
+                <h3>Can I track my order?</h3>
+                <p>Yes! Once your order ships, you'll receive a tracking number via email. You can also track your order in your account dashboard.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Returns Section -->
+          <div class="help-section" id="returns-section">
+            <h2 class="section-title">Returns & Exchanges</h2>
+            <div class="help-articles">
+              <div class="help-article">
+                <h3>What is your return policy?</h3>
+                <p>We offer a 30-day return policy for all items. Items must be in original condition with tags attached. Returns are free within the US.</p>
+              </div>
+              <div class="help-article">
+                <h3>How do I return an item?</h3>
+                <p>You can initiate a return through your account dashboard or contact our customer service team. We'll provide you with a prepaid return label.</p>
+              </div>
+              <div class="help-article">
+                <h3>When will I receive my refund?</h3>
+                <p>Refunds are processed within 3-5 business days after we receive your return. You'll receive an email confirmation once the refund is processed.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sizing Section -->
+          <div class="help-section" id="sizing-section">
+            <h2 class="section-title">Sizing Guide</h2>
+            <div class="help-articles">
+              <div class="help-article">
+                <h3>How do I find my size?</h3>
+                <p>Use our detailed sizing charts available on each product page. Measure yourself and compare with our size guide for the best fit.</p>
+              </div>
+              <div class="help-article">
+                <h3>What if the size doesn't fit?</h3>
+                <p>If your item doesn't fit, you can exchange it for a different size within 30 days. We'll cover the return shipping and send you the correct size.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders Section -->
+          <div class="help-section" id="orders-section">
+            <h2 class="section-title">Order Management</h2>
+            <div class="help-articles">
+              <div class="help-article">
+                <h3>Can I cancel my order?</h3>
+                <p>You can cancel your order within 1 hour of placing it. After that, you'll need to return the item once it arrives.</p>
+              </div>
+              <div class="help-article">
+                <h3>Can I modify my order?</h3>
+                <p>Order modifications are possible within 1 hour of placing the order. Contact our customer service team for assistance.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Account Section -->
+          <div class="help-section" id="account-section">
+            <h2 class="section-title">Account & Billing</h2>
+            <div class="help-articles">
+              <div class="help-article">
+                <h3>How do I update my account information?</h3>
+                <p>You can update your account information in the "My Account" section. Changes are saved immediately.</p>
+              </div>
+              <div class="help-article">
+                <h3>What payment methods do you accept?</h3>
+                <p>We accept all major credit cards, PayPal, Apple Pay, Google Pay, and Shop Pay.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="help-section" id="contact-section">
+            <h2 class="section-title">Contact Support</h2>
+            <div class="help-articles">
+              <div class="help-article">
+                <h3>How can I contact customer service?</h3>
+                <p>You can reach us via email at support@example.com, phone at 1-800-123-4567, or live chat on our website. We're available 24/7.</p>
+              </div>
+              <div class="help-article">
+                <h3>What are your support hours?</h3>
+                <p>Our customer service team is available 24/7 via email and live chat. Phone support is available Monday-Friday, 9 AM - 6 PM EST.</p>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Help Page Styles */
+.help-page {
+  min-height: 100vh;
+  padding: 4rem 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.page-title {
+  font-size: 4.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.page-description {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+}
+
+.help-content {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.help-layout {
+  display: grid;
+  grid-template-columns: 30rem 1fr;
+  gap: 4rem;
+}
+
+.help-sidebar {
+  background: var(--white);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.help-search {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.help-search-input {
+  width: 100%;
+  padding: 1.2rem 4rem 1.2rem 1.6rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  transition: border-color 0.3s ease;
+}
+
+.help-search-input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+}
+
+.help-search-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-light);
+  border: none;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-nav-title {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: var(--gray-700);
+}
+
+.help-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.help-nav-link {
+  padding: 1.2rem 1.6rem;
+  color: var(--gray-500);
+  text-decoration: none;
+  border-radius: 0.8rem;
+  transition: all 0.3s ease;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.help-nav-link:hover,
+.help-nav-link.active {
+  background: var(--primary-light);
+  color: var(--white);
+}
+
+.help-main {
+  background: var(--white);
+  border-radius: 1.2rem;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.help-section {
+  display: none;
+}
+
+.help-section.active {
+  display: block;
+}
+
+.section-title {
+  font-size: 2.4rem;
+  margin-bottom: 3rem;
+  color: var(--gray-700);
+}
+
+.help-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.help-article {
+  padding: 2rem;
+  background: var(--gray-100);
+  border-radius: 1.2rem;
+  border-left: 4px solid var(--primary-light);
+}
+
+.help-article h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+}
+
+.help-article p {
+  font-size: 1.4rem;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .help-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .help-sidebar {
+    position: static;
+    order: 2;
+  }
+  
+  .help-main {
+    order: 1;
+  }
+}
+
+</style>
+
+<script>
+// Help page functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const navLinks = document.querySelectorAll('.help-nav-link');
+  const sections = document.querySelectorAll('.help-section');
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Remove active class from all links and sections
+      navLinks.forEach(l => l.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      
+      // Add active class to clicked link
+      this.classList.add('active');
+      
+      // Show corresponding section
+      const sectionId = this.dataset.section + '-section';
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.classList.add('active');
+      }
+    });
+  });
+});
+</script>

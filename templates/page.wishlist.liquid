@@ -1,0 +1,298 @@
+{% comment %}
+  Wishlist page template
+{% endcomment %}
+
+<div class="wishlist-page">
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">My Wishlist</h1>
+      <p class="page-description">Save your favorite items for later</p>
+    </div>
+
+    <!-- Wishlist Content -->
+    <div class="wishlist-content">
+      <div class="wishlist-grid" id="wishlist-grid">
+        <!-- Wishlist items will be populated by JavaScript -->
+        <div class="wishlist-empty" id="wishlist-empty">
+          <div class="empty-state">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <h3>Your wishlist is empty</h3>
+            <p>Start adding items you love to your wishlist</p>
+            <a href="/collections/all" class="btn btn-primary">Start Shopping</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Wishlist Page Styles */
+.wishlist-page {
+  min-height: 100vh;
+  padding: 4rem 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.page-title {
+  font-size: 4.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.page-description {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.wishlist-content {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+  gap: 3rem;
+}
+
+.wishlist-item {
+  background: var(--white);
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wishlist-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px var(--shadow-strong);
+}
+
+.wishlist-item-image {
+  position: relative;
+  height: 30rem;
+  overflow: hidden;
+}
+
+.wishlist-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.wishlist-item:hover .wishlist-item-image img {
+  transform: scale(1.05);
+}
+
+.wishlist-item-actions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.wishlist-item:hover .wishlist-item-actions {
+  opacity: 1;
+}
+
+.wishlist-remove-btn {
+  width: 3.6rem;
+  height: 3.6rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.wishlist-remove-btn:hover {
+  background: var(--primary-light);
+  color: var(--white);
+}
+
+.wishlist-item-content {
+  padding: 2rem;
+}
+
+.wishlist-item-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+  line-height: 1.4;
+}
+
+.wishlist-item-price {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  margin-bottom: 1.6rem;
+}
+
+.wishlist-item-actions-bottom {
+  display: flex;
+  gap: 1rem;
+}
+
+.wishlist-add-to-cart {
+  flex: 1;
+  padding: 1.2rem 2rem;
+  background: var(--primary-light);
+  color: var(--white);
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.wishlist-add-to-cart:hover {
+  background: var(--primary-med);
+}
+
+.wishlist-view-btn {
+  padding: 1.2rem 2rem;
+  background: var(--white);
+  color: var(--gray-700);
+  border: 2px solid var(--gray-200);
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.wishlist-view-btn:hover {
+  border-color: var(--primary-light);
+  color: var(--primary-light);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 6rem 2rem;
+  grid-column: 1 / -1;
+}
+
+.empty-icon {
+  width: 8rem;
+  height: 8rem;
+  color: var(--gray-300);
+  margin-bottom: 2rem;
+}
+
+.empty-state h3 {
+  font-size: 2.4rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.empty-state p {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+  margin-bottom: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    gap: 2rem;
+  }
+  
+  .page-title {
+    font-size: 3.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wishlist-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .wishlist-item-actions-bottom {
+    flex-direction: column;
+  }
+}
+
+</style>
+
+<script>
+// Wishlist functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const wishlistGrid = document.getElementById('wishlist-grid');
+  const wishlistEmpty = document.getElementById('wishlist-empty');
+  
+  // Load wishlist from localStorage
+  function loadWishlist() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    
+    if (wishlist.length === 0) {
+      wishlistEmpty.style.display = 'block';
+      return;
+    }
+    
+    wishlistEmpty.style.display = 'none';
+    
+    // Render wishlist items
+    wishlistGrid.innerHTML = wishlist.map(item => `
+      <div class="wishlist-item" data-product-id="${item.id}">
+        <div class="wishlist-item-image">
+          <img src="${item.image}" alt="${item.title}">
+          <div class="wishlist-item-actions">
+            <button class="wishlist-remove-btn" onclick="removeFromWishlist(${item.id})">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-item-content">
+          <h3 class="wishlist-item-title">${item.title}</h3>
+          <div class="wishlist-item-price">$${item.price}</div>
+          <div class="wishlist-item-actions-bottom">
+            <button class="wishlist-add-to-cart" onclick="addToCart(${item.id})">Add to Cart</button>
+            <a href="${item.url}" class="wishlist-view-btn">View Details</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  // Remove from wishlist
+  window.removeFromWishlist = function(productId) {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    wishlist = wishlist.filter(item => item.id !== productId);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    loadWishlist();
+  };
+  
+  // Add to cart
+  window.addToCart = function(productId) {
+    // This would integrate with Shopify's cart API
+    alert('Added to cart!');
+  };
+  
+  // Load wishlist on page load
+  loadWishlist();
+});
+</script>

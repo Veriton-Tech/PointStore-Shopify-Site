@@ -1,0 +1,405 @@
+{% comment %}
+  Hero banner section with customizable content
+{% endcomment %}
+
+{% comment %} <section class="hero-banner-section">
+  <div class="hero-slider">
+    {% for block in section.blocks %}
+      <div class="hero-slide {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
+        <div class="hero-image">
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: '1920x1080' }}" 
+                 alt="{{ block.settings.heading | escape }}" 
+                 class="hero-bg">
+          {% else %}
+            <img src="https://placehold.co/800x400?text=Hello+World+{{ forloop.index }}" 
+                 alt="Placeholder Image" 
+                 class="hero-bg">
+          {% endif %}
+        </div> 
+      </div>
+    {% endfor %}
+  </div>
+  
+  {% if section.blocks.size > 1 %}
+    <!-- Hero Navigation -->
+    <div class="hero-nav">
+      <button class="hero-prev" aria-label="Previous slide">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+      <button class="hero-next" aria-label="Next slide">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Hero Indicators -->
+    <div class="hero-indicators">
+      {% for block in section.blocks %}
+        <button class="hero-indicator {% if forloop.first %}active{% endif %}" 
+                data-slide="{{ forloop.index0 }}"></button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section> {% endcomment %}
+
+<!-- Temporary Hero Banner Section HTML for CSS Testing (Images Only) -->
+<section class="hero-banner-section">
+  <div class="hero-slider">
+    <div class="hero-slide active">
+      <div class="hero-image">
+        <img src="https://placehold.co/1920x1080/ff5252/ffffff?text=Hero+Image+1" alt="Placeholder Image 1" class="hero-bg">
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-image">
+        <img src="https://placehold.co/1920x1080/ff5252/ffffff?text=Hero+Image+2" alt="Placeholder Image 2" class="hero-bg">
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-image">
+        <img src="https://placehold.co/1920x1080/ff5252/ffffff?text=Hero+Image+3" alt="Placeholder Image 3" class="hero-bg">
+      </div>
+    </div>
+  </div>
+  <div class="hero-nav">
+    <button class="hero-prev" aria-label="Previous slide">‹</button>
+    <button class="hero-next" aria-label="Next slide">›</button>
+  </div>
+  <div class="hero-indicators">
+    <button class="hero-indicator active" data-slide="0"></button>
+    <button class="hero-indicator" data-slide="1"></button>
+    <button class="hero-indicator" data-slide="2"></button>
+  </div>
+</section>
+
+<style>
+/* Hero Banner Styles */
+.hero-banner-section {
+  position: relative;
+  height: 60vh;
+  min-height: 50rem;
+  overflow: hidden;
+}
+
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-light-alt));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+}
+
+.placeholder-icon {
+  width: 8rem;
+  height: 8rem;
+  opacity: 0.5;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+.hero-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.hero-prev,
+.hero-next {
+  background: rgba(0, 0, 0, 0.458) !important;
+  border: none;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-prev:hover,
+.hero-next:hover {
+  background: rgba(255, 255, 255, 0.662);
+  transform: scale(1.1);
+}
+
+.hero-indicators {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 1rem;
+}
+
+.hero-indicator {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-indicator.active {
+  background: var(--white);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-banner-section {
+    height: 50vh;
+    min-height: 40rem;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 2rem;
+  }
+
+  .hero-nav {
+    padding: 0 1rem;
+  }
+
+  .hero-prev,
+  .hero-next {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 3.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.8rem;
+  }
+}
+
+</style>
+
+<script>
+// Hero Banner Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const indicators = document.querySelectorAll('.hero-indicator');
+  const prevBtn = document.querySelector('.hero-prev');
+  const nextBtn = document.querySelector('.hero-next');
+  
+  if (slides.length <= 1) return;
+  
+  let currentSlide = 0;
+  let autoPlayInterval;
+  
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    indicators.forEach((indicator, i) => {
+      indicator.classList.toggle('active', i === index);
+    });
+    currentSlide = index;
+  }
+  
+  function nextSlide() {
+    showSlide((currentSlide + 1) % slides.length);
+  }
+  
+  function prevSlide() {
+    showSlide((currentSlide - 1 + slides.length) % slides.length);
+  }
+  
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(nextSlide, 4000);
+  }
+  
+  function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+  }
+  
+  // Event listeners
+  if (nextBtn) nextBtn.addEventListener('click', function() {
+    nextSlide();
+    stopAutoPlay();
+    startAutoPlay();
+  });
+  if (prevBtn) prevBtn.addEventListener('click', function() {
+    prevSlide();
+    stopAutoPlay();
+    startAutoPlay();
+  });
+  
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      showSlide(index);
+      stopAutoPlay();
+      startAutoPlay();
+    });
+  });
+  
+  // Auto-play
+  startAutoPlay();
+  
+  // Pause on hover
+  const heroSection = document.querySelector('.hero-banner-section');
+  if (heroSection) {
+    heroSection.addEventListener('mouseenter', stopAutoPlay);
+    heroSection.addEventListener('mouseleave', startAutoPlay);
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "hero-banner",
+  "settings": [
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Welcome to Our Store"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Discover amazing products"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "text",
+          "id": "secondary_button_text",
+          "label": "Secondary Button Text"
+        },
+        {
+          "type": "url",
+          "id": "secondary_button_url",
+          "label": "Secondary Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "heading": "New Collection",
+            "subheading": "Discover the latest fashion trends",
+            "button_text": "Shop Now",
+            "button_url": "/collections/all"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

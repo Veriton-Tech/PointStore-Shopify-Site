@@ -1,0 +1,1088 @@
+{% comment %}
+  Header section with navigation and search
+{% endcomment %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+<header class="header">
+
+  <!-- Main Header -->
+  <div class="header-main">
+    <div class="container">
+      <div class="header-content">
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+
+        <!-- Logo -->
+        <div class="header-logo">
+          <a href="/" class="logo-link">
+            {% if settings.logo != blank %}
+              <img src="{{ settings.logo | img_url: '200x' }}" alt="{{ shop.name }}" class="logo-image">
+            {% else %}
+              {% comment %} <span class="logo-text">{{ shop.name }}</span> {% endcomment %}
+              <span class="logo-text">Logo</span>
+            {% endif %}
+          </a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="header-search">
+          <form action="/search" method="get" class="search-form">
+            <div class="search-bar">
+              <input type="search" name="q" placeholder="Search for products..." class="search-input" autocomplete="off">
+              <button type="submit" class="search-btn" aria-label="Search">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+              </button>
+              <div class="search-results"></div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <!-- Wishlist -->
+          <a href="/pages/wishlist" class="header-action" aria-label="Wishlist">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span class="wishlist-count">0</span>
+          </a>
+
+          <!-- Cart -->
+          <a href="/cart" class="header-action cart-link" aria-label="Shopping cart">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="cart-count">{{ cart.item_count }}</span>
+          </a>
+
+          <!-- User Account -->
+          <a href="/account" class="header-action" aria-label="Account">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="header-nav">
+    <div class="container">
+      <ul class="navbar-nav">
+        <!-- All Categories Mega Dropdown -->
+        <li class="nav-item mega-dropdown">
+          <a href="#" class="nav-link mega-dropdown-toggle">Categories <i class="fa-solid fa-angle-down"></i></a>
+          <div class="mega-dropdown-menu">
+            <div class="mega-dropdown-content">
+              <!-- Left: Main Categories -->
+              <div class="mega-categories-list">
+                <ul>
+                  <li data-category="women">Women</li>
+                  <li data-category="men">Men</li>
+                  <li data-category="kids">Kids</li>
+                  <li data-category="accessories">Accessories</li>
+                  <li data-category="sale">Sale</li>
+                  <li data-category="new">New Arrivals</li>
+                </ul>
+              </div>
+              <!-- Right: Subcategories with Images -->
+              <div class="mega-subcategories-list">
+                <!-- Women Subcategories -->
+                <div class="mega-subcategory" data-category="women">
+                  
+                  <ul>
+                    <li>
+                      <a href="{{ '/collections/women-pants' }}">
+                        <img src="{{ 'women-pants.jpg' | asset_url }}" alt="{{ 'Pants' }}" />
+                        {{ 'Pants' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/women-blouses' }}">
+                        <img src="{{ 'women-blouses.jpg' | asset_url }}" alt="{{ 'Blouses' }}" />
+                        {{ 'Blouses' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/women-jackets' }}">
+                        <img src="{{ 'women-jackets.jpg' | asset_url }}" alt="{{ 'Jackets' }}" />
+                        {{ 'Jackets' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/women-blazers' }}">
+                        <img src="{{ 'women-blazers.jpg' | asset_url }}" alt="{{ 'Blazers' }}" />
+                        {{ 'Blazers' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/women-skirts' }}">
+                        <img src="{{ 'women-skirts.jpg' | asset_url }}" alt="{{ 'Skirts' }}" />
+                        {{ 'Skirts' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/women-dresses' }}">
+                        <img src="{{ 'women-dresses.jpg' | asset_url }}" alt="{{ 'Dresses' }}" />
+                        {{ 'Dresses' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/women-accessories' }}">
+                        <img src="{{ 'women-accessories.jpg' | asset_url }}" alt="{{ 'Accessories' }}" />
+                        {{ 'Accessories' }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Men Subcategories -->
+                <div class="mega-subcategory" data-category="men" style="display:none;">
+                  
+                  <ul>
+                    <li>
+                      <a href="{{ '/collections/men-shorts' }}">
+                        <img src="{{ 'men-shorts.jpg' | asset_url }}" alt="{{ 'Shorts' }}" />
+                        {{ 'Shorts' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/men-pants' }}">
+                        <img src="{{ 'men-pants.jpg' | asset_url }}" alt="{{ 'Pants' }}" />
+                        {{ 'Pants' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/men-tshirts' }}">
+                        <img src="{{ 'men-tshirts.jpg' | asset_url }}" alt="{{ 'T-shirts' }}" />
+                        {{ 'T-shirts' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/men-shirts' }}">
+                        <img src="{{ 'men-shirts.jpg' | asset_url }}" alt="{{ 'Shirts' }}" />
+                        {{ 'Shirts' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/men-blazers' }}">
+                        <img src="{{ 'men-blazers.jpg' | asset_url }}" alt="{{ 'Blazers' }}" />
+                        {{ 'Blazers' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/men-suits' }}">
+                        <img src="{{ 'men-suits.jpg' | asset_url }}" alt="{{ 'Suits' }}" />
+                        {{ 'Suits' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/men-accessories' }}">
+                        <img src="{{ 'men-accessories.jpg' | asset_url }}" alt="{{ 'Accessories' }}" />
+                        {{ 'Accessories' }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Kids Subcategories -->
+                <div class="mega-subcategory" data-category="kids" style="display:none;">
+                  
+                  <ul>
+                    <li>
+                      <a href="{{ '/collections/kids-size' }}">
+                        <img src="{{ 'kids-size.jpg' | asset_url }}" alt="{{ 'By Size' }}" />
+                        {{ 'By Size' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/kids-pants' }}">
+                        <img src="{{ 'kids-pants.jpg' | asset_url }}" alt="{{ 'Pants' }}" />
+                        {{ 'Pants' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/kids-tshirts' }}">
+                        <img src="{{ 'kids-tshirts.jpg' | asset_url }}" alt="{{ 'T-shirts' }}" />
+                        {{ 'T-shirts' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/kids-dresses' }}">
+                        <img src="{{ 'kids-dresses.jpg' | asset_url }}" alt="{{ 'Dresses' }}" />
+                        {{ 'Dresses' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/kids-jumpers' }}">
+                        <img src="{{ 'kids-jumpers.jpg' | asset_url }}" alt="{{ 'Jumpers' }}" />
+                        {{ 'Jumpers' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/kids-casual' }}">
+                        <img src="{{ 'kids-casual.jpg' | asset_url }}" alt="{{ 'Casual Wear' }}" />
+                        {{ 'Casual Wear' }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Accessories & Beauty Subcategories -->
+                <div class="mega-subcategory" data-category="accessories" style="display:none;">
+                  
+                  <ul>
+                    <li>
+                      <a href="{{ '/collections/general-accessories' }}">
+                        <img src="{{ 'general-accessories.jpg' | asset_url }}" alt="{{ 'General Accessories' }}" />
+                        {{ 'General Accessories' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ '/collections/beauty-personal-care' }}">
+                        <img src="{{ 'beauty-personal-care.jpg' | asset_url }}" alt="{{ 'Beauty and Personal Care' }}" />
+                        {{ 'Beauty and Personal Care' }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Sale Subcategories -->
+                <div class="mega-subcategory" data-category="sale" style="display:none;">
+                  
+                  <ul>
+                    <li>
+                      <a href="{{ '/collections/sale' }}">
+                        <img src="{{ 'sale.jpg' | asset_url }}" alt="{{ 'Sale' }}" />
+                        {{ 'All Sale Items' }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- New Arrivals Subcategories -->
+                <div class="mega-subcategory" data-category="new" style="display:none;">
+                  
+                  <ul>
+                    <li>
+                      <a href="{{ '/collections/new-arrivals' }}">
+                        <img src="{{ 'new-arrivals.jpg' | asset_url }}" alt="{{ 'New Arrivals' }}" />
+                        {{ 'All New Arrivals' }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- Individual Categories (no dropdown-menu, just nav-link) -->
+        <li class="nav-item" data-category="women">
+          <a href="/collections/all?category=women" class="nav-link">Women</a>
+        </li>
+        <li class="nav-item" data-category="men">
+          <a href="/collections/all?category=men" class="nav-link">Men</a>
+        </li>
+        <li class="nav-item" data-category="kids">
+          <a href="/collections/all?category=kids" class="nav-link">Kids</a>
+        </li>
+        <li class="nav-item" data-category="accessories">
+          <a href="/collections/all?category=accessories" class="nav-link">Accessories</a>
+        </li>
+        <li class="nav-item" data-category="sale">
+          <a href="/collections/all?category=sale" class="nav-link">Sale</a>
+        </li>
+        <li class="nav-item" data-category="new">
+          <a href="/collections/all?category=new" class="nav-link">New Arrivals</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <h3>Menu</h3>
+        <button class="mobile-menu-close" aria-label="Close mobile menu">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu-body">
+        <!-- Mobile navigation will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
+  var menuToggle = document.querySelector('.mobile-menu-toggle');
+  var mobileMenu = document.querySelector('.mobile-menu');
+  var menuClose = document.querySelector('.mobile-menu-close');
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', function() {
+      mobileMenu.classList.add('active');
+    });
+  }
+
+  if (menuClose && mobileMenu) {
+    menuClose.addEventListener('click', function() {
+      mobileMenu.classList.remove('active');
+    });
+  }
+
+  // Mega dropdown logic
+  var categoryItems = document.querySelectorAll('.mega-categories-list li');
+  var subcategories = document.querySelectorAll('.mega-subcategory');
+  var navCategoryItems = document.querySelectorAll('.navbar-nav .nav-item[data-category]');
+  var megaDropdown = document.querySelector('.mega-dropdown');
+  var megaDropdownMenu = megaDropdown.querySelector('.mega-dropdown-menu');
+
+  // Category hover inside mega menu
+  categoryItems.forEach(function(item) {
+    item.addEventListener('mouseenter', function() {
+      categoryItems.forEach(function(i) { i.classList.remove('active'); });
+      item.classList.add('active');
+      var cat = item.getAttribute('data-category');
+      subcategories.forEach(function(sub) {
+        if(sub.getAttribute('data-category') === cat) {
+          sub.classList.add('active');
+          sub.style.display = 'block';
+        } else {
+          sub.classList.remove('active');
+          sub.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Show first category by default
+  if(categoryItems.length && subcategories.length) {
+    categoryItems[0].classList.add('active');
+    subcategories[0].classList.add('active');
+    subcategories[0].style.display = 'block';
+  }
+
+  // Show mega-dropdown on hover of nav category
+  navCategoryItems.forEach(function(navItem) {
+    navItem.addEventListener('mouseenter', function() {
+      var cat = navItem.getAttribute('data-category');
+      megaDropdownMenu.classList.add('active');
+      megaDropdown.classList.add('active');
+
+      // highlight correct category
+      categoryItems.forEach(function(i) {
+        if(i.getAttribute('data-category') === cat) {
+          i.classList.add('active');
+          i.dispatchEvent(new Event('mouseenter')); // show related subcategory
+        } else {
+          i.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  // Close mega-dropdown when mouse leaves nav bar or dropdown
+  document.querySelector('.navbar-nav').addEventListener('mouseleave', function() {
+    megaDropdownMenu.classList.remove('active');
+    megaDropdown.classList.remove('active');
+  });
+
+  megaDropdownMenu.addEventListener('mouseleave', function() {
+    megaDropdownMenu.classList.remove('active');
+    megaDropdown.classList.remove('active');
+  });
+
+  // --- Mobile Category Menu Logic ---
+  var mobileMenuBody = document.querySelector('.mobile-menu-body');
+  var categories = [
+    {
+      name: 'Women',
+      key: 'women',
+      sub: [
+        { name: 'Pants', url: '/collections/women-pants' },
+        { name: 'Blouses', url: '/collections/women-blouses' },
+        { name: 'Jackets', url: '/collections/women-jackets' },
+        { name: 'Blazers', url: '/collections/women-blazers' },
+        { name: 'Skirts', url: '/collections/women-skirts' },
+        { name: 'Dresses', url: '/collections/women-dresses' },
+        { name: 'Accessories', url: '/collections/women-accessories' }
+      ]
+    },
+    {
+      name: 'Men',
+      key: 'men',
+      sub: [
+        { name: 'Shorts', url: '/collections/men-shorts' },
+        { name: 'Pants', url: '/collections/men-pants' },
+        { name: 'T-shirts', url: '/collections/men-tshirts' },
+        { name: 'Shirts', url: '/collections/men-shirts' },
+        { name: 'Blazers', url: '/collections/men-blazers' },
+        { name: 'Suits', url: '/collections/men-suits' },
+        { name: 'Accessories', url: '/collections/men-accessories' }
+      ]
+    },
+    {
+      name: 'Kids',
+      key: 'kids',
+      sub: [
+        { name: 'By Size', url: '/collections/kids-size' },
+        { name: 'Pants', url: '/collections/kids-pants' },
+        { name: 'T-shirts', url: '/collections/kids-tshirts' },
+        { name: 'Dresses', url: '/collections/kids-dresses' },
+        { name: 'Jumpers', url: '/collections/kids-jumpers' },
+        { name: 'Casual Wear', url: '/collections/kids-casual' }
+      ]
+    },
+    {
+      name: 'Accessories',
+      key: 'accessories',
+      sub: [
+        { name: 'General Accessories', url: '/collections/general-accessories' },
+        { name: 'Beauty and Personal Care', url: '/collections/beauty-personal-care' }
+      ]
+    },
+    {
+      name: 'Sale',
+      key: 'sale',
+      sub: [
+        { name: 'All Sale Items', url: '/collections/sale' }
+      ]
+    },
+    {
+      name: 'New Arrivals',
+      key: 'new',
+      sub: [
+        { name: 'All New Arrivals', url: '/collections/new-arrivals' }
+      ]
+    }
+  ];
+
+  function renderMobileCategories() {
+    var html = '<ul class="mobile-category-list">';
+    categories.forEach(function(cat) {
+      html += '<li class="mobile-category-item" data-key="' + cat.key + '">' + cat.name + '</li>';
+    });
+    html += '</ul>';
+    mobileMenuBody.innerHTML = html;
+  }
+
+  function renderMobileSubcategories(catKey) {
+    var cat = categories.find(function(c) { return c.key === catKey; });
+    var html = '<button class="mobile-back-btn">← Back</button>';
+    html += '<h4 class="mobile-subcategory-title">' + cat.name + '</h4>';
+    html += '<ul class="mobile-subcategory-list">';
+    cat.sub.forEach(function(sub) {
+      html += '<li><a href="' + sub.url + '">' + sub.name + '</a></li>';
+    });
+    html += '</ul>';
+    mobileMenuBody.innerHTML = html;
+  }
+
+  // Initial render
+  renderMobileCategories();
+
+  // Handle category click
+  mobileMenuBody.addEventListener('click', function(e) {
+    if (e.target.classList.contains('mobile-category-item')) {
+      var key = e.target.getAttribute('data-key');
+      renderMobileSubcategories(key);
+    } else if (e.target.classList.contains('mobile-back-btn')) {
+      renderMobileCategories();
+    }
+  });
+
+  // Re-render categories when menu is opened
+  var menuToggle = document.querySelector('.mobile-menu-toggle');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', function() {
+      renderMobileCategories();
+    });
+  }
+});
+</script>
+
+<style>
+/* Header Styles */
+.header {
+  background: var(--white);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-main {
+  padding: 0.6rem 2.5rem;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.8rem;
+}
+
+.hamburger-line {
+  display: block;
+  width: 2.4rem;
+  height: 0.3rem;
+  background: var(--gray-700);
+  margin: 0.4rem 0;
+  transition: all 0.3s ease;
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: var(--primary-light);
+  font-size: 3.4rem;
+  font-weight: 700;
+}
+
+.logo-image {
+  height: 4rem;
+  width: auto;
+}
+
+.header-search {
+  flex: 1;
+  max-width: 50rem;
+}
+
+.search-form {
+  position: relative;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-input {
+  width: 90%;
+  padding: 1.2rem 1.5rem 1.2rem 1.6rem;
+  border: 2px solid var(--gray-200);
+  font-size: 1.4rem;
+  transition: border-color 0.3s ease;
+  /* border-radius: 2.5rem; */
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+}
+
+.search-btn {
+  position: absolute;
+  left: 89.5%;
+  top: 49.5%;
+  transform: translateY(-50%);
+  background: var(--primary-light);
+  border: none;
+  width: 43.5px;
+  height: 43.5px;
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border-radius: 50%; */
+}
+
+.search-btn:hover {
+  background: var(--primary-med);
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  max-height: 40rem;
+  overflow-y: auto;
+  z-index: 1001;
+  display: none;
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  border-bottom: 1px solid var(--gray-100);
+  transition: background 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-result-item:hover {
+  background: var(--gray-100);
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-image {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+  margin-right: 1.2rem;
+}
+
+.search-result-title {
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+  color: var(--gray-700);
+}
+
+.search-result-price {
+  font-size: 1.2rem;
+  color: var(--primary-light);
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header-action {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  color: var(--gray-700);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header-action:hover {
+  color: var(--primary-light);
+}
+
+.cart-count,
+.wishlist-count {
+  position: absolute;
+  top: -0.2rem;
+  right: -0.4rem;
+  background: var(--primary-light);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  /* padding: 0.2rem 0.6rem; */
+  padding: 1px;
+  border-radius: 1rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  text-align: center;
+}
+
+.header-nav {
+  padding: 0;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  /* gap: 3rem; */
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.nav-item {
+  /* position: relative; */
+}
+
+.nav-link {
+  color: var(--black);
+  font-weight: 350;
+  padding: 0.5rem 2rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: block;
+}
+
+.nav-link:hover {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.dropdown {
+  /* position: relative; */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0px;
+  background: var(--white);
+  min-width: 60rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 1.2rem;
+  padding: 3rem;
+  opacity: 0;
+  visibility: hidden;
+  /* transform: translateY(-10px);
+  transition: all 0.3s ease; */
+  z-index: 1001;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  /* transform: translateY(0); */
+}
+
+.dropdown-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.dropdown-section h4 {
+  font-size: 1.6rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.dropdown-section ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-section li {
+  margin-bottom: 0.8rem;
+}
+
+.dropdown-section a {
+  color: var(--gray-500);
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.dropdown-section a:hover {
+  color: var(--primary-light);
+}
+
+.mega-dropdown {
+  /* position: relative; */
+}
+
+.mega-dropdown-menu {
+  position: absolute;
+  top: 101%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--white);
+  width: 100vw;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.12), 0 -1px 1px rgba(0,0,0,0.12);
+  border-radius: 0 0 1.2rem 1.2rem;
+  padding: 2rem 3rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 1002;
+  display: flex;
+  max-height: 800px;
+  overflow: hidden;
+}
+
+.mega-dropdown:hover .mega-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mega-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mega-dropdown-content {
+  display: flex;
+  gap: 3rem;
+  width: 100%;
+}
+
+.mega-categories-list{
+  border-right: 1px solid rgba(128, 128, 128, 0.422);
+  width: 20%;
+  height: 100%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+  padding-right: 20px;
+}
+
+.mega-categories-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mega-categories-list li {
+  padding: 1rem 2rem;
+  cursor: pointer;
+  font-weight: 100;
+  color: black;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.mega-categories-list li:hover,
+.mega-categories-list li.active {
+  background: var(--gray-200);
+  /* color: var(--primary-light); */
+}
+
+.mega-subcategories-list {
+  height: 100%;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+  overflow-y: scroll;
+  flex: 1;
+}
+
+.mega-subcategory {
+  display: none;
+}
+
+.mega-subcategory.active {
+  display: block;
+}
+
+.mega-subcategory ul {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+}
+
+.mega-subcategory ul li{
+  width: 10%;
+}
+
+.mega-subcategory li a {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--gray-700);
+  font-size: 1.3rem;
+  transition: color 0.2s;
+  text-align: center;
+}
+
+.mega-subcategory li a:hover {
+  color: var(--primary-light);
+}
+
+.mega-subcategory img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--gray-100);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  background: var(--white);
+  z-index: 2000;
+  transition: left 0.3s ease;
+  overflow-y: auto;
+}
+
+.mobile-menu.active {
+  left: 0;
+}
+
+.mobile-menu-content {
+  padding: 2rem;
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.mobile-menu-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.8rem;
+}
+
+.mobile-menu-body {
+  /* Mobile menu content will be populated by JavaScript */
+}
+
+/* Add mobile menu styles */
+.mobile-category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mobile-category-item {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer;
+  color: var(--gray-700);
+  transition: background 0.2s;
+}
+.mobile-category-item:hover {
+  background: var(--gray-100);
+  color: var(--primary-light);
+}
+.mobile-subcategory-title {
+  font-size: 1.7rem;
+  margin: 1.2rem 0 1.2rem 0;
+  color: var(--primary-light);
+}
+.mobile-subcategory-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mobile-subcategory-list li {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
+}
+.mobile-subcategory-list a {
+  color: var(--gray-700);
+  text-decoration: none;
+  font-size: 1.4rem;
+  display: block;
+}
+.mobile-subcategory-list a:hover {
+  color: var(--primary-light);
+}
+.mobile-back-btn {
+  background: none;
+  border: none;
+  color: var(--primary-light);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .header-content {
+    gap: 1.5rem;
+  }
+
+  .header-search {
+    order: 3;
+    flex: 1;
+    max-width: none;
+  }
+
+  .header-actions {
+    gap: 1rem;
+  }
+
+  .header-action {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+
+  .navbar-nav {
+    display: none;
+  }
+
+  .dropdown-menu {
+    min-width: 30rem;
+    padding: 2rem;
+  }
+
+  .dropdown-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    gap: 1rem;
+  }
+
+  .header-search {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 0.8rem;
+  }
+
+  .header-action {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}
+</style>

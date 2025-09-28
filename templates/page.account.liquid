@@ -1,0 +1,419 @@
+{% comment %}
+  Account page template
+{% endcomment %}
+
+<div class="account-page">
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">My Account</h1>
+      <p class="page-description">Manage your account and orders</p>
+    </div>
+
+    <!-- Account Content -->
+    <div class="account-content">
+      <div class="account-layout">
+        <!-- Account Sidebar -->
+        <aside class="account-sidebar">
+          <nav class="account-nav">
+            <a href="#profile" class="account-nav-link active" data-section="profile">Profile</a>
+            <a href="#orders" class="account-nav-link" data-section="orders">Orders</a>
+            <a href="#addresses" class="account-nav-link" data-section="addresses">Addresses</a>
+            <a href="#wishlist" class="account-nav-link" data-section="wishlist">Wishlist</a>
+            <a href="#settings" class="account-nav-link" data-section="settings">Settings</a>
+          </nav>
+        </aside>
+
+        <!-- Account Main Content -->
+        <main class="account-main">
+          <!-- Profile Section -->
+          <div class="account-section active" id="profile-section">
+            <h2 class="section-title">Profile Information</h2>
+            <div class="profile-form">
+              <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="first_name" value="John">
+              </div>
+              <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="last_name" value="Doe">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="john.doe@example.com">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" value="+1 (555) 123-4567">
+              </div>
+              <button class="btn btn-primary">Update Profile</button>
+            </div>
+          </div>
+
+          <!-- Orders Section -->
+          <div class="account-section" id="orders-section">
+            <h2 class="section-title">Order History</h2>
+            <div class="orders-list">
+              <div class="order-item">
+                <div class="order-info">
+                  <div class="order-number">Order #12345</div>
+                  <div class="order-date">March 15, 2024</div>
+                  <div class="order-status">Delivered</div>
+                </div>
+                <div class="order-total">$89.99</div>
+                <div class="order-actions">
+                  <a href="#" class="btn btn-secondary">View Details</a>
+                </div>
+              </div>
+              <div class="order-item">
+                <div class="order-info">
+                  <div class="order-number">Order #12344</div>
+                  <div class="order-date">March 10, 2024</div>
+                  <div class="order-status">Shipped</div>
+                </div>
+                <div class="order-total">$156.50</div>
+                <div class="order-actions">
+                  <a href="#" class="btn btn-secondary">View Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Addresses Section -->
+          <div class="account-section" id="addresses-section">
+            <h2 class="section-title">Addresses</h2>
+            <div class="addresses-list">
+              <div class="address-item">
+                <div class="address-info">
+                  <h3>Home Address</h3>
+                  <p>123 Main Street<br>New York, NY 10001<br>United States</p>
+                </div>
+                <div class="address-actions">
+                  <button class="btn btn-secondary">Edit</button>
+                  <button class="btn btn-danger">Delete</button>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary">Add New Address</button>
+          </div>
+
+          <!-- Wishlist Section -->
+          <div class="account-section" id="wishlist-section">
+            <h2 class="section-title">My Wishlist</h2>
+            <div class="wishlist-preview">
+              <p>You have 3 items in your wishlist</p>
+              <a href="/pages/wishlist" class="btn btn-primary">View Wishlist</a>
+            </div>
+          </div>
+
+          <!-- Settings Section -->
+          <div class="account-section" id="settings-section">
+            <h2 class="section-title">Account Settings</h2>
+            <div class="settings-form">
+              <div class="form-group">
+                <label for="notifications">Email Notifications</label>
+                <input type="checkbox" id="notifications" checked>
+              </div>
+              <div class="form-group">
+                <label for="newsletter">Newsletter</label>
+                <input type="checkbox" id="newsletter" checked>
+              </div>
+              <button class="btn btn-primary">Save Settings</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Account Page Styles */
+.account-page {
+  min-height: 100vh;
+  padding: 4rem 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.page-title {
+  font-size: 4.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.page-description {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+}
+
+.account-content {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.account-layout {
+  display: grid;
+  grid-template-columns: 25rem 1fr;
+  gap: 4rem;
+}
+
+.account-sidebar {
+  background: var(--white);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.account-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.account-nav-link {
+  padding: 1.2rem 1.6rem;
+  color: var(--gray-500);
+  text-decoration: none;
+  border-radius: 0.8rem;
+  transition: all 0.3s ease;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.account-nav-link:hover,
+.account-nav-link.active {
+  background: var(--primary-light);
+  color: var(--white);
+}
+
+.account-main {
+  background: var(--white);
+  border-radius: 1.2rem;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.account-section {
+  display: none;
+}
+
+.account-section.active {
+  display: block;
+}
+
+.section-title {
+  font-size: 2.4rem;
+  margin-bottom: 3rem;
+  color: var(--gray-700);
+}
+
+.profile-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.form-group label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.form-group input {
+  padding: 1.2rem 1.6rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background: var(--gray-100);
+  border-radius: 1.2rem;
+  gap: 2rem;
+}
+
+.order-info {
+  flex: 1;
+}
+
+.order-number {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 0.4rem;
+}
+
+.order-date {
+  font-size: 1.4rem;
+  color: var(--gray-500);
+  margin-bottom: 0.4rem;
+}
+
+.order-status {
+  font-size: 1.2rem;
+  color: var(--primary-light);
+  font-weight: 600;
+}
+
+.order-total {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.addresses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.address-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem;
+  background: var(--gray-100);
+  border-radius: 1.2rem;
+  gap: 2rem;
+}
+
+.address-info h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+}
+
+.address-info p {
+  font-size: 1.4rem;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+
+.address-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.wishlist-preview {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--gray-100);
+  border-radius: 1.2rem;
+}
+
+.wishlist-preview p {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+  margin-bottom: 2rem;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 50rem;
+}
+
+.settings-form .form-group {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.settings-form input[type="checkbox"] {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .account-sidebar {
+    position: static;
+    order: 2;
+  }
+  
+  .account-main {
+    order: 1;
+  }
+  
+  .profile-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .address-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+</style>
+
+<script>
+// Account page functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const navLinks = document.querySelectorAll('.account-nav-link');
+  const sections = document.querySelectorAll('.account-section');
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Remove active class from all links and sections
+      navLinks.forEach(l => l.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      
+      // Add active class to clicked link
+      this.classList.add('active');
+      
+      // Show corresponding section
+      const sectionId = this.dataset.section + '-section';
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.classList.add('active');
+      }
+    });
+  });
+});
+</script>

@@ -1,0 +1,1286 @@
+{% comment %}
+  Collection template with filters and product grid
+{% endcomment %}
+
+{%- comment -%} Handle case where collection doesn't exist {%- endcomment -%}
+{%- unless collection -%}
+  {%- assign collection = collections.all -%}
+{%- endunless -%}
+
+<div class="collection-page">
+  <!-- Collection Header -->
+  <div class="collection-header">
+    <div class="container">
+      <div class="collection-breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">{{ collection.title }}</span>
+      </div>
+      
+      <div class="collection-title-section">
+        <h1 class="collection-title">{{ collection.title }}</h1>
+        <p class="collection-description">{{ collection.description }}</p>
+        <div class="collection-stats">
+          <span class="product-count">{{ collection.products_count }} products</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters and Products -->
+  <div class="collection-content">
+    <div class="container">
+
+      <div class="collection-layout">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+          <div class="filters-header">
+            <h3 class="filters-title">Filters</h3>
+            <button class="filters-clear" onclick="clearAllFilters()">Clear All</button>
+          </div>
+          
+          <!-- Category Filter -->
+          <div class="filter-group">
+            <h4 class="filter-label">Category</h4>
+            <div class="filter-options">
+              <button class="filter-option" data-filter="category" data-value="dress">Dresses</button>
+              <button class="filter-option" data-filter="category" data-value="shirt">Shirts</button>
+              <button class="filter-option" data-filter="category" data-value="pants">Pants</button>
+              <button class="filter-option" data-filter="category" data-value="jacket">Jackets</button>
+              <button class="filter-option" data-filter="category" data-value="shoes">Shoes</button>
+              <button class="filter-option" data-filter="category" data-value="accessories">Accessories</button>
+            </div>
+          </div>
+          
+          <!-- Price Filter (Range Input) -->
+          <div class="filter-group">
+            <h4 class="filter-label">Price Range</h4>
+            <div class="filter-options">
+              <label for="price-min">Min:</label>
+              <input type="number" id="price-min" class="price-range-input" min="0" value="0" style="width: 6rem;">
+              <label for="price-max">Max:</label>
+              <input type="number" id="price-max" class="price-range-input" min="0" value="500" style="width: 6rem;">
+              <button class="filter-option" id="apply-price-filter">Apply</button>
+            </div>
+          </div>
+          
+          <!-- Size Filter -->
+          <div class="filter-group">
+            <h4 class="filter-label">Size</h4>
+            <div class="filter-options">
+              <button class="filter-option" data-filter="size" data-value="xs">XS</button>
+              <button class="filter-option" data-filter="size" data-value="s">S</button>
+              <button class="filter-option" data-filter="size" data-value="m">M</button>
+              <button class="filter-option" data-filter="size" data-value="l">L</button>
+              <button class="filter-option" data-filter="size" data-value="xl">XL</button>
+              <button class="filter-option" data-filter="size" data-value="xxl">XXL</button>
+            </div>
+          </div>
+          
+          <!-- Color Filter -->
+          <div class="filter-group">
+            <h4 class="filter-label">Color</h4>
+            <div class="filter-options color-options">
+              <button class="filter-option color-option" data-filter="color" data-value="black" style="background: #000;"></button>
+              <button class="filter-option color-option" data-filter="color" data-value="white" style="background: #fff; border: 1px solid #ddd;"></button>
+              <button class="filter-option color-option" data-filter="color" data-value="red" style="background: #ff0000;"></button>
+              <button class="filter-option color-option" data-filter="color" data-value="blue" style="background: #0000ff;"></button>
+              <button class="filter-option color-option" data-filter="color" data-value="green" style="background: #00ff00;"></button>
+              <button class="filter-option color-option" data-filter="color" data-value="yellow" style="background: #ffff00;"></button>
+              <button class="filter-option color-option" data-filter="color" data-value="pink" style="background: #ffc0cb;"></button>
+              <button class="filter-option color-option" data-filter="color" data-value="purple" style="background: #800080;"></button>
+            </div>
+          </div>
+          
+         
+        </aside>
+        
+        <!-- Products Grid -->
+        <main class="products-main">
+          <!-- Sort and View Options -->
+          <div class="products-header">
+            <div class="products-sort">
+              <label for="sort-select">Sort by:</label>
+              <select id="sort-select" class="sort-select">
+                <option value="manual">Featured</option>
+                <option value="best-selling">Best Selling</option>
+                <option value="title-ascending">A-Z</option>
+                <option value="title-descending">Z-A</option>
+                <option value="price-ascending">Price: Low to High</option>
+                <option value="price-descending">Price: High to Low</option>
+                <option value="created-ascending">Oldest First</option>
+                <option value="created-descending">Newest First</option>
+              </select>
+            </div>
+            
+            <div class="products-view">
+              <button class="view-btn active" data-view="grid" aria-label="Grid view">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+              </button>
+              <button class="view-btn" data-view="list" aria-label="List view">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Filters Toggle Button -->
+            <button class="filters-toggle-btn">
+              <span>Filters</span>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18M6 12h12M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+
+          </div>
+          
+          <!-- Products Grid -->
+          <div class="products-grid" id="products-grid">
+            {% if collection.products.size > 0 %}
+              {% for product in collection.products %}
+                <div class="product-card" 
+                     data-category="{{ product.type | downcase }}"
+                     data-price="{{ product.price | money_without_currency | remove: '$' | times: 1 }}"
+                     data-colors="{{ product.options_with_values | where: 'name', 'Color' | map: 'values' | join: ',' | downcase }}"
+                     data-sizes="{{ product.options_with_values | where: 'name', 'Size' | map: 'values' | join: ',' | downcase }}"
+                     data-brand="{{ product.vendor | downcase }}">
+                  <div class="product-card-image">
+                    <img src="{{ product.featured_image | img_url: '400x400' }}" alt="{{ product.title }}" class="product-img">
+                    {% if product.compare_at_price > product.price %}
+                      <div class="product-card-badge sale">Sale</div>
+                    {% endif %}
+                    {% if product.tags contains 'new' %}
+                      <div class="product-card-badge new">New</div>
+                    {% endif %}
+                    <button class="product-card-wishlist" data-product-id="{{ product.id }}">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                      </svg>
+                    </button>
+                    <div class="product-card-actions">
+                      <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                      <button class="btn btn-secondary btn-sm add-to-cart-btn" 
+                              data-product-id="{{ product.id }}" 
+                              data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                  <div class="product-card-content">
+                    <h3 class="product-card-title">{{ product.title }}</h3>
+                    <div class="product-card-price">
+                      <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
+                      {% if product.compare_at_price > product.price %}
+                        <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+                      {% endif %}
+                    </div>
+                    <div class="product-card-rating">
+                      <div class="product-card-stars">
+                        <span>★★★★★</span>
+                      </div>
+                      <span class="product-card-reviews">({{ product.metafields.reviews.count | default: 0 }})</span>
+                    </div>
+                    <div class="product-card-variants">
+                      {% for option in product.options_with_values %}
+                        {% if option.name == 'Color' %}
+                          <div class="product-colors">
+                            {% for value in option.values limit: 4 %}
+                              <span class="color-swatch" style="background: {{ value | downcase }};" title="{{ value }}"></span>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <!-- Sample Products for Demo -->
+              <div class="product-card" data-category="dress" data-price="89" data-colors="black,red,blue" data-sizes="s,m,l" data-brand="fashion">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop&crop=center" alt="Elegant Black Dress" class="product-img">
+                  <div class="product-card-badge new">New</div>
+                  <button class="product-card-wishlist" data-product-id="1">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="1">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Elegant Black Dress</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$89.99</span>
+                    <span class="product-card-price-original">$129.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★★</span>
+                    </div>
+                    <span class="product-card-reviews">(24)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #000;" title="Black"></span>
+                      <span class="color-swatch" style="background: #ff0000;" title="Red"></span>
+                      <span class="color-swatch" style="background: #0000ff;" title="Blue"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="shirt" data-price="45" data-colors="white,blue" data-sizes="s,m,l,xl" data-brand="casual">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop&crop=center" alt="Classic White Shirt" class="product-img">
+                  <button class="product-card-wishlist" data-product-id="2">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="2">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Classic White Shirt</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$45.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★☆</span>
+                    </div>
+                    <span class="product-card-reviews">(18)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #fff; border: 1px solid #ddd;" title="White"></span>
+                      <span class="color-swatch" style="background: #0000ff;" title="Blue"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="pants" data-price="65" data-colors="black,khaki" data-sizes="s,m,l" data-brand="premium">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1506629905607-1a0b0b0b0b0b?w=400&h=400&fit=crop&crop=center" alt="Slim Fit Chinos" class="product-img">
+                  <div class="product-card-badge sale">Sale</div>
+                  <button class="product-card-wishlist" data-product-id="3">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="3">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Slim Fit Chinos</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$65.99</span>
+                    <span class="product-card-price-original">$89.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★★</span>
+                    </div>
+                    <span class="product-card-reviews">(32)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #000;" title="Black"></span>
+                      <span class="color-swatch" style="background: #f0e68c;" title="Khaki"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="jacket" data-price="120" data-colors="navy,black" data-sizes="s,m,l,xl" data-brand="outerwear">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop&crop=center" alt="Denim Jacket" class="product-img">
+                  <button class="product-card-wishlist" data-product-id="4">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="4">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Classic Denim Jacket</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$120.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★☆</span>
+                    </div>
+                    <span class="product-card-reviews">(15)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #000080;" title="Navy"></span>
+                      <span class="color-swatch" style="background: #000;" title="Black"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="shoes" data-price="95" data-colors="brown,black" data-sizes="7,8,9,10,11" data-brand="footwear">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop&crop=center" alt="Leather Loafers" class="product-img">
+                  <div class="product-card-badge new">New</div>
+                  <button class="product-card-wishlist" data-product-id="5">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="5">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Leather Loafers</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$95.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★★</span>
+                    </div>
+                    <span class="product-card-reviews">(28)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #8b4513;" title="Brown"></span>
+                      <span class="color-swatch" style="background: #000;" title="Black"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="accessories" data-price="35" data-colors="black,brown" data-sizes="one-size" data-brand="accessories">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop&crop=center" alt="Leather Handbag" class="product-img">
+                  <button class="product-card-wishlist" data-product-id="6">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="6">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Leather Handbag</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$35.99</span>
+                    <span class="product-card-price-original">$49.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★☆</span>
+                    </div>
+                    <span class="product-card-reviews">(12)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #000;" title="Black"></span>
+                      <span class="color-swatch" style="background: #8b4513;" title="Brown"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="dress" data-price="75" data-colors="pink,blue,green" data-sizes="s,m,l,xl" data-brand="fashion">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop&crop=center" alt="Summer Floral Dress" class="product-img">
+                  <div class="product-card-badge new">New</div>
+                  <button class="product-card-wishlist" data-product-id="7">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="7">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Summer Floral Dress</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$75.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★★</span>
+                    </div>
+                    <span class="product-card-reviews">(36)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #ffc0cb;" title="Pink"></span>
+                      <span class="color-swatch" style="background: #0000ff;" title="Blue"></span>
+                      <span class="color-swatch" style="background: #00ff00;" title="Green"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="shirt" data-price="55" data-colors="white,black,striped" data-sizes="s,m,l,xl" data-brand="casual">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&h=400&fit=crop&crop=center" alt="Casual Button Shirt" class="product-img">
+                  <button class="product-card-wishlist" data-product-id="8">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="8">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Casual Button Shirt</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$55.99</span>
+                    <span class="product-card-price-original">$69.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★☆</span>
+                    </div>
+                    <span class="product-card-reviews">(22)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #fff; border: 1px solid #ddd;" title="White"></span>
+                      <span class="color-swatch" style="background: #000;" title="Black"></span>
+                      <span class="color-swatch" style="background: linear-gradient(45deg, #000 25%, #fff 25%, #fff 50%, #000 50%);" title="Striped"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="shoes" data-price="85" data-colors="white,black,red" data-sizes="7,8,9,10,11,12" data-brand="sneakers">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop&crop=center" alt="Classic Sneakers" class="product-img">
+                  <div class="product-card-badge sale">Sale</div>
+                  <button class="product-card-wishlist" data-product-id="9">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="9">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Classic Sneakers</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$85.99</span>
+                    <span class="product-card-price-original">$120.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★★</span>
+                    </div>
+                    <span class="product-card-reviews">(45)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #fff; border: 1px solid #ddd;" title="White"></span>
+                      <span class="color-swatch" style="background: #000;" title="Black"></span>
+                      <span class="color-swatch" style="background: #ff0000;" title="Red"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-category="jacket" data-price="110" data-colors="navy,black,olive" data-sizes="s,m,l,xl,xxl" data-brand="outerwear">
+                <div class="product-card-image">
+                  <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop&crop=center" alt="Bomber Jacket" class="product-img">
+                  <button class="product-card-wishlist" data-product-id="10">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                  <div class="product-card-actions">
+                    <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
+                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="10">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">Bomber Jacket</h3>
+                  <div class="product-card-price">
+                    <span class="product-card-price-current">$110.99</span>
+                  </div>
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">
+                      <span>★★★★☆</span>
+                    </div>
+                    <span class="product-card-reviews">(28)</span>
+                  </div>
+                  <div class="product-card-variants">
+                    <div class="product-colors">
+                      <span class="color-swatch" style="background: #000080;" title="Navy"></span>
+                      <span class="color-swatch" style="background: #000;" title="Black"></span>
+                      <span class="color-swatch" style="background: #808000;" title="Olive"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+          
+          <!-- Pagination -->
+          {% if paginate.pages > 1 %}
+            <div class="pagination">
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="pagination-btn">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15,18 9,12 15,6"></polyline>
+                  </svg>
+                  Previous
+                </a>
+              {% endif %}
+              
+              <div class="pagination-numbers">
+                {% for part in paginate.parts %}
+                  {% if part.is_link %}
+                    <a href="{{ part.url }}" class="pagination-number">{{ part.title }}</a>
+                  {% else %}
+                    <span class="pagination-number active">{{ part.title }}</span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="pagination-btn">
+                  Next
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9,18 15,12 9,6"></polyline>
+                  </svg>
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Collection Page Styles */
+.collection-page {
+  min-height: 100vh;
+}
+
+.collection-header {
+  background: var(--gray-100); /* was --color-bg-light */
+  padding: 4rem 0;
+}
+
+.collection-breadcrumb {
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+  color: var(--gray-500); /* was --color-text-muted */
+}
+
+.breadcrumb-separator {
+  margin: 0 1rem;
+}
+
+.breadcrumb-current {
+  color: var(--gray-700); /* was --color-text-dark */
+  font-weight: var(--fw-medium);
+}
+
+.collection-title {
+  font-size: 4.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700); /* was --color-text-dark */
+}
+
+.collection-description {
+  font-size: 1.6rem;
+  color: var(--gray-500); /* was --color-text-muted */
+  margin-bottom: 2rem;
+  max-width: 60rem;
+}
+
+.collection-stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.product-count {
+  font-size: 1.4rem;
+  color: var(--gray-500); /* was --color-text-muted */
+  background: var(--gray-100); /* was --color-bg-light */
+  padding: 0.8rem 1.6rem;
+  border-radius: 2rem;
+}
+
+.collection-content {
+  padding: 4rem 0;
+}
+
+.collection-layout {
+  display: grid;
+  grid-template-columns: 25rem 1fr;
+  gap: 4rem;
+}
+
+/* Filters Sidebar */
+.filters-sidebar {
+  background: var(--white); /* was --color-bg-white */
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-200); /* was --color-border-light */
+}
+
+.filters-title {
+  font-size: 1.8rem;
+  margin: 0;
+  color: var(--gray-700); /* was --color-text-dark */
+}
+
+.filters-clear {
+  background: none;
+  border: none;
+  color: var(--primary-light); /* was --color-primary */
+  font-size: 1.4rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.filter-group {
+  margin-bottom: 3rem;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-label {
+  font-size: 1.6rem;
+  font-weight: var(--fw-semi);
+  margin-bottom: 1.6rem;
+  color: var(--gray-700); /* was --color-text-dark */
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filter-option {
+  padding: 1rem 1.6rem;
+  background: var(--gray-100); /* was --color-bg-light */
+  border: 2px solid transparent;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 1.4rem;
+  text-align: left;
+  color: var(--gray-700); /* was --color-text-dark */
+}
+
+.price-range-input{
+  padding: 1rem 1.6rem;
+  background: var(--gray-100); /* was --color-bg-light */
+  border: 2px solid transparent;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 1.4rem;
+  text-align: left;
+  color: var(--gray-700); /* was --color-text-dark */
+  width: 100% !important;
+}
+
+.filter-option:hover {
+  background: var(--gray-200); /* was --color-bg-hover */
+}
+
+.filter-option.active {
+  background: var(--primary-light); /* was --color-primary */
+  color: var(--white);
+  border-color: var(--primary-light);
+}
+
+.color-options {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.color-option {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: var(--radius-full);
+  padding: 0;
+  border: 2px solid var(--gray-200); /* was --color-border-light */
+  position: relative;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+}
+
+.color-option.active {
+  border-color: var(--gray-700); /* was --color-text-dark */
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* Products Main */
+.products-main {
+  min-height: 50rem;
+}
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-200); /* was --color-border-light */
+}
+
+.products-sort {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.products-sort label {
+  font-size: 1.4rem;
+  color: var(--gray-700); /* was --color-text-dark */
+  font-weight: var(--fw-medium);
+}
+
+.sort-select {
+  padding: 0.8rem 1.2rem;
+  border: 2px solid var(--gray-200); /* was --color-border-light */
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  background: var(--white); /* was --color-bg-white */
+  cursor: pointer;
+}
+
+.products-view {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.view-btn {
+  width: 4rem;
+  height: 4rem;
+  border: 2px solid var(--gray-200); /* was --color-border-light */
+  background: var(--white); /* was --color-bg-white */
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-btn:hover {
+  border-color: var(--primary-light);
+  color: var(--primary-light);
+}
+
+.view-btn.active {
+  background: var(--primary-light);
+  border-color: var(--primary-light);
+  color: var(--white);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.products-grid.list-view {
+  grid-template-columns: 1fr;
+}
+
+.products-grid.list-view .product-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+
+.products-grid.list-view .product-card-image {
+  width: 20rem;
+  height: 20rem;
+  flex-shrink: 0;
+}
+
+.products-grid.list-view .product-card-content {
+  flex: 1;
+}
+
+/* Product Card Actions */
+.product-card-actions {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all var(--transition-fast);
+}
+
+.product-card:hover .product-card-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card-variants {
+  margin-top: 1rem;
+}
+
+.product-colors {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.color-swatch {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--gray-200); /* was --color-border-light */
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.color-swatch:hover {
+  transform: scale(1.2);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+#apply-price-filter{
+  background-color: var(--primary-med);
+  color: white;
+}
+
+
+#apply-price-filter:hover{
+  background-color: var(--primary-light);
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem 2rem;
+  background: var(--white); /* was --color-bg-white */
+  border: 2px solid var(--gray-200); /* was --color-border-light */
+  border-radius: 0.8rem;
+  color: var(--gray-700); /* was --color-text-dark */
+  text-decoration: none;
+  font-size: 1.4rem;
+  transition: all var(--transition-fast);
+}
+
+.pagination-btn:hover {
+  border-color: var(--primary-light);
+  color: var(--primary-light);
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.pagination-number {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--gray-200); /* was --color-border-light */
+  border-radius: 0.8rem;
+  color: var(--gray-700); /* was --color-text-dark */
+  text-decoration: none;
+  font-size: 1.4rem;
+  transition: all var(--transition-fast);
+}
+
+.pagination-number:hover {
+  border-color: var(--primary-light);
+  color: var(--primary-light);
+}
+
+.pagination-number.active {
+  background: var(--primary-light);
+  border-color: var(--primary-light);
+  color: var(--white);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .collection-layout {
+    grid-template-columns: 20rem 1fr;
+    gap: 3rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-header {
+    padding: 3rem 0;
+  }
+  
+  .collection-title {
+    font-size: 3.6rem;
+  }
+  
+  .collection-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .filters-sidebar {
+    position: static;
+    order: 2;
+  }
+  
+  .products-main {
+    order: 1;
+  }
+  
+  .products-header {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+  }
+  
+  .pagination {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-title {
+    font-size: 2.8rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .products-grid.list-view .product-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .products-grid.list-view .product-card-image {
+    width: 100%;
+    height: 25rem;
+  }
+}
+
+/* Filters toggle button */
+.filters-toggle-btn {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.6rem;
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: 0.8rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .filters-toggle-btn {
+    display: flex;
+  }
+
+  .filters-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 30rem;
+    height: 100%;
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+    padding: 2rem;
+    transition: left 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+  }
+
+  .filters-sidebar.active {
+    left: 0;
+  }
+
+  /* Optional overlay */
+  .filters-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+  }
+  .filters-overlay.active {
+    display: block;
+  }
+}
+
+
+</style>
+
+<script>
+// Collection Page Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Filter functionality
+  const filterOptions = document.querySelectorAll('.filter-option');
+  const products = document.querySelectorAll('.product-card');
+  
+  // Check URL parameters for category filtering
+  const urlParams = new URLSearchParams(window.location.search);
+  const categoryParam = urlParams.get('category');
+  
+  // Auto-select category filter from URL
+  if (categoryParam) {
+    const categoryFilter = document.querySelector(`[data-filter="category"][data-value="${categoryParam}"]`);
+    if (categoryFilter) {
+      categoryFilter.classList.add('active');
+    }
+  }
+  
+  filterOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      this.classList.toggle('active');
+      
+      // Update URL with category filter
+      const url = new URL(window.location);
+      if (this.dataset.filter === 'category' && this.classList.contains('active')) {
+        url.searchParams.set('category', this.dataset.value);
+      } else if (this.dataset.filter === 'category' && !this.classList.contains('active')) {
+        url.searchParams.delete('category');
+      }
+      window.history.replaceState({}, '', url);
+      
+      applyFilters();
+    });
+  });
+  
+  // Price range filter logic
+  const priceMinInput = document.getElementById('price-min');
+  const priceMaxInput = document.getElementById('price-max');
+  const applyPriceBtn = document.getElementById('apply-price-filter');
+
+  if (applyPriceBtn) {
+    applyPriceBtn.addEventListener('click', function() {
+      applyFilters();
+    });
+  }
+
+  function applyFilters() {
+    const activeFilters = document.querySelectorAll('.filter-option.active');
+    const minPrice = priceMinInput ? parseFloat(priceMinInput.value) : 0;
+    const maxPrice = priceMaxInput ? parseFloat(priceMaxInput.value) : Infinity;
+
+    products.forEach(product => {
+      let shouldShow = true;
+
+      activeFilters.forEach(filter => {
+        const filterType = filter.dataset.filter;
+        const filterValue = filter.dataset.value;
+
+        if (filterType === 'category') {
+          if (!product.dataset.category?.includes(filterValue)) {
+            shouldShow = false;
+          }
+        } else if (filterType === 'color') {
+          if (!product.dataset.colors?.includes(filterValue)) {
+            shouldShow = false;
+          }
+        } else if (filterType === 'size') {
+          if (!product.dataset.sizes?.includes(filterValue)) {
+            shouldShow = false;
+          }
+        } else if (filterType === 'brand') {
+          if (!product.dataset.brand?.includes(filterValue)) {
+            shouldShow = false;
+          }
+        }
+      });
+
+      // Price range filter
+      const productPrice = parseFloat(product.dataset.price);
+      if (productPrice < minPrice || productPrice > maxPrice) {
+        shouldShow = false;
+      }
+
+      product.style.display = shouldShow ? 'block' : 'none';
+    });
+  }
+  
+  // Clear all filters
+  window.clearAllFilters = function() {
+    filterOptions.forEach(option => {
+      option.classList.remove('active');
+    });
+    products.forEach(product => {
+      product.style.display = 'block';
+    });
+  };
+  
+  // View toggle
+  const viewButtons = document.querySelectorAll('.view-btn');
+  const productsGrid = document.getElementById('products-grid');
+  
+  viewButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      viewButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      const view = this.dataset.view;
+      if (view === 'list') {
+        productsGrid.classList.add('list-view');
+      } else {
+        productsGrid.classList.remove('list-view');
+      }
+    });
+  });
+  
+  // Sort functionality (client-side for demo)
+  const sortSelect = document.getElementById('sort-select');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', function() {
+      const sortValue = this.value;
+      const productCards = Array.from(products);
+      let sortedCards = productCards;
+
+      if (sortValue === 'price-ascending') {
+        sortedCards = productCards.sort((a, b) => parseFloat(a.dataset.price) - parseFloat(b.dataset.price));
+      } else if (sortValue === 'price-descending') {
+        sortedCards = productCards.sort((a, b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
+      } else if (sortValue === 'title-ascending') {
+        sortedCards = productCards.sort((a, b) => a.querySelector('.product-card-title').textContent.localeCompare(b.querySelector('.product-card-title').textContent));
+      } else if (sortValue === 'title-descending') {
+        sortedCards = productCards.sort((a, b) => b.querySelector('.product-card-title').textContent.localeCompare(a.querySelector('.product-card-title').textContent));
+      }
+      // Add more sort logic as needed
+
+      sortedCards.forEach(card => productsGrid.appendChild(card));
+    });
+  }
+
+  // Fix Quick View button navigation
+  document.querySelectorAll('.product-card-actions .btn-primary').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const href = btn.getAttribute('href');
+      if (href && href !== '#') {
+        window.location.href = href;
+      }
+    });
+  });
+});
+
+// Filters toggle for mobile
+const filtersToggleBtn = document.querySelector('.filters-toggle-btn');
+const filtersSidebar = document.querySelector('.filters-sidebar');
+
+// Add overlay dynamically
+let filtersOverlay = document.createElement('div');
+filtersOverlay.classList.add('filters-overlay');
+document.body.appendChild(filtersOverlay);
+
+filtersToggleBtn.addEventListener('click', () => {
+  filtersSidebar.classList.toggle('active');
+  filtersOverlay.classList.toggle('active');
+});
+
+filtersOverlay.addEventListener('click', () => {
+  filtersSidebar.classList.remove('active');
+  filtersOverlay.classList.remove('active');
+});
+
+</script>

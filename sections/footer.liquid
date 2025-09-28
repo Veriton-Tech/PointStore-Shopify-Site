@@ -1,0 +1,421 @@
+{% comment %}
+  Footer section with links and information
+{% endcomment %}
+
+<footer class="footer">
+  <div class="container">
+    <!-- Footer Main Content -->
+    <div class="footer-content">
+      <!-- Company Info -->
+      <div class="footer-section">
+        <div class="footer-logo">
+          {% if settings.logo != blank %}
+            <img src="{{ settings.logo | img_url: '150x' }}" alt="{{ shop.name }}" class="footer-logo-image">
+          {% else %}
+            <h3 class="footer-logo-text">{{ shop.name }}</h3>
+          {% endif %}
+        </div>
+        <p class="footer-description">
+          Discover the latest fashion trends with our curated collection of clothing and accessories. 
+          Shop the best styles for women, men, and kids.
+        </p>
+        <div class="footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Twitter">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="TikTok">
+             <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Customer Service -->
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <ul class="footer-links">
+          <li><a href="/pages/contact">Contact Us</a></li>
+          <li><a href="/pages/shipping">Shipping Info</a></li>
+          <li><a href="/pages/returns">Returns & Exchanges</a></li>
+          <li><a href="/pages/size-guide">Size Guide</a></li>
+          <li><a href="/pages/faq">FAQ</a></li>
+          <li><a href="/pages/track-order">Track Your Order</a></li>
+          <li><a href="/pages/help">Help Center</a></li>
+        </ul>
+      </div>
+
+      <!-- Company Info -->
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="/pages/about">About Us</a></li>
+          <li><a href="/pages/careers">Careers</a></li>
+          <li><a href="/pages/press">Press</a></li>
+          <li><a href="/pages/sustainability">Sustainability</a></li>
+          <li><a href="/pages/partnerships">Partnerships</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Newsletter Signup -->
+    <div class="footer-newsletter">
+      <div class="newsletter-content">
+        <div class="newsletter-text">
+          <h3>Stay Updated</h3>
+          <p>Get the latest fashion trends and exclusive offers delivered to your inbox.</p>
+        </div>
+        <form class="newsletter-form" action="/contact#contact_form" method="post" id="contact_form" accept-charset="UTF-8">
+          <input type="hidden" name="form_type" value="customer">
+          <input type="hidden" name="utf8" value="✓">
+          <div class="newsletter-input-group">
+            <input type="email" name="contact[email]" placeholder="Enter your email" class="newsletter-input" required>
+            <button type="submit" class="newsletter-btn">Subscribe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="footer-payment">
+      <h4>We Accept</h4>
+      <div class="payment-methods">
+        <div class="payment-method">
+          <svg class="payment-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2z"/>
+          </svg>
+          <span>Visa</span>
+        </div>
+        <div class="payment-method">
+          <svg class="payment-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2z"/>
+          </svg>
+          <span>Mastercard</span>
+        </div>
+        <div class="payment-method">
+          <svg class="payment-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2z"/>
+          </svg>
+          <span>PayPal</span>
+        </div>
+        <div class="payment-method">
+          <svg class="payment-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2z"/>
+          </svg>
+          <span>Apple Pay</span>
+        </div>
+        <div class="payment-method">
+          <svg class="payment-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2z"/>
+          </svg>
+          <span>Google Pay</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="footer-copyright">
+          <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+        </div>
+        <div class="footer-legal">
+          <a href="/pages/privacy-policy">Privacy Policy</a>
+          <a href="/pages/terms-of-service">Terms of Service</a>
+          <a href="/pages/cookie-policy">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+/* Footer Styles */
+.footer {
+  background: var(--footer-dark);
+  color: var(--white);
+  padding: 6rem 0 2rem;
+  /* margin-top: 6rem; */
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1 1 220px;
+  min-width: 220px;
+  margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.footer-logo {
+  margin-bottom: 2rem;
+}
+
+.footer-logo-image {
+  height: 4rem;
+  width: auto;
+}
+
+.footer-logo-text {
+  font-size: 2.4rem;
+  color: var(--primary-light);
+  margin: 0;
+}
+
+.footer-description {
+  color: var(--gray-300);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+}
+
+.footer-social h4 {
+  font-size: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  background: var(--gray-700);
+  border-radius: 50%;
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.social-link .icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: var(--gray-300);
+  text-decoration: none;
+  font-size: 1.4rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  /* color: var(--primary-light); */
+}
+
+.footer-newsletter {
+  background: var(--footer-dark-alt);
+  padding: 4rem;
+  border-radius: 1.2rem;
+  margin-bottom: 4rem;
+}
+
+.newsletter-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.newsletter-text h3 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+  color: var(--white);
+}
+
+.newsletter-text p {
+  color: var(--gray-300);
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.newsletter-form {
+  flex-shrink: 0;
+  min-width: 40rem;
+}
+
+.newsletter-input-group {
+  display: flex;
+  background: var(--white);
+  border-radius: 2.5rem;
+  overflow: hidden;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 1.6rem 2rem;
+  border: none;
+  font-size: 1.4rem;
+  outline: none;
+}
+
+.newsletter-btn {
+  background: var(--primary-light);
+  color: var(--white);
+  border: none;
+  padding: 1.6rem 3rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.newsletter-btn:hover {
+  background: var(--primary-med);
+}
+
+.footer-payment {
+  margin-bottom: 3rem;
+}
+
+.footer-payment h4 {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  color: var(--white);
+}
+
+.payment-methods {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.6rem;
+  background: var(--gray-700);
+  border-radius: 0.8rem;
+  color: var(--white);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.payment-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--gray-700);
+  padding-top: 2rem;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copyright p {
+  color: var(--gray-400);
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-legal a {
+  color: var(--gray-400);
+  text-decoration: none;
+  font-size: 1.4rem;
+  transition: color 0.3s ease;
+}
+
+.footer-legal a:hover {
+  color: var(--primary-light);
+}
+
+.footer-content .footer-section:not(:first-child) a:hover{
+  color: var(--primary-light);
+}
+
+@media (max-width: 1024px) {
+  .footer-content {
+    gap: 2rem;
+  }
+  .newsletter-content {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  .newsletter-form {
+    min-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .footer-section {
+    min-width: 0;
+    width: 100%;
+  }
+  .newsletter-content {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  .newsletter-form {
+    min-width: 100%;
+    width: 100%;
+  }
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .footer-legal {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+}
+</style>
+

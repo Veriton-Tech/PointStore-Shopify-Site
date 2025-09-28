@@ -1,0 +1,145 @@
+{% comment %}
+  Button snippet with customizable styles
+  Parameters:
+  - text: Button text
+  - type: Button type (primary, secondary, outline)
+  - size: Button size (sm, md, lg)
+  - url: Link URL (optional)
+  - class: Additional CSS classes
+  - disabled: Disabled state
+{% endcomment %}
+
+{% assign button_text = text | default: 'Button' %}
+{% assign button_type = type | default: 'primary' %}
+{% assign button_size = size | default: 'md' %}
+{% assign button_class = class | default: '' %}
+{% assign button_disabled = disabled | default: false %}
+
+{% if url %}
+  <a href="{{ url }}" 
+     class="btn btn-{{ button_type }} btn-{{ button_size }} {{ button_class }}"
+     {% if button_disabled %}aria-disabled="true"{% endif %}>
+    {{ button_text }}
+  </a>
+{% else %}
+  <button type="button" 
+          class="btn btn-{{ button_type }} btn-{{ button_size }} {{ button_class }}"
+          {% if button_disabled %}disabled{% endif %}>
+    {{ button_text }}
+  </button>
+{% endif %}
+
+<style>
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.2rem 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Button Types */
+.btn-primary {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ff5252, #ff4444);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  color: #333;
+  border: 2px solid #e0e0e0;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #f8f8f8;
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #ff6b6b;
+  border: 2px solid #ff6b6b;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: #ff6b6b;
+  color: white;
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 0.8rem 1.6rem;
+  font-size: 1.2rem;
+}
+
+.btn-md {
+  padding: 1.2rem 2.4rem;
+  font-size: 1.4rem;
+}
+
+.btn-lg {
+  padding: 1.6rem 3.2rem;
+  font-size: 1.6rem;
+}
+
+/* Button States */
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:focus {
+  outline: 2px solid #ff6b6b;
+  outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .btn-sm {
+    padding: 1rem 1.6rem;
+    font-size: 1.4rem;
+  }
+  
+  .btn-md {
+    padding: 1.4rem 2.4rem;
+    font-size: 1.6rem;
+  }
+  
+  .btn-lg {
+    padding: 1.8rem 3.2rem;
+    font-size: 1.8rem;
+  }
+}
+</style>
+

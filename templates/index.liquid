@@ -1,0 +1,636 @@
+{% comment %}
+  Homepage template with hero banner and featured sections
+{% endcomment %}
+
+<!-- Hero Banner Section -->
+{% section 'hero-banner' %}
+
+<!-- Categories Scroll Section -->
+{% section 'categories-scroll' %}
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Why Choose Us</h2>
+      <p class="section-subtitle">Experience the difference with our premium service</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+          </svg>
+        </div>
+        <h3 class="feature-title">Free Shipping</h3>
+        <p class="feature-description">Free shipping on orders over $50. Fast and reliable delivery to your doorstep.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h3 class="feature-title">Quality Guarantee</h3>
+        <p class="feature-description">100% satisfaction guarantee. Premium quality products with excellent craftsmanship.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h3 class="feature-title">24/7 Support</h3>
+        <p class="feature-description">Round-the-clock customer support. We're here to help you whenever you need us.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </div>
+        <h3 class="feature-title">Easy Returns</h3>
+        <p class="feature-description">30-day return policy. Easy and hassle-free returns for your peace of mind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="featured-products">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Featured Products</h2>
+      <p class="section-subtitle">Handpicked just for you</p>
+    </div>
+    
+    <div class="products-grid">
+      {% for product in collections.featured.products limit: 8 %}
+        <div class="product-card">
+          <div class="product-card-image">
+            <img src="{{ product.featured_image | img_url: '400x400' }}" alt="{{ product.title }}" class="product-img">
+            <div class="product-card-badge">New</div>
+            <button class="product-card-wishlist" data-product-id="{{ product.id }}">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-title">{{ product.title }}</h3>
+            <div class="product-card-price">
+              <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
+              {% if product.compare_at_price > product.price %}
+                <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+              {% endif %}
+            </div>
+            <div class="product-card-rating">
+              <div class="product-card-stars">
+                <span>★★★★★</span>
+              </div>
+              <span class="product-card-reviews">({{ product.metafields.reviews.count | default: 0 }})</span>
+            </div>
+            <a href="{{ product.url }}" class="btn btn-primary btn-sm">View Details</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div class="section-actions">
+      <a href="/collections/all" class="btn btn-secondary">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- Sale Banner -->
+<section class="sale-banner">
+  <div class="container">
+    <div class="sale-content">
+      <div class="sale-text">
+        <h2 class="sale-title">Summer Sale</h2>
+        <p class="sale-subtitle">Up to 70% off on selected items</p>
+        <div class="sale-timer">
+          <div class="timer-item">
+            <span class="timer-value">15</span>
+            <span class="timer-label">Days</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-value">08</span>
+            <span class="timer-label">Hours</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-value">45</span>
+            <span class="timer-label">Minutes</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-value">30</span>
+            <span class="timer-label">Seconds</span>
+          </div>
+        </div>
+        <a href="/collections/sale" class="btn btn-primary btn-lg">Shop Sale</a>
+      </div>
+      <div class="sale-image">
+        <img src="{{ 'sale-banner.jpg' | asset_url }}" alt="Summer Sale" class="sale-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Hero Banner Styles */
+.hero-banner {
+  position: relative;
+  height: 60vh;
+  min-height: 50rem;
+  overflow: hidden;
+}
+
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* .hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} */
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.hero-text {
+  max-width: 60rem;
+  color: var(--white);
+}
+
+.hero-title {
+  font-size: 5.6rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 2.4rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.hero-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.hero-prev,
+.hero-next {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 5rem;
+  height: 5rem;
+  border-radius: var(--radius-full);
+  color: var(--white);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(10px);
+}
+
+.hero-prev:hover,
+.hero-next:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.hero-indicators {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 1rem;
+}
+
+.hero-indicator {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--white);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.hero-indicator.active {
+  background: var(--white);
+}
+
+/* Why Choose Us Section */
+.why-choose-us {
+  padding: 8rem 0;
+  background: var(--gray-100);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.feature-card {
+  background: var(--white);
+  padding: 3rem 2rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+  width: 8rem;
+  height: 8rem;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-light-alt));
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  color: var(--white);
+}
+
+.feature-title {
+  font-size: 2.4rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+  font-weight: var(--fw-semi);
+}
+
+.feature-description {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Featured Products */
+.featured-products {
+  padding: 8rem 0;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.section-actions {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+/* Sale Banner */
+.sale-banner {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-light-alt));
+  padding: 6rem 0;
+  color: var(--white);
+}
+
+.sale-content {
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+}
+
+.sale-text {
+  flex: 1;
+}
+
+.sale-title {
+  font-size: 4.8rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.sale-subtitle {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+}
+
+.sale-timer {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.timer-item {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1.6rem;
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(10px);
+}
+
+.timer-value {
+  display: block;
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.timer-label {
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+
+.sale-image {
+  flex: 1;
+  text-align: center;
+}
+
+.sale-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+/* Newsletter Section */
+/* .newsletter-section {
+  background: var(--gray-100);
+  padding: 6rem 0;
+  height: 100%;
+}
+
+.newsletter-content {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.newsletter-text {
+  flex: 1;
+}
+
+.newsletter-title {
+  font-size: 3.2rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.newsletter-subtitle {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+.newsletter-form {
+  flex-shrink: 0;
+  min-width: 40rem;
+}
+
+.newsletter-input-group {
+  display: flex;
+  background: var(--white);
+  border-radius: 2.5rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 1.6rem 2rem;
+  border: none;
+  font-size: 1.4rem;
+  outline: none;
+}
+
+.newsletter-btn {
+  background: var(--primary-light);
+  color: var(--white);
+  border: none;
+  padding: 1.6rem 3rem;
+  font-size: 1.4rem;
+  font-weight: var(--fw-semi);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.newsletter-btn:hover {
+  background: var(--primary-med);
+} */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 50vh;
+    min-height: 40rem;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 2rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 2rem;
+  }
+
+  .sale-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+  }
+
+  .sale-title {
+    font-size: 3.6rem;
+  }
+
+  .sale-timer {
+    justify-content: center;
+  }
+
+  .newsletter-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .newsletter-form {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.6rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .feature-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .feature-icon {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .feature-title {
+    font-size: 2rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .sale-timer {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .timer-item {
+    padding: 1rem;
+    min-width: 6rem;
+  }
+
+  .timer-value {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.4rem;
+  }
+}
+
+</style>
+
+<script>
+// Hero Slider Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const indicators = document.querySelectorAll('.hero-indicator');
+  const prevBtn = document.querySelector('.hero-prev');
+  const nextBtn = document.querySelector('.hero-next');
+  let currentSlide = 0;
+  
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    indicators.forEach((indicator, i) => {
+      indicator.classList.toggle('active', i === index);
+    });
+  }
+  
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+  
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  }
+  
+  // Event listeners
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+  
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      currentSlide = index;
+      showSlide(currentSlide);
+    });
+  });
+  
+  // Auto-play
+  setInterval(nextSlide, 5000);
+});
+</script>
