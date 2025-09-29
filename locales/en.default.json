@@ -18,7 +18,17 @@
         "one": "{{ count }} result for \"{{ terms }}\"",
         "other": "{{ count }} results for \"{{ terms }}\""
       },
-      "title": "Search"
+      "title": "Search",
+      "search": "Search",
+      "placeholder": "Search for products, brands, categories...",
+      "no_results_title": "No results found",
+      "no_results_text": "We couldn't find any products matching your search. Try adjusting your search terms or browse our categories.",
+      "suggestions_title": "What are you looking for?",
+      "suggestions_subtitle": "Start typing to search our collection",
+      "popular_categories": "Popular Categories",
+      "view_all_results": "View All Results",
+      "browse_all_products": "Browse All Products",
+      "contact_support": "Contact Support"
     },
     "accessibility": {
       "skip_to_text": "Skip to content",
@@ -62,13 +72,6 @@
       "login": {
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
-      }
-    },
-    "search": {
-      "search": "Search",
-      "results_with_count": {
-        "one": "{{ count }} result for \"{{ terms }}\"",
-        "other": "{{ count }} results for \"{{ terms }}\""
       }
     },
     "share": {

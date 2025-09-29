@@ -153,24 +153,81 @@ class SheinTheme {
 
   displaySearchResults(products) {
     const searchResults = document.querySelector('.search-results');
-    if (!searchResults) return;
+    const searchResultsList = document.querySelector('.search-results-list');
+    const searchResultsCount = document.querySelector('.search-results-count');
+    const viewAllLink = document.querySelector('.view-all-results');
+    
+    if (!searchResults || !searchResultsList) return;
+    
+    // Update count
+    if (searchResultsCount) {
+      searchResultsCount.textContent = `${products.length} result${products.length !== 1 ? 's' : ''} found`;
+    }
+    
+    // Update view all link
+    if (viewAllLink && products.length > 0) {
+      const searchInput = document.querySelector('.search-input');
+      const query = searchInput ? searchInput.value : '';
+      viewAllLink.href = `/search?q=${encodeURIComponent(query)}`;
+    }
+    
+    // Clear previous results
+    searchResultsList.innerHTML = '';
 
     if (products.length === 0) {
-      searchResults.innerHTML = '<div class="search-no-results">No products found</div>';
+      searchResultsList.innerHTML = `
+        <div class="no-search-results">
+          <div class="no-results-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </div>
+          <p class="no-results-text">No products found</p>
+          <p class="no-results-subtext">Try different keywords</p>
+        </div>
+      `;
     } else {
-      const resultsHTML = products.map(product => `
-        <a href="${product.url}" class="search-result-item">
+      // Display products (limit to 5 for dropdown)
+      const displayProducts = products.slice(0, 5);
+      
+      displayProducts.forEach(product => {
+        const resultItem = document.createElement('a');
+        resultItem.href = product.url;
+        resultItem.className = 'search-result-item';
+        resultItem.innerHTML = `
           <img src="${product.image}" alt="${product.title}" class="search-result-image">
           <div class="search-result-content">
             <h4 class="search-result-title">${product.title}</h4>
             <p class="search-result-price">$${product.price}</p>
+            <p class="search-result-type">Product</p>
           </div>
-        </a>
-      `).join('');
+          <div class="search-result-badge">New</div>
+        `;
+        searchResultsList.appendChild(resultItem);
+      });
       
-      searchResults.innerHTML = resultsHTML;
+      // Add "show more" if there are more results
+      if (products.length > 5) {
+        const showMoreItem = document.createElement('div');
+        showMoreItem.className = 'search-result-item show-more';
+        showMoreItem.innerHTML = `
+          <div class="search-result-content">
+            <p class="search-result-title">+${products.length - 5} more results</p>
+            <p class="search-result-type">Click to view all</p>
+          </div>
+        `;
+        showMoreItem.addEventListener('click', (e) => {
+          e.preventDefault();
+          const searchInput = document.querySelector('.search-input');
+          const query = searchInput ? searchInput.value : '';
+          window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        });
+        searchResultsList.appendChild(showMoreItem);
+      }
     }
     
+    // Show results
     searchResults.classList.add('active');
   }
 
