@@ -1,0 +1,960 @@
+{% comment %}
+  Search results template
+{% endcomment %}
+
+<div class="search-page">
+  <div class="container">
+    <!-- Search Header -->
+    <div class="search-header">
+      <div class="search-header-content">
+        <h1 class="search-title">
+          {% if search.performed %}
+            {% if search.results_count > 0 %}
+              {{ 'general.search.results_with_count' | t: count: search.results_count, terms: search.terms }}
+            {% else %}
+              {{ 'general.search.title' | t }}
+            {% endif %}
+          {% else %}
+            {{ 'general.search.title' | t }}
+          {% endif %}
+        </h1>
+        
+        {% if search.performed and search.results_count > 0 %}
+          <p class="search-subtitle">Found {{ search.results_count }} results for "{{ search.terms }}"</p>
+        {% endif %}
+      </div>
+      
+      <!-- Enhanced Search Bar -->
+      <div class="search-page-search">
+        <form action="/search" method="get" class="search-form">
+          <div class="search-bar">
+            <input 
+              type="search" 
+              name="q" 
+              value="{{ search.terms | escape }}" 
+              placeholder="{{ 'general.search.placeholder' | t }}" 
+              class="search-input"
+              autocomplete="off"
+            >
+            <button type="submit" class="search-btn" aria-label="Search">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% if search.performed %}
+      {% if search.results_count > 0 %}
+        <!-- Search Filters -->
+        <div class="search-filters">
+          <div class="filters-container">
+            <div class="filter-group">
+              <label for="sort-by" class="filter-label">Sort by:</label>
+              <select id="sort-by" class="filter-select">
+                <option value="relevance">Relevance</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="title-asc">Name: A to Z</option>
+                <option value="title-desc">Name: Z to A</option>
+                <option value="created-desc">Newest First</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label for="product-type" class="filter-label">Category:</label>
+              <select id="product-type" class="filter-select">
+                <option value="">All Categories</option>
+                <option value="women">Women</option>
+                <option value="men">Men</option>
+                <option value="kids">Kids</option>
+                <option value="accessories">Accessories</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label for="price-range" class="filter-label">Price:</label>
+              <select id="price-range" class="filter-select">
+                <option value="">Any Price</option>
+                <option value="0-50">Under $50</option>
+                <option value="50-100">$50 - $100</option>
+                <option value="100-200">$100 - $200</option>
+                <option value="200+">$200+</option>
+              </select>
+            </div>
+            
+            <div class="view-toggle">
+              <button class="view-btn active" data-view="grid" aria-label="Grid view">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+              </button>
+              <button class="view-btn" data-view="list" aria-label="List view">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="search-results-container">
+          <div class="search-results-grid" id="search-results">
+            {% for item in search.results %}
+              <div class="search-result-card" data-product-type="{{ item.type | downcase }}" data-price="{{ item.price | money_without_currency | remove: ',' }}">
+                <a href="{{ item.url }}" class="result-link">
+                  <div class="result-image">
+                    {% if item.featured_image %}
+                      <img 
+                        src="{{ item.featured_image | img_url: '400x400' }}" 
+                        alt="{{ item.title | escape }}"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <div class="no-image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                          <polyline points="21,15 16,10 5,21"></polyline>
+                        </svg>
+                      </div>
+                    {% endif %}
+                    
+                    {% if item.compare_at_price > item.price %}
+                      <div class="sale-badge">Sale</div>
+                    {% endif %}
+                    
+                    <div class="result-overlay">
+                      <button class="quick-view-btn" data-product-id="{{ item.id }}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        Quick View
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="result-content">
+                    <h3 class="result-title">{{ item.title }}</h3>
+                    <p class="result-type">{{ item.type }}</p>
+                    
+                    <div class="result-price">
+                      {% if item.compare_at_price > item.price %}
+                        <span class="price-sale">{{ item.price | money }}</span>
+                        <span class="price-compare">{{ item.compare_at_price | money }}</span>
+                      {% else %}
+                        <span class="price">{{ item.price | money }}</span>
+                      {% endif %}
+                    </div>
+                    
+                    {% if item.available %}
+                      <div class="result-status available">In Stock</div>
+                    {% else %}
+                      <div class="result-status sold-out">Sold Out</div>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        {% if paginate.pages > 1 %}
+          <div class="search-pagination">
+            {{ paginate | default_pagination }}
+          </div>
+        {% endif %}
+
+      {% else %}
+        <!-- No Results -->
+        <div class="no-results">
+          <div class="no-results-content">
+            <div class="no-results-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </div>
+            <h2 class="no-results-title">{{ 'general.search.no_results_title' | t }}</h2>
+            <p class="no-results-text">{{ 'general.search.no_results_text' | t }}</p>
+            
+            <div class="no-results-suggestions">
+              <h3>Popular searches:</h3>
+              <div class="suggestion-tags">
+                <a href="/search?q=dress" class="suggestion-tag">Dresses</a>
+                <a href="/search?q=shirt" class="suggestion-tag">Shirts</a>
+                <a href="/search?q=pants" class="suggestion-tag">Pants</a>
+                <a href="/search?q=jacket" class="suggestion-tag">Jackets</a>
+                <a href="/search?q=shoes" class="suggestion-tag">Shoes</a>
+                <a href="/search?q=accessories" class="suggestion-tag">Accessories</a>
+              </div>
+            </div>
+            
+            <div class="no-results-actions">
+              <a href="/collections/all" class="btn btn-primary">{{ 'general.search.browse_all_products' | t }}</a>
+              <a href="/pages/contact" class="btn btn-secondary">{{ 'general.search.contact_support' | t }}</a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% elsif search.performed == false %}
+      <!-- Search Suggestions -->
+      <div class="search-suggestions">
+        <div class="suggestions-content">
+          <h2 class="suggestions-title">{{ 'general.search.suggestions_title' | t }}</h2>
+          <p class="suggestions-subtitle">{{ 'general.search.suggestions_subtitle' | t }}</p>
+          
+          <div class="popular-categories">
+            <h3>{{ 'general.search.popular_categories' | t }}</h3>
+            <div class="category-grid">
+              <a href="/collections/women" class="category-card">
+                <div class="category-image">
+                  <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&h=200&fit=crop&crop=center" alt="Women's Fashion">
+                </div>
+                <div class="category-info">
+                  <h4>Women</h4>
+                  <p>Dresses, Tops & More</p>
+                </div>
+              </a>
+              
+              <a href="/collections/men" class="category-card">
+                <div class="category-image">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=center" alt="Men's Fashion">
+                </div>
+                <div class="category-info">
+                  <h4>Men</h4>
+                  <p>Shirts, Pants & More</p>
+                </div>
+              </a>
+              
+              <a href="/collections/kids" class="category-card">
+                <div class="category-image">
+                  <img src="https://images.unsplash.com/photo-1506629905607-1a0b0b0b0b0b?w=200&h=200&fit=crop&crop=center" alt="Kids Fashion">
+                </div>
+                <div class="category-info">
+                  <h4>Kids</h4>
+                  <p>Ages 0-12</p>
+                </div>
+              </a>
+              
+              <a href="/collections/accessories" class="category-card">
+                <div class="category-image">
+                  <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=200&h=200&fit=crop&crop=center" alt="Accessories">
+                </div>
+                <div class="category-info">
+                  <h4>Accessories</h4>
+                  <p>Bags, Jewelry & More</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+/* Search Page Styles */
+.search-page {
+  min-height: 100vh;
+  padding: 4rem 0;
+  background: var(--gray-50);
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 3rem 0;
+  background: var(--white);
+  border-radius: 1.6rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.search-header-content {
+  margin-bottom: 3rem;
+}
+
+.search-title {
+  font-size: 3.6rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+  font-weight: 700;
+}
+
+.search-subtitle {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+}
+
+.search-page-search {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.search-page-search .search-bar {
+  position: relative;
+}
+
+.search-page-search .search-input {
+  width: 100%;
+  padding: 1.6rem 6rem 1.6rem 2rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 1.6rem;
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+  background: var(--gray-50);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.search-page-search .search-input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  background: var(--white);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.search-page-search .search-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-light);
+  border: none;
+  width: 5rem;
+  height: 5rem;
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-page-search .search-btn:hover {
+  background: var(--primary-med);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Search Filters */
+.search-filters {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 1.2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.filters-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filter-label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.filter-select {
+  padding: 0.8rem 1.2rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary-light);
+}
+
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.view-btn {
+  padding: 0.8rem;
+  border: 2px solid var(--gray-200);
+  background: var(--white);
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-btn.active,
+.view-btn:hover {
+  border-color: var(--primary-light);
+  background: var(--primary-light);
+  color: var(--white);
+}
+
+/* Search Results */
+.search-results-container {
+  background: var(--white);
+  border-radius: 1.6rem;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.search-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+  gap: 2.5rem;
+}
+
+.search-results-grid.list-view {
+  grid-template-columns: 1fr;
+}
+
+.search-result-card {
+  background: var(--white);
+  border-radius: 1.2rem;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.search-result-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border-color: var(--primary-light);
+}
+
+.result-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.result-image {
+  position: relative;
+  height: 24rem;
+  overflow: hidden;
+}
+
+.result-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.search-result-card:hover .result-image img {
+  transform: scale(1.05);
+}
+
+.no-image {
+  width: 100%;
+  height: 100%;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400);
+}
+
+.sale-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--primary-light);
+  color: var(--white);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.result-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.search-result-card:hover .result-overlay {
+  opacity: 1;
+}
+
+.quick-view-btn {
+  background: var(--white);
+  color: var(--gray-700);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.quick-view-btn:hover {
+  background: var(--primary-light);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+.result-content {
+  padding: 2rem;
+}
+
+.result-title {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  color: var(--gray-700);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.result-type {
+  font-size: 1.2rem;
+  color: var(--gray-500);
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.result-price {
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-light);
+}
+
+.price-sale {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-light);
+  margin-right: 0.8rem;
+}
+
+.price-compare {
+  font-size: 1.4rem;
+  color: var(--gray-400);
+  text-decoration: line-through;
+}
+
+.result-status {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.6rem;
+  display: inline-block;
+}
+
+.result-status.available {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.result-status.sold-out {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+/* List View Styles */
+.search-results-grid.list-view .search-result-card {
+  display: flex;
+  align-items: center;
+}
+
+.search-results-grid.list-view .result-image {
+  width: 20rem;
+  height: 15rem;
+  flex-shrink: 0;
+}
+
+.search-results-grid.list-view .result-content {
+  flex: 1;
+  padding: 2rem 3rem;
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 6rem 0;
+  background: var(--white);
+  border-radius: 1.6rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.no-results-icon {
+  width: 8rem;
+  height: 8rem;
+  margin: 0 auto 2rem;
+  color: var(--gray-400);
+}
+
+.no-results-title {
+  font-size: 2.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.no-results-text {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+  margin-bottom: 3rem;
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.no-results-suggestions {
+  margin-bottom: 3rem;
+}
+
+.no-results-suggestions h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.suggestion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.suggestion-tag {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  padding: 0.8rem 1.6rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.suggestion-tag:hover {
+  background: var(--primary-light);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.no-results-actions {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* Search Suggestions */
+.search-suggestions {
+  background: var(--white);
+  border-radius: 1.6rem;
+  padding: 4rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.suggestions-content {
+  text-align: center;
+}
+
+.suggestions-title {
+  font-size: 2.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+}
+
+.suggestions-subtitle {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+  margin-bottom: 4rem;
+}
+
+.popular-categories h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--gray-700);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2rem;
+}
+
+.category-card {
+  background: var(--gray-50);
+  border-radius: 1.2rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.category-image {
+  height: 12rem;
+  overflow: hidden;
+}
+
+.category-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-image img {
+  transform: scale(1.05);
+}
+
+.category-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.category-info h4 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--gray-700);
+}
+
+.category-info p {
+  font-size: 1.2rem;
+  color: var(--gray-500);
+}
+
+/* Pagination */
+.search-pagination {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-page {
+    padding: 2rem 0;
+  }
+  
+  .search-header {
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .search-title {
+    font-size: 2.8rem;
+  }
+  
+  .filters-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+  
+  .view-toggle {
+    margin-left: 0;
+    justify-content: center;
+  }
+  
+  .search-results-grid {
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    gap: 2rem;
+  }
+  
+  .search-results-container {
+    padding: 2rem;
+  }
+  
+  .search-results-grid.list-view .search-result-card {
+    flex-direction: column;
+  }
+  
+  .search-results-grid.list-view .result-image {
+    width: 100%;
+    height: 20rem;
+  }
+  
+  .no-results-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .category-grid {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .search-results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .result-image {
+    height: 20rem;
+  }
+  
+  .result-content {
+    padding: 1.5rem;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // View toggle functionality
+  const viewBtns = document.querySelectorAll('.view-btn');
+  const resultsGrid = document.getElementById('search-results');
+  
+  viewBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      viewBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      const view = this.dataset.view;
+      if (view === 'list') {
+        resultsGrid.classList.add('list-view');
+      } else {
+        resultsGrid.classList.remove('list-view');
+      }
+    });
+  });
+  
+  // Filter functionality
+  const sortSelect = document.getElementById('sort-by');
+  const typeSelect = document.getElementById('product-type');
+  const priceSelect = document.getElementById('price-range');
+  
+  function filterResults() {
+    const cards = document.querySelectorAll('.search-result-card');
+    const sortValue = sortSelect.value;
+    const typeValue = typeSelect.value;
+    const priceValue = priceSelect.value;
+    
+    let visibleCards = Array.from(cards);
+    
+    // Filter by type
+    if (typeValue) {
+      visibleCards = visibleCards.filter(card => 
+        card.dataset.productType.includes(typeValue)
+      );
+    }
+    
+    // Filter by price
+    if (priceValue) {
+      visibleCards = visibleCards.filter(card => {
+        const price = parseFloat(card.dataset.price);
+        switch (priceValue) {
+          case '0-50':
+            return price < 50;
+          case '50-100':
+            return price >= 50 && price < 100;
+          case '100-200':
+            return price >= 100 && price < 200;
+          case '200+':
+            return price >= 200;
+          default:
+            return true;
+        }
+      });
+    }
+    
+    // Hide all cards first
+    cards.forEach(card => {
+      card.style.display = 'none';
+    });
+    
+    // Show filtered cards
+    visibleCards.forEach(card => {
+      card.style.display = 'block';
+    });
+    
+    // Sort results
+    if (sortValue) {
+      const container = resultsGrid;
+      const sortedCards = Array.from(visibleCards).sort((a, b) => {
+        switch (sortValue) {
+          case 'price-asc':
+            return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+          case 'price-desc':
+            return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+          case 'title-asc':
+            return a.querySelector('.result-title').textContent.localeCompare(b.querySelector('.result-title').textContent);
+          case 'title-desc':
+            return b.querySelector('.result-title').textContent.localeCompare(a.querySelector('.result-title').textContent);
+          default:
+            return 0;
+        }
+      });
+      
+      sortedCards.forEach(card => {
+        container.appendChild(card);
+      });
+    }
+  }
+  
+  // Add event listeners
+  [sortSelect, typeSelect, priceSelect].forEach(select => {
+    if (select) {
+      select.addEventListener('change', filterResults);
+    }
+  });
+  
+  // Quick view functionality
+  const quickViewBtns = document.querySelectorAll('.quick-view-btn');
+  quickViewBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const productId = this.dataset.productId;
+      // Implement quick view modal here
+      console.log('Quick view for product:', productId);
+    });
+  });
+});
+</script>

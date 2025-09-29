@@ -170,41 +170,80 @@
 <style>
 /* Categories Scroll Section Styles */
 .categories-scroll-section {
-  padding: 6rem 0;
-  background: var(--gray-100);
+  padding: 10rem 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.categories-scroll-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="geometric" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23000000" opacity="0.03"/><rect x="20" y="20" width="10" height="10" fill="none" stroke="%23000000" stroke-width="0.3" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23geometric)"/></svg>');
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.categories-scroll-section::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,0,0,0.02) 0%, transparent 70%);
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .categories-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 6rem;
+  position: relative;
+  z-index: 1;
 }
 
 .categories-title {
-  font-size: 3.6rem;
-  margin-bottom: 1.6rem;
+  font-size: 4.8rem;
+  margin-bottom: 2rem;
   color: var(--gray-700);
+  font-weight: 700;
+  background: linear-gradient(135deg, #dc2626, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideInLeft 1s ease-out;
 }
 
 .categories-subtitle {
-  font-size: 1.6rem;
-  color: var(--gray-500);
-  max-width: 60rem;
+  font-size: 2rem;
+  color: var(--gray-600);
+  max-width: 70rem;
   margin: 0 auto;
+  line-height: 1.6;
+  animation: slideInLeft 1s ease-out 0.2s both;
 }
 
 .categories-scroll-container {
   position: relative;
   overflow: hidden;
+  padding: 2rem 0;
 }
 
 .categories-scroll {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 1rem 0;
+  padding: 2rem 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  position: relative;
+  z-index: 1;
 }
 
 .categories-scroll::-webkit-scrollbar {
@@ -212,69 +251,107 @@
 }
 
 .category-item {
-  flex: 0 0 28rem;
+  flex: 0 0 32rem;
   background: var(--white);
-  border-radius: 1.2rem;
+  border-radius: 2rem;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.category-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+  transition: left 0.6s;
+  z-index: 1;
 }
 
 .category-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+  background: var(--white);
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+.category-item:hover::before {
+  left: 100%;
 }
 
 .category-link {
   display: block;
   text-decoration: none;
   color: inherit;
+  position: relative;
+  z-index: 2;
 }
 
 .category-image {
   position: relative;
-  height: 20rem;
+  height: 24rem;
   overflow: hidden;
+  border-radius: 1.5rem 1.5rem 0 0;
 }
 
 .category-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .category-item:hover .category-image img {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .category-overlay {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 107, 107, 0.9); /* ⚡ new: semi-transparent accent */
+  top: 1.5rem;
+  right: 1.5rem;
+  background: linear-gradient(135deg, #dc2626, #991b1b);
   color: var(--white);
-  padding: 0.6rem 1.2rem;
-  border-radius: 2rem;
-  font-size: 1.2rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 2.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .category-content {
-  padding: 2rem;
+  padding: 2.5rem;
+  background: var(--white);
 }
 
 .category-name {
-  font-size: 2rem;
-  margin-bottom: 0.8rem;
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
   color: var(--gray-700);
-  font-weight: 600;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.category-item:hover .category-name {
+  color: #dc2626;
 }
 
 .category-description {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: var(--gray-500);
   margin: 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.category-item:hover .category-description {
+  color: var(--gray-600);
 }
 
 .scroll-btn {
@@ -282,47 +359,77 @@
   top: 50%;
   transform: translateY(-50%);
   background: var(--white);
-  border: 2px solid var(--gray-200);
-  width: 4rem;
-  height: 4rem;
+  border: 2px solid rgba(220, 38, 38, 0.2);
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gray-700);
+  color: #dc2626;
   z-index: 2;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .scroll-btn:hover {
-  background: var(--primary-light);
-  border-color: var(--primary-light);
+  background: #dc2626;
+  border-color: #dc2626;
   color: var(--white);
   transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 12px 35px rgba(220, 38, 38, 0.3);
 }
 
 .scroll-left {
-  left: 1rem;
+  left: 2rem;
 }
 
 .scroll-right {
-  right: 1rem;
+  right: 2rem;
+}
+
+/* Keyframe Animations */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .categories-scroll-section {
-    padding: 4rem 0;
+    padding: 6rem 0;
   }
 
   .categories-title {
-    font-size: 2.8rem;
+    font-size: 3.6rem;
+  }
+
+  .categories-subtitle {
+    font-size: 1.8rem;
   }
 
   .category-item {
-    flex: 0 0 25rem;
+    flex: 0 0 28rem;
+  }
+
+  .category-image {
+    height: 20rem;
   }
 
   .scroll-btn {
@@ -332,12 +439,25 @@
   .categories-scroll {
     padding: 1rem;
     margin: 0 -1rem;
+    gap: 2rem;
   }
 }
 
 @media (max-width: 480px) {
+  .categories-scroll-section {
+    padding: 4rem 0;
+  }
+
+  .categories-title {
+    font-size: 3rem;
+  }
+
+  .categories-subtitle {
+    font-size: 1.6rem;
+  }
+
   .category-item {
-    flex: 0 0 22rem;
+    flex: 0 0 25rem;
   }
 
   .category-image {
@@ -345,11 +465,19 @@
   }
 
   .category-content {
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
   .category-name {
-    font-size: 1.8rem;
+    font-size: 2rem;
+  }
+
+  .category-description {
+    font-size: 1.4rem;
+  }
+
+  .categories-scroll {
+    gap: 1.5rem;
   }
 }
 
@@ -364,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (!scrollContainer || !scrollLeftBtn || !scrollRightBtn) return;
   
-  const scrollAmount = 300;
+  const scrollAmount = 350;
   
   scrollLeftBtn.addEventListener('click', function() {
     scrollContainer.scrollBy({
@@ -386,9 +514,86 @@ document.addEventListener('DOMContentLoaded', function() {
     
     scrollLeftBtn.style.opacity = scrollLeft > 0 ? '1' : '0.5';
     scrollRightBtn.style.opacity = scrollLeft < scrollWidth - clientWidth ? '1' : '0.5';
+    
+    // Disable buttons at extremes
+    scrollLeftBtn.disabled = scrollLeft <= 0;
+    scrollRightBtn.disabled = scrollLeft >= scrollWidth - clientWidth;
   }
   
   scrollContainer.addEventListener('scroll', updateButtonVisibility);
   updateButtonVisibility();
+  
+  // Add scroll animations for category items
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'slideInLeft 0.6s ease forwards';
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateX(0)';
+      }
+    });
+  }, observerOptions);
+  
+  // Observe category items for scroll animations
+  const categoryItems = document.querySelectorAll('.category-item');
+  categoryItems.forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(50px)';
+    item.style.animationDelay = `${index * 0.1}s`;
+    observer.observe(item);
+  });
+  
+  // Add hover effects for category items
+  categoryItems.forEach(item => {
+    item.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-8px) scale(1.02)';
+    });
+    
+    item.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+  
+  // Touch/swipe support for mobile
+  let startX = 0;
+  let isScrolling = false;
+  
+  scrollContainer.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+    isScrolling = true;
+  });
+  
+  scrollContainer.addEventListener('touchmove', function(e) {
+    if (!isScrolling) return;
+    
+    const currentX = e.touches[0].clientX;
+    const diffX = startX - currentX;
+    
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        // Swipe left - scroll right
+        scrollContainer.scrollBy({
+          left: scrollAmount,
+          behavior: 'smooth'
+        });
+      } else {
+        // Swipe right - scroll left
+        scrollContainer.scrollBy({
+          left: -scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+      isScrolling = false;
+    }
+  });
+  
+  scrollContainer.addEventListener('touchend', function() {
+    isScrolling = false;
+  });
 });
 </script>
