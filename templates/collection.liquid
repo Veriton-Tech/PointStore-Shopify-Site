@@ -170,7 +170,7 @@
                       </svg>
                     </button>
                     <div class="product-card-actions">
-                      <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
+                      <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
                       <button class="btn btn-secondary btn-sm add-to-cart-btn" 
                               data-product-id="{{ product.id }}" 
                               data-variant-id="{{ product.selected_or_first_available_variant.id }}">
