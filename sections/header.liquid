@@ -82,13 +82,32 @@
             <span class="cart-count">{{ cart.item_count }}</span>
           </a>
 
-          <!-- User Account -->
-          <a href="/pages/account" class="header-action" aria-label="Account">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </a>
+          <!-- User Account Dropdown -->
+          <div class="account-dropdown">
+            <button class="header-action account-toggle" aria-label="Account" aria-expanded="false" aria-controls="account-menu">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </button>
+            <div class="account-dropdown-menu" id="account-menu">
+              <a href="/pages/account" class="account-dropdown-link">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                My Account
+              </a>
+              <a href="/pages/signin" class="account-dropdown-link">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                  <polyline points="10,17 15,12 10,7"></polyline>
+                  <line x1="15" y1="12" x2="3" y2="12"></line>
+                </svg>
+                Sign In
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -591,6 +610,37 @@ document.addEventListener('DOMContentLoaded', function() {
       megaDropdownMenu.style.top = dropdownTop + 'px';
     }
   });
+
+  // Account dropdown functionality
+  var accountToggle = document.querySelector('.account-toggle');
+  var accountMenu = document.querySelector('.account-dropdown-menu');
+
+  if (accountToggle && accountMenu) {
+    accountToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      var isOpen = accountMenu.classList.contains('active');
+      accountMenu.classList.toggle('active');
+      accountToggle.setAttribute('aria-expanded', !isOpen);
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!accountToggle.contains(e.target) && !accountMenu.contains(e.target)) {
+        accountMenu.classList.remove('active');
+        accountToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close dropdown on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && accountMenu.classList.contains('active')) {
+        accountMenu.classList.remove('active');
+        accountToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 });
 </script>
 
@@ -1621,6 +1671,66 @@ html {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Account Dropdown Styles */
+.account-dropdown {
+  position: relative;
+}
+
+.account-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.account-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 1rem 0;
+  min-width: 20rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1001;
+  margin-top: 0.5rem;
+}
+
+.account-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.account-dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 2rem;
+  color: var(--gray-700);
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 0.8rem;
+  margin: 0 0.5rem;
+}
+
+.account-dropdown-link:hover {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(0, 0, 0, 0.05));
+  color: var(--primary-light);
+  transform: translateX(4px);
+}
+
+.account-dropdown-link .icon {
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 /* Ensure dropdown doesn't get clipped */

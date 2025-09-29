@@ -1,0 +1,946 @@
+{% comment %}
+  Create Account page template
+{% endcomment %}
+
+<div class="create-account-page">
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">Create Account</h1>
+      <p class="page-description">Join us today and start your shopping journey with exclusive benefits</p>
+    </div>
+
+    <!-- Create Account Content -->
+    <div class="create-account-content">
+      <div class="create-account-card">
+        <!-- Account Creation Form -->
+        <div class="account-form-section">
+          <div class="account-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          
+          <h2 class="form-title">Create Your Account</h2>
+          <p class="form-description">Fill in your details below to create your account and start shopping.</p>
+          
+          <form class="account-form" id="account-form">
+            <!-- Personal Information -->
+            <div class="form-section">
+              <h3 class="section-title">Personal Information</h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                  <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                  <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Account Security -->
+            <div class="form-section">
+              <h3 class="section-title">Account Security</h3>
+              
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper password-input-group">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+                  <button type="button" class="password-toggle" aria-label="Show password">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
+                <div class="password-strength" id="password-strength">
+                  <div class="strength-bar">
+                    <div class="strength-fill" id="strength-fill"></div>
+                  </div>
+                  <span class="strength-text" id="strength-text">Password strength</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-wrapper password-input-group">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                  <button type="button" class="password-toggle" aria-label="Show password">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preferences -->
+            <div class="form-section">
+              <h3 class="section-title">Preferences</h3>
+              
+              <div class="form-group">
+                <label for="birthDate">Date of Birth</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  <input type="date" id="birthDate" name="birthDate" placeholder="Select your birth date">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="gender">Gender</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="gender" value="male">
+                    <span class="radio-custom"></span>
+                    <span class="radio-label">Male</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="gender" value="female">
+                    <span class="radio-custom"></span>
+                    <span class="radio-label">Female</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="gender" value="other">
+                    <span class="radio-custom"></span>
+                    <span class="radio-label">Other</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="gender" value="prefer-not-to-say">
+                    <span class="radio-custom"></span>
+                    <span class="radio-label">Prefer not to say</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="form-section">
+              <div class="checkbox-group">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="terms" name="terms" required>
+                  <span class="checkmark"></span>
+                  <span class="checkbox-text">
+                    I agree to the <a href="/pages/terms" class="terms-link">Terms of Service</a> and <a href="/pages/privacy" class="terms-link">Privacy Policy</a>
+                  </span>
+                </label>
+              </div>
+
+              <div class="checkbox-group">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="newsletter" name="newsletter">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-text">
+                    Subscribe to our newsletter for exclusive offers and updates
+                  </span>
+                </label>
+              </div>
+
+              <div class="checkbox-group">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="marketing" name="marketing">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-text">
+                    I agree to receive marketing communications via email and SMS
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary create-account-btn">
+              <span class="btn-text">Create Account</span>
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Social Sign Up -->
+          <div class="social-signup">
+            <p class="or-divider"><span>Or create account with</span></p>
+            <div class="social-buttons">
+              <button class="btn social-btn google-btn">
+                <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google icon">
+                Google
+              </button>
+              <button class="btn social-btn facebook-btn">
+                <img src="https://img.icons8.com/color/16/000000/facebook-new.png" alt="Facebook icon">
+                Facebook
+              </button>
+            </div>
+          </div>
+
+          <!-- Sign In Link -->
+          <div class="signin-link">
+            <p>Already have an account?</p>
+            <a href="/pages/signin" class="signin-btn">
+              <svg class="signin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                <polyline points="10,17 15,12 10,7"></polyline>
+                <line x1="15" y1="12" x2="3" y2="12"></line>
+              </svg>
+              Sign In
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Create Account Page Styles */
+.create-account-page {
+  min-height: 100vh;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.create-account-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23dc2626" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.page-title {
+  font-size: 4.8rem;
+  margin-bottom: 1.6rem;
+  color: var(--gray-700);
+  background: linear-gradient(135deg, #dc2626, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-description {
+  font-size: 1.6rem;
+  color: var(--gray-500);
+  max-width: 60rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.create-account-content {
+  max-width: 60rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.create-account-card {
+  background: var(--white);
+  border-radius: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid rgba(220, 38, 38, 0.1);
+}
+
+.account-form-section {
+  padding: 4rem;
+}
+
+.account-icon {
+  width: 8rem;
+  height: 8rem;
+  background: linear-gradient(135deg, #dc2626, #000000);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  color: var(--white);
+}
+
+.account-icon svg {
+  width: 4rem;
+  height: 4rem;
+}
+
+.form-title {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+  background: linear-gradient(135deg, #dc2626, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+}
+
+.form-description {
+  font-size: 1.4rem;
+  color: var(--gray-500);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.form-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--gray-100);
+  background: linear-gradient(135deg, #dc2626, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 0.8rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  color: var(--gray-400);
+  z-index: 2;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1.4rem 1.6rem 1.4rem 5rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 1.2rem;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+  background: var(--white);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.form-group input:focus + .input-icon {
+  color: var(--primary-light);
+}
+
+/* Password Input Group */
+.password-input-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  transition: color 0.3s ease;
+  z-index: 2;
+}
+
+.password-toggle:hover {
+  color: var(--primary-light);
+}
+
+.password-toggle .icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+  margin-top: 1rem;
+}
+
+.strength-bar {
+  height: 0.4rem;
+  background: var(--gray-200);
+  border-radius: 0.2rem;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.strength-fill {
+  height: 100%;
+  width: 0%;
+  transition: all 0.3s ease;
+  border-radius: 0.2rem;
+}
+
+.strength-text {
+  font-size: 1.2rem;
+  color: var(--gray-500);
+}
+
+/* Radio Group */
+.radio-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 1rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.radio-option:hover {
+  border-color: var(--primary-light);
+  background: rgba(220, 38, 38, 0.05);
+}
+
+.radio-option input[type="radio"] {
+  display: none;
+}
+
+.radio-custom {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--gray-300);
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.radio-option input[type="radio"]:checked + .radio-custom {
+  border-color: var(--primary-light);
+  background: var(--primary-light);
+}
+
+.radio-option input[type="radio"]:checked + .radio-custom::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.8rem;
+  height: 0.8rem;
+  background: var(--white);
+  border-radius: 50%;
+}
+
+.radio-label {
+  font-size: 1.4rem;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+/* Checkbox Styles */
+.checkbox-group {
+  margin-bottom: 2rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  cursor: pointer;
+  padding: 1.5rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.checkbox-container:hover {
+  border-color: var(--primary-light);
+  background: rgba(220, 38, 38, 0.05);
+}
+
+.checkbox-container input[type="checkbox"] {
+  display: none;
+}
+
+.checkmark {
+  width: 2rem;
+  height: 2rem;
+  background: var(--gray-100);
+  border: 2px solid var(--gray-300);
+  border-radius: 0.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark {
+  background: var(--primary-light);
+  border-color: var(--primary-light);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 0.6rem;
+  top: 0.2rem;
+  width: 0.5rem;
+  height: 1rem;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark:after {
+  display: block;
+}
+
+.checkbox-text {
+  font-size: 1.4rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
+.terms-link {
+  color: var(--primary-light);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.terms-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* Create Account Button */
+.create-account-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #dc2626, #000000);
+  color: var(--white);
+  border: none;
+  padding: 1.6rem 2rem;
+  border-radius: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.create-account-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
+}
+
+.create-account-btn:hover::before {
+  left: 100%;
+}
+
+.create-account-btn:hover {
+  background: linear-gradient(135deg, #b91c1c, #000000);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}
+
+.create-account-btn:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Social Sign Up */
+.social-signup {
+  margin-bottom: 3rem;
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 3rem 0;
+  color: var(--gray-500);
+  font-size: 1.4rem;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.or-divider:not(:empty)::before {
+  margin-right: 1.5rem;
+}
+
+.or-divider:not(:empty)::after {
+  margin-left: 1.5rem;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.2rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  background: var(--white);
+  color: var(--gray-700);
+  border: 2px solid var(--gray-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.social-btn:hover {
+  border-color: var(--primary-light);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.1);
+  transform: translateY(-2px);
+}
+
+.social-btn img {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Sign In Link */
+.signin-link {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #dc2626, #000000);
+  border-radius: 1.5rem;
+  color: var(--white);
+}
+
+.signin-link p {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.signin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 1.2rem 2.5rem;
+  border: 2px solid var(--white);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.signin-btn:hover {
+  background: var(--white);
+  color: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.signin-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .create-account-page {
+    padding: 2rem 0;
+  }
+
+  .page-title {
+    font-size: 3.6rem;
+  }
+
+  .account-form-section {
+    padding: 3rem 2rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .radio-group {
+    grid-template-columns: 1fr;
+  }
+
+  .social-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 3rem;
+  }
+
+  .account-form-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .create-account-btn {
+    font-size: 1.4rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .social-btn {
+    font-size: 1.4rem;
+    padding: 1rem 1.5rem;
+  }
+}
+</style>
+
+<script>
+// Create Account page functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Password toggle functionality
+  const passwordToggles = document.querySelectorAll('.password-toggle');
+  
+  passwordToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const input = this.parentElement.querySelector('input');
+      const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+      input.setAttribute('type', type);
+      this.setAttribute('aria-label', type === 'password' ? 'Show password' : 'Hide password');
+      
+      const icon = this.querySelector('svg');
+      if (type === 'password') {
+        icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+      } else {
+        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.54 18.54 0 0 1 2.68-3.42M2.36 2.36 21.64 21.64M16.61 16.61A4 4 0 0 1 12 16a4 4 0 0 1-4-4c0-1.06.35-2.04.94-2.83"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+      }
+    });
+  });
+
+  // Password strength indicator
+  const passwordInput = document.getElementById('password');
+  const strengthFill = document.getElementById('strength-fill');
+  const strengthText = document.getElementById('strength-text');
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+
+  if (passwordInput && strengthFill && strengthText) {
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      const strength = calculatePasswordStrength(password);
+      
+      strengthFill.style.width = strength.percentage + '%';
+      strengthFill.style.backgroundColor = strength.color;
+      strengthText.textContent = strength.text;
+      strengthText.style.color = strength.color;
+    });
+  }
+
+  // Password confirmation validation
+  if (confirmPasswordInput) {
+    confirmPasswordInput.addEventListener('input', function() {
+      const password = passwordInput.value;
+      const confirmPassword = this.value;
+      
+      if (confirmPassword && password !== confirmPassword) {
+        this.style.borderColor = '#ef4444';
+        this.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+      } else {
+        this.style.borderColor = '';
+        this.style.boxShadow = '';
+      }
+    });
+  }
+
+  // Form submission
+  const accountForm = document.getElementById('account-form');
+  const createAccountBtn = document.querySelector('.create-account-btn');
+  const btnText = createAccountBtn.querySelector('.btn-text');
+
+  if (accountForm) {
+    accountForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+      
+      if (password !== confirmPassword) {
+        alert('Passwords do not match. Please try again.');
+        return;
+      }
+      
+      // Add loading state
+      createAccountBtn.disabled = true;
+      btnText.textContent = 'Creating Account...';
+      
+      // Simulate API call
+      setTimeout(() => {
+        // Reset button state
+        createAccountBtn.disabled = false;
+        btnText.textContent = 'Create Account';
+        
+        // Show success message
+        alert('Account created successfully! Welcome to our store.');
+        
+        // Redirect to sign-in page
+        // window.location.href = '/pages/signin';
+      }, 2000);
+    });
+  }
+
+  // Social sign-up buttons (demo)
+  document.querySelectorAll('.social-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      alert('Redirecting to ' + this.textContent.trim() + ' for account creation...');
+    });
+  });
+
+  // Password strength calculation
+  function calculatePasswordStrength(password) {
+    let score = 0;
+    let feedback = [];
+    
+    if (password.length >= 8) score += 25;
+    else feedback.push('at least 8 characters');
+    
+    if (/[a-z]/.test(password)) score += 25;
+    else feedback.push('lowercase letters');
+    
+    if (/[A-Z]/.test(password)) score += 25;
+    else feedback.push('uppercase letters');
+    
+    if (/[0-9]/.test(password)) score += 25;
+    else feedback.push('numbers');
+    
+    if (/[^A-Za-z0-9]/.test(password)) score += 25;
+    else feedback.push('special characters');
+    
+    if (password.length >= 12) score += 25;
+    
+    if (score < 25) {
+      return { percentage: 20, color: '#ef4444', text: 'Very Weak' };
+    } else if (score < 50) {
+      return { percentage: 40, color: '#f59e0b', text: 'Weak' };
+    } else if (score < 75) {
+      return { percentage: 60, color: '#eab308', text: 'Fair' };
+    } else if (score < 100) {
+      return { percentage: 80, color: '#22c55e', text: 'Good' };
+    } else {
+      return { percentage: 100, color: '#16a34a', text: 'Strong' };
+    }
+  }
+});
+</script>
