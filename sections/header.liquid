@@ -34,7 +34,7 @@
           <form action="/search" method="get" class="search-form">
             <div class="search-bar">
               <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" class="search-input" autocomplete="off">
-              <button type="submit" class="search-btn" aria-label="Search">
+              <button type="submit" class="search-btn" aria-label="Search" id="search-btn">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.35-4.35"></path>
@@ -360,6 +360,27 @@
       </div>
     </div>
   </div>
+
+  <!-- Add this search dialog markup just before </header> -->
+  <div class="search-dialog" id="search-dialog" aria-modal="true" role="dialog" tabindex="-1">
+    <div class="search-dialog-content">
+      <button class="search-dialog-close" aria-label="Close search">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <form action="/search" method="get" class="search-dialog-form">
+        <input type="search" name="q" placeholder="Search products..." class="search-dialog-input" autocomplete="off">
+        <button type="submit" class="search-dialog-btn" aria-label="Search">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
 </header>
 
 <script>
@@ -641,6 +662,42 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Search dialog logic
+  var searchBtn = document.getElementById('search-btn');
+  var searchDialog = document.getElementById('search-dialog');
+  var searchDialogClose = document.querySelector('.search-dialog-close');
+  var searchDialogInput = document.querySelector('.search-dialog-input');
+
+  function openSearchDialog() {
+    searchDialog.classList.add('active');
+    searchDialogInput.focus();
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSearchDialog() {
+    searchDialog.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (searchBtn) {
+    searchBtn.addEventListener('click', function(e) {
+      if (window.innerWidth <= 480) {
+        e.preventDefault();
+        openSearchDialog();
+      }
+    });
+  }
+  if (searchDialogClose) {
+    searchDialogClose.addEventListener('click', closeSearchDialog);
+  }
+  searchDialog.addEventListener('click', function(e) {
+    if (e.target === searchDialog) closeSearchDialog();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && searchDialog.classList.contains('active')) {
+      closeSearchDialog();
+    }
+  });
 });
 </script>
 
@@ -1513,7 +1570,7 @@ document.addEventListener('DOMContentLoaded', function() {
     order: 3;
     flex: 1;
     max-width: none;
-    min-width: 25rem;
+    min-width: 18rem;
   }
   
   .search-input {
@@ -1572,6 +1629,7 @@ document.addEventListener('DOMContentLoaded', function() {
 @media (max-width: 480px) {
   .header-main {
     padding: 0.8rem 1rem;
+    min-width: 320px;
   }
   
   .header-content {
@@ -1742,4 +1800,85 @@ html {
   overflow: visible;
 }
 
+/* Show search icon in mobile */
+@media (max-width: 480px) {
+  .header-search {
+    display: block;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    order: 2;
+  }
+  .search-input {
+    display: none;
+  }
+  .search-btn {
+    display: flex;
+    width: 3.6rem;
+    height: 3.6rem;
+    right: 0;
+    position: absolute;
+    margin-left: 0.5rem;
+    background: var(--primary-light);
+  }
+}
+
+/* Search Dialog Styles */
+.search-dialog {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+.search-dialog.active {
+  display: flex;
+}
+.search-dialog-content {
+  background: var(--white, #fff);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  width: 90vw;
+  max-width: 400px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.search-dialog-close {
+  position: absolute;
+  top: 0.5rem; right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-700);
+  font-size: 2rem;
+}
+.search-dialog-form {
+  display: flex;
+  gap: 1rem;
+}
+.search-dialog-input {
+  flex: 1;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 0.8rem;
+  font-size: 1.2rem;
+}
+.search-dialog-btn {
+  background: var(--primary-light);
+  border: none;
+  color: #fff;
+  border-radius: 0.8rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 </style>
