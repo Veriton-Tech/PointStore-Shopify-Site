@@ -46,22 +46,22 @@
   {% endif %}
 </section> {% endcomment %}
 
-<!-- Temporary Hero Banner Section HTML for CSS Testing (Images Only) -->
+<!-- Hero Banner Section with Full Width Slider -->
 <section class="hero-banner-section">
   <div class="hero-slider">
     <div class="hero-slide active">
       <div class="hero-image">
-        <img src="https://placehold.co/1920x1080/ff5252/ffffff?text=Hero+Image+1" alt="Placeholder Image 1" class="hero-bg">
+        <img src="/assets/banner2.png" alt="Placeholder Image 1" class="hero-bg">
       </div>
     </div>
     <div class="hero-slide">
       <div class="hero-image">
-        <img src="https://placehold.co/1920x1080/ff5252/ffffff?text=Hero+Image+2" alt="Placeholder Image 2" class="hero-bg">
-      </div>
-    </div>
-    <div class="hero-slide">
-      <div class="hero-image">
-        <img src="https://placehold.co/1920x1080/ff5252/ffffff?text=Hero+Image+3" alt="Placeholder Image 3" class="hero-bg">
+        <img src="/assets/banner3.png" alt="Placeholder Image 2" class="hero-bg">
+        </div>
+        </div>
+        <div class="hero-slide">
+          <div class="hero-image">
+        <img src="/assets/banner1.jpeg" alt="Placeholder Image 3" class="hero-bg">
       </div>
     </div>
   </div>
@@ -69,19 +69,16 @@
     <button class="hero-prev" aria-label="Previous slide">‹</button>
     <button class="hero-next" aria-label="Next slide">›</button>
   </div>
-  <div class="hero-indicators">
-    <button class="hero-indicator active" data-slide="0"></button>
-    <button class="hero-indicator" data-slide="1"></button>
-    <button class="hero-indicator" data-slide="2"></button>
-  </div>
 </section>
 
 <style>
 /* Hero Banner Styles */
 .hero-banner-section {
   position: relative;
-  height: 60vh;
-  min-height: 50rem;
+  width: 100vw;
+  height: 500px;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
   overflow: hidden;
 }
 
@@ -118,6 +115,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  background-color: #f5f5f5;
 }
 
 .hero-placeholder {
@@ -205,7 +203,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero-banner-section {
-    height: 50vh;
+    height: 20rem;
     min-height: 10rem;
   }
 
