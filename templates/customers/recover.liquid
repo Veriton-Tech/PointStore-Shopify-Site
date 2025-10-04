@@ -1,5 +1,5 @@
 {% comment %}
-  Forgot Password page template
+  Customer Account Recovery page template
 {% endcomment %}
 
 <div class="forgot-password-page">
@@ -333,7 +333,7 @@
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
-.form-group input:focus + .input-icon {
+.form-group input:focus ~ .input-icon {
   color: var(--primary-light);
 }
 
@@ -419,105 +419,6 @@
   height: 1.6rem;
 }
 
-/* Success Section */
-.success-section {
-  padding: 4rem;
-  text-align: center;
-}
-
-.success-icon {
-  width: 8rem;
-  height: 8rem;
-  background: linear-gradient(135deg, #16a34a, #15803d);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 2rem;
-  color: var(--white);
-}
-
-.success-icon svg {
-  width: 4rem;
-  height: 4rem;
-}
-
-.success-title {
-  font-size: 2.4rem;
-  margin-bottom: 1rem;
-  color: var(--gray-700);
-  background: linear-gradient(135deg, #16a34a, #15803d);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.success-description {
-  font-size: 1.4rem;
-  color: var(--gray-600);
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
-
-.success-note {
-  font-size: 1.3rem;
-  color: var(--gray-500);
-  margin-bottom: 3rem;
-  line-height: 1.6;
-}
-
-.success-actions {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-}
-
-.resend-btn {
-  background: var(--white);
-  color: var(--gray-700);
-  border: 2px solid var(--gray-200);
-  padding: 1.4rem 2rem;
-  border-radius: 1.2rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.resend-btn:hover {
-  border-color: var(--primary-light);
-  color: var(--primary-light);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.1);
-}
-
-.back-to-signin-btn {
-  background: linear-gradient(135deg, #dc2626, #000000);
-  color: var(--white);
-  border: none;
-  padding: 1.4rem 2rem;
-  border-radius: 1.2rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
-}
-
-.back-to-signin-btn:hover {
-  background: linear-gradient(135deg, #b91c1c, #000000);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
-  color: var(--white);
-}
-
 /* Help Section */
 .help-section {
   background: linear-gradient(135deg, #dc2626, #000000);
@@ -582,18 +483,12 @@
     font-size: 3.6rem;
   }
 
-  .reset-form-section,
-  .success-section {
+  .reset-form-section {
     padding: 3rem 2rem;
   }
 
   .help-section {
     padding: 2rem;
-  }
-
-  .success-actions {
-    flex-direction: column;
-    align-items: center;
   }
 
   .help-options {
@@ -607,8 +502,7 @@
     font-size: 3rem;
   }
 
-  .reset-form-section,
-  .success-section {
+  .reset-form-section {
     padding: 2rem 1.5rem;
   }
 
@@ -624,9 +518,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Form submission - Let Shopify handle the submission
   const resetForm = document.getElementById('reset-form');
   const resetBtn = document.querySelector('.reset-btn');
-  const btnText = resetBtn.querySelector('.btn-text');
+  const btnText = resetBtn ? resetBtn.querySelector('.btn-text') : null;
 
-  if (resetForm) {
+  if (resetForm && resetBtn && btnText) {
     resetForm.addEventListener('submit', function(e) {
       // Add loading state
       resetBtn.disabled = true;

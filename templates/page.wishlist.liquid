@@ -245,63 +245,198 @@
 </style>
 
 <script>
-// Wishlist functionality
+// Wishlist page functionality
 document.addEventListener('DOMContentLoaded', function() {
   const wishlistGrid = document.getElementById('wishlist-grid');
   const wishlistEmpty = document.getElementById('wishlist-empty');
   
-  // Load wishlist from localStorage
+  // Get wishlist from localStorage (matching the main wishlist system)
+  function getWishlist() {
+    const wishlist = localStorage.getItem('shopify-wishlist');
+    return wishlist ? JSON.parse(wishlist) : [];
+  }
+  
+  function saveWishlist(wishlist) {
+    localStorage.setItem('shopify-wishlist', JSON.stringify(wishlist));
+  }
+  
+  // Show notification
+  function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `wishlist-notification wishlist-notification-${type}`;
+    notification.innerHTML = `
+      <div class="wishlist-notification-content">
+        <span class="wishlist-notification-icon">${type === 'success' ? '✓' : '✗'}</span>
+        <span class="wishlist-notification-message">${message}</span>
+      </div>
+    `;
+    
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: ${type === 'success' ? 'linear-gradient(135deg, #dc2626, #991b1b)' : 'linear-gradient(135deg, #dc2626, #b91c1c)'};
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+      transform: translateX(400px);
+      transition: all 0.3s ease;
+      font-weight: 600;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+      notification.style.transform = 'translateX(400px)';
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 300);
+    }, 3000);
+  }
+  
+  // Load and display wishlist
   function loadWishlist() {
-    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const wishlist = getWishlist();
     
     if (wishlist.length === 0) {
       wishlistEmpty.style.display = 'block';
+      wishlistGrid.innerHTML = '';
       return;
     }
     
     wishlistEmpty.style.display = 'none';
     
-    // Render wishlist items
-    wishlistGrid.innerHTML = wishlist.map(item => `
-      <div class="wishlist-item" data-product-id="${item.id}">
-        <div class="wishlist-item-image">
-          <img src="${item.image}" alt="${item.title}">
-          <div class="wishlist-item-actions">
-            <button class="wishlist-remove-btn" onclick="removeFromWishlist(${item.id})">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
+    // Render wishlist items with updated structure
+    wishlistGrid.innerHTML = wishlist.map(item => {
+      // For sample products
+      const isSample = item.id.toString().startsWith('sample-');
+      const productUrl = isSample ? '/collections/all' : `/products/${item.handle || item.id}`;
+      const productImage = isSample ? 
+        "{{ 'new-arrivals.jpeg' | asset_url }}" : 
+        (item.image || "{{ 'new-arrivals.jpeg' | asset_url }}");
+      
+      return `
+        <div class="wishlist-item" data-product-id="${item.id}">
+          <div class="wishlist-item-image">
+            <img src="${productImage}" alt="${item.title}">
+            <div class="wishlist-item-actions">
+              <button class="wishlist-remove-btn" onclick="removeFromWishlist('${item.id}')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="wishlist-item-content">
+            <h3 class="wishlist-item-title">${item.title}</h3>
+            <div class="wishlist-item-price">
+              ${isSample ? '$' + (Math.floor(Math.random() * 100) + 20) + '.99' : 'Price on request'}
+            </div>
+            <div class="wishlist-item-meta">
+              <small>Added: ${new Date(item.addedAt).toLocaleDateString()}</small>
+            </div>
+            <div class="wishlist-item-actions-bottom">
+              ${!isSample ? `
+                <button class="wishlist-add-to-cart" onclick="addToCart('${item.id}', '${item.handle}')">Add to Cart</button>
+              ` : `
+                <button class="wishlist-add-to-cart" onclick="alert('This is a sample product')">Sample Product</button>
+              `}
+              <a href="${productUrl}" class="wishlist-view-btn">View Details</a>
+            </div>
           </div>
         </div>
-        <div class="wishlist-item-content">
-          <h3 class="wishlist-item-title">${item.title}</h3>
-          <div class="wishlist-item-price">$${item.price}</div>
-          <div class="wishlist-item-actions-bottom">
-            <button class="wishlist-add-to-cart" onclick="addToCart(${item.id})">Add to Cart</button>
-            <a href="${item.url}" class="wishlist-view-btn">View Details</a>
-          </div>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
   
   // Remove from wishlist
   window.removeFromWishlist = function(productId) {
-    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    let wishlist = getWishlist();
+    const item = wishlist.find(item => item.id === productId);
     wishlist = wishlist.filter(item => item.id !== productId);
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    saveWishlist(wishlist);
+    
+    // Show notification
+    if (item) {
+      showNotification(`${item.title} removed from wishlist`);
+    }
+    
+    // Reload wishlist display
     loadWishlist();
+    
+    // Dispatch event to update other components
+    window.dispatchEvent(new CustomEvent('wishlistUpdated', {
+      detail: { wishlist, productId, action: 'removed' }
+    }));
   };
   
-  // Add to cart
-  window.addToCart = function(productId) {
-    // This would integrate with Shopify's cart API
-    alert('Added to cart!');
+  // Add to cart function
+  window.addToCart = function(productId, productHandle) {
+    if (!productHandle) {
+      showNotification('Unable to add to cart', 'error');
+      return;
+    }
+    
+    // Get the first available variant for the product
+    fetch(`/products/${productHandle}.js`)
+      .then(response => response.json())
+      .then(product => {
+        if (product.variants && product.variants.length > 0) {
+          const variantId = product.variants[0].id;
+          
+          // Add to cart
+          return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              items: [{
+                id: variantId,
+                quantity: 1
+              }]
+            })
+          });
+        } else {
+          throw new Error('No variants available');
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        showNotification('Added to cart successfully!');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showNotification('Failed to add to cart', 'error');
+      });
   };
+  
+  // Listen for wishlist updates from other pages
+  window.addEventListener('wishlistUpdated', function(event) {
+    loadWishlist();
+  });
   
   // Load wishlist on page load
   loadWishlist();
+  
+  // Update wishlist count in navigation if exists
+  function updateWishlistCount() {
+    const wishlist = getWishlist();
+    const countElements = document.querySelectorAll('.wishlist-count');
+    countElements.forEach(element => {
+      element.textContent = wishlist.length;
+    });
+  }
+  
+  updateWishlistCount();
 });
 </script>

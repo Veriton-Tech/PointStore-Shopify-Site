@@ -2,6 +2,20 @@
     Account page template
 {% endcomment %}
 
+{% comment %} Check if customer is logged in {% endcomment %}
+{% unless customer %}
+  <div class="account-login-required">
+    <div class="container">
+      <div class="login-prompt">
+        <h1>Please Log In</h1>
+        <p>You need to be logged in to access your account.</p>
+        <a href="/pages/signin" class="btn btn-primary">Sign In</a>
+        <a href="/pages/create-account" class="btn btn-secondary">Create Account</a>
+      </div>
+    </div>
+  </div>
+{% else %}
+
 <div class="account-page">
   <div class="container">
     <!-- Page Header -->
@@ -44,69 +58,89 @@
           <!-- Profile Section -->
           <div class="account-section active" id="profile-section">
             <h2 class="section-title">Profile Information</h2>
-            <div class="profile-form">
-              <div class="form-group">
-                <label for="first-name">First Name</label>
-                <input
-                  type="text"
-                  id="first-name"
-                  name="first_name"
-                  value="John">
+            {% form 'customer' %}
+              {% if form.errors %}
+                <div class="form-errors">
+                  <h4>Please correct the following errors:</h4>
+                  <ul>
+                    {% for field in form.errors %}
+                      <li>{{ field | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+
+              {% if form.posted_successfully? %}
+                <div class="form-success">
+                  <p>Your profile has been updated successfully!</p>
+                </div>
+              {% endif %}
+
+              <div class="profile-form">
+                <div class="form-group">
+                  <label for="customer_first_name">First Name</label>
+                  <input
+                    type="text"
+                    id="customer_first_name"
+                    name="customer[first_name]"
+                    value="{{ form.first_name | default: customer.first_name }}"
+                    required>
+                </div>
+                <div class="form-group">
+                  <label for="customer_last_name">Last Name</label>
+                  <input
+                    type="text"
+                    id="customer_last_name"
+                    name="customer[last_name]"
+                    value="{{ form.last_name | default: customer.last_name }}"
+                    required>
+                </div>
+                <div class="form-group">
+                  <label for="customer_email">Email</label>
+                  <input
+                    type="email"
+                    id="customer_email"
+                    name="customer[email]"
+                    value="{{ form.email | default: customer.email }}"
+                    required>
+                </div>
+                <div class="form-group">
+                  <label for="customer_phone">Phone</label>
+                  <input
+                    type="tel"
+                    id="customer_phone"
+                    name="customer[phone]"
+                    value="{{ form.phone | default: customer.phone }}">
+                </div>
+                <button type="submit" class="btn btn-primary profile-update-btn">Update Profile</button>
               </div>
-              <div class="form-group">
-                <label for="last-name">Last Name</label>
-                <input
-                  type="text"
-                  id="last-name"
-                  name="last_name"
-                  value="Doe">
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value="john.doe@example.com">
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value="+1 (555) 123-4567">
-              </div>
-              <button class="btn btn-primary profile-update-btn">Update Profile</button>
-            </div>
+            {% endform %}
           </div>
 
           <!-- Orders Section -->
           <div class="account-section" id="orders-section">
             <h2 class="section-title">Order History</h2>
             <div class="orders-list">
-              <div class="order-item">
-                <div class="order-info">
-                  <div class="order-number">Order #12345</div>
-                  <div class="order-date">March 15, 2024</div>
-                  <div class="order-status">Delivered</div>
+              {% if customer.orders.size > 0 %}
+                {% for order in customer.orders %}
+                  <div class="order-item">
+                    <div class="order-info">
+                      <div class="order-number">Order #{{ order.order_number }}</div>
+                      <div class="order-date">{{ order.created_at | date: "%B %d, %Y" }}</div>
+                      <div class="order-status">{{ order.fulfillment_status | default: 'Pending' | capitalize }}</div>
+                    </div>
+                    <div class="order-total">{{ order.total_price | money }}</div>
+                    <div class="order-actions">
+                      <a href="{{ order.customer_url }}" class="btn btn-secondary">View Details</a>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="empty-orders">
+                  <p>You haven't placed any orders yet.</p>
+                  <a href="/" class="btn btn-primary">Start Shopping</a>
                 </div>
-                <div class="order-total">$89.99</div>
-                <div class="order-actions">
-                  <a href="#" class="btn btn-secondary">View Details</a>
-                </div>
-              </div>
-              <div class="order-item">
-                <div class="order-info">
-                  <div class="order-number">Order #12344</div>
-                  <div class="order-date">March 10, 2024</div>
-                  <div class="order-status">Shipped</div>
-                </div>
-                <div class="order-total">$156.50</div>
-                <div class="order-actions">
-                  <a href="#" class="btn btn-secondary">View Details</a>
-                </div>
-              </div>
+              {% endif %}
             </div>
           </div>
 
@@ -114,18 +148,43 @@
           <div class="account-section" id="addresses-section">
             <h2 class="section-title">Addresses</h2>
             <div class="addresses-list">
-              <div class="address-item">
-                <div class="address-info">
-                  <h3>Home Address</h3>
-                  <p>123 Main Street<br>New York, NY 10001<br>United States</p>
+              {% if customer.addresses.size > 0 %}
+                {% for address in customer.addresses %}
+                  <div class="address-item">
+                    <div class="address-info">
+                      <h3>
+                        {% if address == customer.default_address %}
+                          Default Address
+                        {% else %}
+                          Address {{ forloop.index }}
+                        {% endif %}
+                      </h3>
+                      <p>
+                        {{ address.first_name }} {{ address.last_name }}<br>
+                        {{ address.address1 }}<br>
+                        {% if address.address2 != blank %}{{ address.address2 }}<br>{% endif %}
+                        {{ address.city }}, {{ address.province }} {{ address.zip }}<br>
+                        {{ address.country }}
+                      </p>
+                    </div>
+                    <div class="address-actions">
+                      <a href="/account/addresses/{{ address.id }}" class="btn btn-secondary">Edit</a>
+                      {% unless address == customer.default_address %}
+                        <form method="post" action="/account/addresses/{{ address.id }}" style="display: inline;">
+                          <input type="hidden" name="_method" value="delete">
+                          <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this address?')">Delete</button>
+                        </form>
+                      {% endunless %}
+                    </div>
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="empty-addresses">
+                  <p>You haven't added any addresses yet.</p>
                 </div>
-                <div class="address-actions">
-                  <button class="btn btn-secondary">Edit</button>
-                  <button class="btn btn-danger">Delete</button>
-                </div>
-              </div>
+              {% endif %}
             </div>
-            <button class="btn btn-primary address-add-btn">Add New Address</button>
+            <a href="/account/addresses/new" class="btn btn-primary address-add-btn">Add New Address</a>
           </div>
 
           <!-- Wishlist Section -->
@@ -140,35 +199,148 @@
           <!-- Settings Section -->
           <div class="account-section" id="settings-section">
             <h2 class="section-title">Account Settings</h2>
-            <div class="settings-form">
-              <div class="form-group">
-                <label for="notifications">Email Notifications</label>
-                <input
-                  type="checkbox"
-                  id="notifications"
-                  checked>
+            {% form 'customer' %}
+              {% if form.errors %}
+                <div class="form-errors">
+                  <h4>Please correct the following errors:</h4>
+                  <ul>
+                    {% for field in form.errors %}
+                      <li>{{ field | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+
+              {% if form.posted_successfully? %}
+                <div class="form-success">
+                  <p>Your settings have been updated successfully!</p>
+                </div>
+              {% endif %}
+
+              <div class="settings-form">
+                <div class="form-group">
+                  <label for="customer_accepts_marketing">Email Marketing</label>
+                  <input
+                    type="checkbox"
+                    id="customer_accepts_marketing"
+                    name="customer[accepts_marketing]"
+                    value="1"
+                    {% if customer.accepts_marketing %}checked{% endif %}>
+                </div>
+                <button type="submit" class="btn btn-primary settings-save-btn">Save Settings</button>
               </div>
-              <div class="form-group">
-                <label for="newsletter">Newsletter</label>
-                <input
-                  type="checkbox"
-                  id="newsletter"
-                  checked>
-              </div>
-              <button class="btn btn-primary settings-save-btn">Save Settings</button>
-            </div>
+            {% endform %}
           </div>
         </main>
       </div>
     </div>
   </div>
 </div>
+{% endunless %}
 
 <style>
   /* Account Page Styles */
   .account-page {
     min-height: 100vh;
     padding: 4rem 0;
+  }
+
+  /* Login Required Styles */
+  .account-login-required {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+  }
+
+  .login-prompt {
+    text-align: center;
+    background: var(--white);
+    padding: 4rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    max-width: 50rem;
+  }
+
+  .login-prompt h1 {
+    font-size: 3.6rem;
+    margin-bottom: 2rem;
+    color: var(--gray-700);
+    background: linear-gradient(135deg, #dc2626, #000000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .login-prompt p {
+    font-size: 1.6rem;
+    color: var(--gray-500);
+    margin-bottom: 3rem;
+  }
+
+  .login-prompt .btn {
+    margin: 0 1rem;
+  }
+
+  /* Form Messages */
+  .form-errors {
+    background: #fef2f2;
+    border: 2px solid #fecaca;
+    border-radius: 1.2rem;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    color: #dc2626;
+  }
+
+  .form-errors h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #dc2626;
+  }
+
+  .form-errors ul {
+    margin: 0;
+    padding-left: 2rem;
+    list-style-type: disc;
+  }
+
+  .form-errors li {
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+  }
+
+  .form-success {
+    background: #f0fdf4;
+    border: 2px solid #bbf7d0;
+    border-radius: 1.2rem;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    color: #16a34a;
+  }
+
+  .form-success p {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  /* Empty States */
+  .empty-orders,
+  .empty-addresses {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--gray-100);
+    border-radius: 1.2rem;
+    border: 1px solid var(--gray-200);
+  }
+
+  .empty-orders p,
+  .empty-addresses p {
+    font-size: 1.6rem;
+    color: var(--gray-500);
+    margin-bottom: 2rem;
   }
 
   .page-header {

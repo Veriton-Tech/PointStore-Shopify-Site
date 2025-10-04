@@ -61,11 +61,22 @@
                              name="updates[{{ item.key }}]" 
                              value="{{ item.quantity }}" 
                              min="0" 
-                             max="10" 
+                             max="{{ item.variant.inventory_quantity | default: 999 }}" 
                              class="quantity-input"
-                             data-item-key="{{ item.key }}">
+                             data-item-key="{{ item.key }}"
+                             data-stock="{{ item.variant.inventory_quantity | default: 999 }}"
+                             data-variant-id="{{ item.variant.id }}">
                       <button type="button" class="quantity-btn" data-action="increase" data-item-key="{{ item.key }}">+</button>
                     </div>
+                    {% if item.variant.inventory_quantity and item.variant.inventory_quantity <= 10 %}
+                      <div class="stock-warning">
+                        {% if item.variant.inventory_quantity <= 3 %}
+                          <span class="stock-low">Only {{ item.variant.inventory_quantity }} left!</span>
+                        {% elsif item.variant.inventory_quantity <= 10 %}
+                          <span class="stock-medium">{{ item.variant.inventory_quantity }} in stock</span>
+                        {% endif %}
+                      </div>
+                    {% endif %}
                   </div>
 
                   <div class="cart-item-total">
@@ -378,6 +389,40 @@
   font-weight: 600;
 }
 
+.stock-warning {
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.stock-low {
+  color: #dc2626;
+  padding: 0.4rem 0.8rem;
+  background: rgba(220, 38, 38, 0.1);
+  border-radius: 0.4rem;
+  display: inline-block;
+}
+
+.stock-medium {
+  color: #d97706;
+  padding: 0.4rem 0.8rem;
+  background: rgba(217, 119, 6, 0.1);
+  border-radius: 0.4rem;
+  display: inline-block;
+}
+
+.quantity-error {
+  margin-top: 0.8rem;
+  color: #dc2626;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 0.4rem 0.8rem;
+  background: rgba(220, 38, 38, 0.1);
+  border-radius: 0.4rem;
+  display: none;
+}
+
 .cart-item-total {
   text-align: center;
   font-size: 1.6rem;
@@ -660,84 +705,418 @@ document.addEventListener('DOMContentLoaded', function() {
   const quantityInputs = document.querySelectorAll('.quantity-input');
   
   quantityButtons.forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
       const action = this.dataset.action;
       const itemKey = this.dataset.itemKey;
       const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
-      const currentValue = parseInt(input.value);
+      const currentValue = parseInt(input.value) || 0;
+      const maxStock = parseInt(input.dataset.stock) || 999;
       
-      if (action === 'increase' && currentValue < 10) {
-        input.value = currentValue + 1;
-        updateCart();
+      if (action === 'increase') {
+        if (currentValue < maxStock) {
+          input.value = currentValue + 1;
+          updateCartItem(itemKey, currentValue + 1);
+          hideQuantityError(itemKey);
+        } else {
+          showQuantityError(itemKey, `Maximum available quantity is ${maxStock}`);
+        }
       } else if (action === 'decrease' && currentValue > 1) {
         input.value = currentValue - 1;
-        updateCart();
+        updateCartItem(itemKey, currentValue - 1);
+        hideQuantityError(itemKey);
       }
     });
   });
   
-  // Remove item
+  // Handle quantity input changes
+  quantityInputs.forEach(input => {
+    input.addEventListener('change', function() {
+      const itemKey = this.dataset.itemKey;
+      const quantity = parseInt(this.value) || 0;
+      const maxStock = parseInt(this.dataset.stock) || 999;
+      
+      if (quantity === 0) {
+        hideQuantityError(itemKey);
+        removeCartItem(itemKey);
+      } else if (quantity > maxStock) {
+        this.value = maxStock;
+        showQuantityError(itemKey, `Maximum available quantity is ${maxStock}. Quantity adjusted.`);
+        updateCartItem(itemKey, maxStock);
+      } else {
+        hideQuantityError(itemKey);
+        updateCartItem(itemKey, quantity);
+      }
+    });
+    
+    // Also validate on input (while typing)
+    input.addEventListener('input', function() {
+      const quantity = parseInt(this.value) || 0;
+      const maxStock = parseInt(this.dataset.stock) || 999;
+      const itemKey = this.dataset.itemKey;
+      
+      if (quantity > maxStock) {
+        showQuantityError(itemKey, `Only ${maxStock} available in stock`);
+      } else {
+        hideQuantityError(itemKey);
+      }
+    });
+  });
+  
+  // Show quantity error
+  function showQuantityError(itemKey, message) {
+    const cartItem = document.querySelector(`[data-item-key="${itemKey}"]`);
+    if (cartItem) {
+      let errorElement = cartItem.querySelector('.quantity-error');
+      
+      if (!errorElement) {
+        errorElement = document.createElement('div');
+        errorElement.className = 'quantity-error';
+        const quantityDiv = cartItem.querySelector('.cart-item-quantity');
+        quantityDiv.appendChild(errorElement);
+      }
+      
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+      
+      // Hide error after 3 seconds
+      setTimeout(() => {
+        hideQuantityError(itemKey);
+      }, 3000);
+    }
+  }
+  
+  // Hide quantity error
+  function hideQuantityError(itemKey) {
+    const cartItem = document.querySelector(`[data-item-key="${itemKey}"]`);
+    if (cartItem) {
+      const errorElement = cartItem.querySelector('.quantity-error');
+      if (errorElement) {
+        errorElement.style.display = 'none';
+      }
+    }
+  }
+  
+  // Validate stock before cart update
+  function validateStock(itemKey, requestedQuantity) {
+    const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
+    const maxStock = parseInt(input.dataset.stock) || 999;
+    
+    if (requestedQuantity > maxStock) {
+      showQuantityError(itemKey, `Only ${maxStock} items available in stock`);
+      return false;
+    }
+    return true;
+  }
+  // Remove item buttons
   const removeButtons = document.querySelectorAll('.remove-item-btn');
   
   removeButtons.forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
       const itemKey = this.dataset.itemKey;
-      const cartItem = document.querySelector(`[data-item-key="${itemKey}"]`);
       
-      if (confirm('Are you sure you want to remove this item?')) {
-        cartItem.style.opacity = '0.5';
+      if (confirm('Are you sure you want to remove this item from your cart?')) {
+        removeCartItem(itemKey);
+      }
+    });
+  });
+  
+  // Update individual cart item
+  function updateCartItem(itemKey, quantity) {
+    // Validate stock before updating
+    if (!validateStock(itemKey, quantity)) {
+      const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
+      const maxStock = parseInt(input.dataset.stock) || 999;
+      input.value = Math.min(quantity, maxStock);
+      return;
+    }
+    
+    const cartItem = document.querySelector(`[data-item-key="${itemKey}"]`);
+    if (cartItem) {
+      cartItem.style.opacity = '0.7';
+    }
+    
+    const updates = {};
+    updates[itemKey] = quantity;
+    
+    fetch('/cart/update.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ updates: updates })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (cartItem) {
+        cartItem.style.opacity = '1';
+      }
+      
+      // Update cart totals and counts
+      updateCartDisplay(data);
+      
+      // Show success notification
+      showNotification('Cart updated successfully!', 'success');
+    })
+    .catch(error => {
+      console.error('Error updating cart:', error);
+      if (cartItem) {
+        cartItem.style.opacity = '1';
+      }
+      
+      // Check if it's a stock error
+      if (error.message && error.message.includes('stock')) {
+        const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
+        const currentStock = parseInt(input.dataset.stock) || 999;
+        showQuantityError(itemKey, `Only ${currentStock} items available`);
+        input.value = currentStock;
+      } else {
+        showNotification('Failed to update cart. Please try again.', 'error');
+      }
+    });
+  }
+  
+  // Remove cart item completely
+  function removeCartItem(itemKey) {
+    const cartItem = document.querySelector(`[data-item-key="${itemKey}"]`);
+    if (cartItem) {
+      cartItem.style.opacity = '0.5';
+      cartItem.style.transform = 'translateX(-20px)';
+    }
+    
+    const updates = {};
+    updates[itemKey] = 0;
+    
+    fetch('/cart/update.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ updates: updates })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Remove the item from DOM
+      if (cartItem) {
+        cartItem.style.transition = 'all 0.3s ease';
+        cartItem.style.opacity = '0';
         cartItem.style.transform = 'translateX(-100%)';
         
         setTimeout(() => {
           cartItem.remove();
-          updateCart();
+          
+          // Check if cart is now empty
+          if (data.item_count === 0) {
+            window.location.reload();
+          }
         }, 300);
       }
-    });
-  });
-  
-  // Update cart
-  function updateCart() {
-    const form = document.querySelector('.cart-form');
-    const formData = new FormData(form);
-    
-    fetch('/cart/update.js', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Update cart count in header
-      const cartCount = document.querySelector('.cart-count');
-      if (cartCount) {
-        cartCount.textContent = `${data.item_count} item${data.item_count !== 1 ? 's' : ''}`;
-      }
       
-      // Update totals
-      updateTotals(data);
+      // Update cart display
+      updateCartDisplay(data);
+      
+      // Show success notification
+      showNotification('Item removed from cart!', 'success');
     })
     .catch(error => {
-      console.error('Error updating cart:', error);
+      console.error('Error removing item:', error);
+      if (cartItem) {
+        cartItem.style.opacity = '1';
+        cartItem.style.transform = 'translateX(0)';
+      }
+      showNotification('Failed to remove item. Please try again.', 'error');
     });
   }
   
-  function updateTotals(cartData) {
+  // Update cart display with new data
+  function updateCartDisplay(cartData) {
+    // Update cart count in header
+    const headerCartCount = document.querySelector('.header .cart-count');
+    if (headerCartCount) {
+      headerCartCount.textContent = cartData.item_count;
+    }
+    
+    // Update page cart count
+    const pageCartCount = document.querySelector('.cart-count');
+    if (pageCartCount) {
+      pageCartCount.textContent = `${cartData.item_count} item${cartData.item_count !== 1 ? 's' : ''}`;
+    }
+    
     // Update individual item totals
     cartData.items.forEach(item => {
       const itemElement = document.querySelector(`[data-item-key="${item.key}"]`);
       if (itemElement) {
         const totalElement = itemElement.querySelector('.item-total');
+        const inputElement = itemElement.querySelector('.quantity-input');
+        
         if (totalElement) {
           totalElement.textContent = `$${(item.final_line_price / 100).toFixed(2)}`;
+        }
+        
+        if (inputElement) {
+          inputElement.value = item.quantity;
         }
       }
     });
     
-    // Update cart total
-    const summaryValue = document.querySelector('.summary-line.total .summary-value');
-    if (summaryValue) {
-      summaryValue.textContent = `$${(cartData.total_price / 100).toFixed(2)}`;
+    // Update cart subtotal and total
+    const subtotalElement = document.querySelector('.summary-line:not(.total) .summary-value');
+    const totalElement = document.querySelector('.summary-line.total .summary-value');
+    
+    if (subtotalElement) {
+      subtotalElement.textContent = `$${(cartData.total_price / 100).toFixed(2)}`;
     }
+    
+    if (totalElement) {
+      totalElement.textContent = `$${(cartData.total_price / 100).toFixed(2)}`;
+    }
+  }
+  
+  // Show notification
+  function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+      <div class="notification-content">
+        <span class="notification-message">${message}</span>
+        <button class="notification-close">&times;</button>
+      </div>
+    `;
+    
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 99999;
+      max-width: 400px;
+      padding: 0;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+      animation: slideInRight 0.4s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #ef4444, #dc2626)'};
+      color: white;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.remove();
+          }
+        }, 300);
+      }
+    }, 4000);
+    
+    // Manual close
+    const closeBtn = notification.querySelector('.notification-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.remove();
+          }
+        }, 300);
+      });
+    }
+  }
+  
+  // Handle cart form submission (Update Cart button)
+  const cartForm = document.querySelector('.cart-form');
+  if (cartForm) {
+    cartForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const updates = {};
+      let hasStockErrors = false;
+      
+      // Collect and validate all quantity updates
+      for (let [key, value] of formData.entries()) {
+        if (key.startsWith('updates[')) {
+          const itemKey = key.match(/updates\[(.+)\]/)[1];
+          const requestedQuantity = parseInt(value) || 0;
+          
+          // Validate stock
+          const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
+          const maxStock = parseInt(input.dataset.stock) || 999;
+          
+          if (requestedQuantity > maxStock) {
+            showQuantityError(itemKey, `Only ${maxStock} items available`);
+            input.value = maxStock;
+            updates[itemKey] = maxStock;
+            hasStockErrors = true;
+          } else {
+            updates[itemKey] = requestedQuantity;
+            hideQuantityError(itemKey);
+          }
+        }
+      }
+      
+      if (hasStockErrors) {
+        showNotification('Some quantities were adjusted due to stock limitations', 'error');
+        return;
+      }
+      
+      // Show loading state
+      const updateBtn = this.querySelector('button[name="update"]');
+      const originalText = updateBtn.textContent;
+      updateBtn.textContent = 'Updating...';
+      updateBtn.disabled = true;
+      
+      fetch('/cart/update.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ updates: updates })
+      })
+      .then(response => response.json())
+      .then(data => {
+        updateCartDisplay(data);
+        showNotification('Cart updated successfully!', 'success');
+        
+        // Remove items with 0 quantity from DOM
+        Object.keys(updates).forEach(itemKey => {
+          if (updates[itemKey] === 0) {
+            const cartItem = document.querySelector(`[data-item-key="${itemKey}"]`);
+            if (cartItem) {
+              cartItem.style.transition = 'all 0.3s ease';
+              cartItem.style.opacity = '0';
+              cartItem.style.transform = 'translateX(-100%)';
+              
+              setTimeout(() => {
+                cartItem.remove();
+              }, 300);
+            }
+          }
+        });
+        
+        // Check if cart is empty
+        if (data.item_count === 0) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        }
+      })
+      .catch(error => {
+        console.error('Error updating cart:', error);
+        showNotification('Failed to update cart. Please try again.', 'error');
+      })
+      .finally(() => {
+        updateBtn.textContent = originalText;
+        updateBtn.disabled = false;
+      });
+    });
   }
   
   // Promo code
@@ -751,6 +1130,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (promoCode) {
         // Apply promo code logic would go here
         console.log('Applying promo code:', promoCode);
+        showNotification('Promo code feature coming soon!', 'success');
         promoInput.value = '';
       }
     });
@@ -764,5 +1144,56 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Add notification styles
+const notificationStyles = `
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .notification .notification-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+  }
+  
+  .notification .notification-message {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  
+  .notification .notification-close {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: 15px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    border-radius: 4px;
+  }
+  
+  .notification .notification-close:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+// Inject notification styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = notificationStyles;
+document.head.appendChild(styleSheet);
 </script>
 
