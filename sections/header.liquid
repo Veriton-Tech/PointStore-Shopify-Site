@@ -1591,6 +1591,15 @@ document.addEventListener('DOMContentLoaded', function() {
     display: none;
   }
 
+  .hero-next, .hero-prev{
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+
+  .hero-nav{
+    padding: 1rem !important;
+  }
+
   .dropdown-menu {
     min-width: 30rem;
     padding: 2rem;
@@ -1618,6 +1627,35 @@ document.addEventListener('DOMContentLoaded', function() {
     width: 4rem;
     height: 4rem;
   }
+
+  .navbar-nav{
+    display: flex;
+    flex-direction: row;
+    padding: 0.2rem 1rem;
+    overflow-x: scroll;
+  
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+  }
+
+  .navbar-nav::-webkit-scrollbar{
+    display: none;
+  }
+  
+  .mega-dropdown{
+    display: none; 
+  }
+
+  .nav-link{
+    padding: 0.5rem 1.2rem;
+  }
+
+  .nav-link{
+    min-width: max-content;
+    font-size: 12px;
+  }
+
+
 }
 
 @media (max-width: 480px) {
@@ -1666,6 +1704,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   .mobile-subcategory-list a {
     font-size: 1.3rem;
+  }
+  
+  .category-container{
+    padding: 0 !important;
   }
 }
 

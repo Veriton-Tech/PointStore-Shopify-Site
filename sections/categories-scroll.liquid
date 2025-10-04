@@ -3,7 +3,7 @@
 {% endcomment %}
 
 <section class="categories-scroll-section">
-  <div class="container">
+  <div class="container category-container">
     <div class="categories-header">
       <h2 class="categories-title">Shop by Category</h2>
       <p class="categories-subtitle">Explore our curated collections</p>
@@ -91,7 +91,7 @@
         <div class="category-item">
           <a href="/collections/all" class="category-link">
             <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1506629905607-1a0b0b0b0b0b?w=300&h=300&fit=crop&crop=center" alt="Men's Pants">
+              <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=697&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Men's Pants">
               <div class="category-overlay">
                 <span class="category-count">40+ Items</span>
               </div>
@@ -107,7 +107,7 @@
         <div class="category-item">
           <a href="/collections/all" class="category-link">
             <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1506629905607-1a0b0b0b0b0b?w=300&h=300&fit=crop&crop=center" alt="Kids Fashion">
+              <img src="https://plus.unsplash.com/premium_photo-1675183689638-a68fe7048da9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Kids Fashion">
               <div class="category-overlay">
                 <span class="category-count">80+ Items</span>
               </div>
@@ -297,6 +297,7 @@
   height: 24rem;
   overflow: hidden;
   border-radius: 1.5rem 1.5rem 0 0;
+  margin: auto;
 }
 
 .category-image img {
@@ -417,19 +418,35 @@
   }
 
   .categories-title {
-    font-size: 3.6rem;
+    font-size: 2.5rem;
   }
 
   .categories-subtitle {
-    font-size: 1.8rem;
+    font-size: 1.2rem;
+  }
+
+  .categories-header{
+    margin-bottom: 2rem;
   }
 
   .category-item {
-    flex: 0 0 28rem;
+    flex: 0 0 15rem;
   }
 
   .category-image {
-    height: 20rem;
+    height: 15rem;
+    width: 15rem;
+    border-radius: 50%;
+  }
+
+  .category-content {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: transparent;
+  }
+
+  .category-description {
+    display: none;
   }
 
   .scroll-btn {
@@ -440,6 +457,36 @@
     padding: 1rem;
     margin: 0 -1rem;
     gap: 2rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    width: 100%;
+  }
+  
+  .categories-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .category-item {
+    scroll-snap-align: center;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+  }
+  
+  .category-item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .category-overlay {
+    display: none;
+  }
+  
+  .category-name {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    margin-bottom: 0;
   }
 }
 
@@ -449,35 +496,34 @@
   }
 
   .categories-title {
-    font-size: 3rem;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
   }
 
   .categories-subtitle {
-    font-size: 1.6rem;
+    font-size: 1rem;
   }
 
   .category-item {
-    flex: 0 0 25rem;
+    flex: 0 0 12rem;
   }
 
   .category-image {
-    height: 18rem;
+    height: 10rem;
+    width: 10rem;
   }
 
   .category-content {
-    padding: 2rem;
+    padding: 1rem 0.5rem;
   }
 
   .category-name {
-    font-size: 2rem;
-  }
-
-  .category-description {
     font-size: 1.4rem;
   }
 
   .categories-scroll {
-    gap: 1.5rem;
+    gap: 1rem;
+    /* padding: 0.5rem; */
   }
 }
 
