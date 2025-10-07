@@ -38,25 +38,45 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+body {
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
 .privacy-policy-page {
   max-width: 820px;
   margin: 4rem auto;
   padding: 2.5rem 2rem;
-  background: var(--white, #fff);
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
   border-radius: 1.2rem;
-  box-shadow: 0 2px 18px rgba(0,0,0,0.09);
+  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 2px 18px rgba(0,0,0,0.09);
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-  color: var(--gray-800, #222);
+  color: #1a1a1a;
   position: relative;
   animation: fadeIn 0.7s;
+  border: 1px solid rgba(255, 136, 0, 0.1);
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(30px);}
   to { opacity: 1; transform: translateY(0);}
 }
 .back-btn {
-  color: var(--primary-light);
-  border: none;
+  color: #ff8800;
+  border: 2px solid #ff8800;
   border-radius: 0.5rem;
   padding: 0.7rem 1.5rem;
   font-size: 1.1rem;
@@ -66,11 +86,15 @@
   align-items: center;
   gap: 0.7rem;
   transition: all 0.2s;
-  background: transparent;
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  font-weight: 600;
 }
 .back-btn:hover {
   gap: 1rem;
   transform: translateX(-0.4rem);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
 }
 .page-title {
   font-size: 2.6rem;
@@ -78,24 +102,30 @@
   text-align: center;
   font-weight: 700;
   letter-spacing: 0.03em;
-  text-shadow: 0 2px 8px rgba(45,124,255,0.08);
-  background: linear-gradient(135deg, #dc2626, #000000);
-  color: white;
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 8px rgba(255, 136, 0, 0.2);
   padding: 10px 0px;
 }
 .policy-section {
   margin-bottom: 2.5rem;
-  background: var(--gray-50, #f7f8fa);
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
   border-radius: 0.7rem;
   padding: 1.5rem 1.2rem;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-  border-left: 5px solid var(--primary-light, #2d7cff);
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.1), 0 1px 6px rgba(0,0,0,0.04);
+  border-left: 5px solid #ff8800;
   animation: fadeIn 1s;
+  border: 1px solid rgba(255, 136, 0, 0.2);
 }
 .policy-section h2 {
   font-size: 1.6rem;
   margin-bottom: 1rem;
-  color: var(--primary-light, #2d7cff);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -104,13 +134,14 @@
 .policy-section p {
   font-size: 1.15rem;
   margin-bottom: 1rem;
-  color: var(--gray-700, #444);
+  color: #1a1a1a;
+  line-height: 1.6;
 }
 .policy-section ul {
   margin-left: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 1.08rem;
-  color: var(--gray-700, #444);
+  color: #1a1a1a;
   padding-left: 0;
 }
 .policy-section li {
@@ -120,10 +151,12 @@
   display: flex;
   align-items: center;
   gap: 0.7rem;
+  padding: 0.3rem 0;
 }
 .policy-section li i {
-  color: var(--primary-light, #2d7cff);
+  color: #ff8800;
   font-size: 1.1rem;
+  text-shadow: 0 1px 3px rgba(255, 136, 0, 0.3);
 }
 @media (max-width: 600px) {
   .privacy-policy-page {

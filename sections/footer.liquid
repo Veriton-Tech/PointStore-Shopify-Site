@@ -15,7 +15,10 @@
               alt="{{ shop.name }}"
               class="footer-logo-image">
           {% else %}
-            <h3 class="footer-logo-text">{{ shop.name }}</h3>
+            <img
+              src="{{ 'logo.jpg' | asset_url }}"
+              alt="{{ shop.name }}"
+              class="footer-logo-image">
           {% endif %}
         </div>
         <p class="footer-description">
@@ -176,11 +179,22 @@
 <style>
   /* Footer Styles */
   .footer {
-    background: linear-gradient(135deg, #dc2626 0%, #000000 100%);
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
     color: var(--white);
     padding: 6rem 0 2rem;
     position: relative;
     overflow: hidden;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="footer-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ff8800" opacity="0.05"/><rect x="15" y="15" width="10" height="10" fill="none" stroke="%23ff8800" stroke-width="0.2" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23footer-pattern)"/></svg>');
+    pointer-events: none;
   }
 
   .footer-content {
@@ -222,7 +236,7 @@
   }
 
   .footer-description {
-    color: var(--white);
+    color: #f5f5dc;
     line-height: 1.6;
     margin-bottom: 2rem;
     font-size: 1.4rem;
@@ -253,10 +267,10 @@
   }
 
   .social-link:hover {
-    background: var(--primary-light);
-    border-color: var(--primary-light);
+    background: #ff8800;
+    border-color: #ff8800;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 136, 0, 0.3);
   }
 
   .social-link .icon {
@@ -282,7 +296,7 @@
   }
 
   .footer-links a:hover {
-    color: var(--primary-light);
+    color: #ff8800;
   }
 
   .footer-payment {
@@ -317,7 +331,7 @@
 
   .payment-method:hover {
     background: var(--gray-700);
-    border-color: var(--primary-light);
+    border-color: #ff8800;
     transform: translateY(-2px);
   }
 
@@ -339,7 +353,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+    background: linear-gradient(90deg, transparent, #ff8800, transparent);
     opacity: 0.3;
   }
 
@@ -368,12 +382,12 @@
   }
 
   .footer-legal a:hover {
-    color: var(--primary-light);
-    text-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
+    color: #ff8800;
+    text-shadow: 0 0 8px rgba(255, 136, 0, 0.3);
   }
 
   .footer-content .footer-section:not(:first-child) a:hover {
-    color: var(--primary-light);
+    color: #ff8800;
     text-shadow: 1px 1px 5px rgb(0, 0, 0);
   }
 

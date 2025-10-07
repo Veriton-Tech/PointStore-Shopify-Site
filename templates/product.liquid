@@ -164,7 +164,7 @@
               </span>
             </button>
             
-            <button type="button" class="btn btn-secondary btn-lg wishlist-btn" data-product-id="{{ product.id }}">
+            <button type="button" class="btn btn-primary btn-lg wishlist-btn" data-product-id="{{ product.id }}">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
               </svg>
@@ -264,20 +264,52 @@
 /* Product Page Styles */
 .product-page {
   padding: 4rem 0;
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 50%, #f5f5dc 100%);
+  min-height: 100vh;
+  position: relative;
+}
+
+.product-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
 }
 
 .product-breadcrumb {
   margin-bottom: 3rem;
   font-size: 1.4rem;
-  color: var(--gray-500);
+  color: #666666;
+}
+
+.product-breadcrumb a {
+  color: #ff8800;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.product-breadcrumb a:hover {
+  color: #ff6600;
 }
 
 .breadcrumb-separator {
   margin: 0 1rem;
+  color: #999999;
 }
 
 .breadcrumb-current {
-  color: var(--gray-700);
+  color: #333333;
   font-weight: 500;
 }
 
@@ -300,10 +332,11 @@
   margin-bottom: 2rem;
   border-radius: 1.2rem;
   overflow: hidden;
-  box-shadow: 0 8px 30px var(--shadow-strong);
+  box-shadow: 0 8px 30px rgba(255, 136, 0, 0.15);
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
+  border: 2px solid rgba(255, 136, 0, 0.1);
 }
 
 .product-main-img {
@@ -325,16 +358,18 @@
   border-radius: 2rem;
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--white);
+  color: #ffffff;
   z-index: 2;
 }
 
 .product-badge.sale {
-  background: var(--primary-light);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
 }
 
 .product-badge.new {
-  background: var(--success);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
 }
 
 .product-thumbnails {
@@ -358,7 +393,8 @@
 
 .product-thumbnail:hover,
 .product-thumbnail.active {
-  border-color: var(--primary-light);
+  border-color: #ff8800;
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.2);
 }
 
 .thumbnail-img {
@@ -379,8 +415,12 @@
 .product-title {
   font-size: 3.6rem;
   margin-bottom: 1rem;
-  color: var(--gray-700);
+  color: #1a1a1a;
   line-height: 1.2;
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .product-rating {
@@ -390,12 +430,12 @@
 }
 
 .product-stars {
-  color: var(--warning);
+  color: #ffa500;
   font-size: 1.6rem;
 }
 
 .product-reviews {
-  color: var(--gray-500);
+  color: #666666;
   font-size: 1.4rem;
 }
 
@@ -406,30 +446,31 @@
 .product-price-current {
   font-size: 3.2rem;
   font-weight: 700;
-  color: var(--primary-light);
+  color: #ff8800;
 }
 
 .product-price-original {
   font-size: 2.4rem;
-  color: var(--gray-400);
+  color: #999999;
   text-decoration: line-through;
   margin-left: 1rem;
 }
 
 .product-discount {
   display: inline-block;
-  background: var(--primary-light);
-  color: var(--white);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: #ffffff;
   padding: 0.4rem 0.8rem;
   border-radius: 1rem;
   font-size: 1.2rem;
   font-weight: 600;
   margin-left: 1rem;
+  box-shadow: 0 2px 8px rgba(255, 136, 0, 0.3);
 }
 
 .product-description {
   margin-bottom: 3rem;
-  color: var(--gray-500);
+  color: #666666;
   line-height: 1.6;
 }
 
@@ -445,7 +486,7 @@
 .option-label {
   font-size: 1.6rem;
   margin-bottom: 1rem;
-  color: var(--gray-700);
+  color: #333333;
   font-weight: 600;
 }
 
@@ -457,9 +498,9 @@
 
 .option-value {
   padding: 1rem 1.6rem;
-  border: 2px solid var(--gray-200);
+  border: 2px solid #e5e5e5;
   border-radius: 0.8rem;
-  background: var(--white);
+  background: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1.4rem;
@@ -469,21 +510,21 @@
 }
 
 .option-value:hover {
-  border-color: var(--primary-light);
-  color: var(--primary-light);
+  border-color: #ff8800;
+  color: #ff8800;
 }
 
 .option-value.selected {
-  background: var(--primary-light);
-  border-color: var(--primary-light);
-  color: var(--white);
+  background: #ff8800;
+  border-color: #ff8800;
+  color: #ffffff;
 }
 
 .color-swatch {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  border: 2px solid var(--gray-200);
+  border: 2px solid #e5e5e5;
 }
 
 .product-quantity {
@@ -493,7 +534,7 @@
 .quantity-label {
   font-size: 1.6rem;
   margin-bottom: 1rem;
-  color: var(--gray-700);
+  color: #333333;
   font-weight: 600;
 }
 
@@ -506,8 +547,8 @@
 .quantity-btn {
   width: 4rem;
   height: 4rem;
-  border: 2px solid var(--gray-200);
-  background: var(--white);
+  border: 2px solid #e5e5e5;
+  background: #ffffff;
   border-radius: 0.8rem;
   cursor: pointer;
   font-size: 1.8rem;
@@ -516,14 +557,14 @@
 }
 
 .quantity-btn:hover {
-  border-color: var(--primary-light);
-  color: var(--primary-light);
+  border-color: #ff8800;
+  color: #ff8800;
 }
 
 .quantity-input {
   width: 8rem;
   height: 4rem;
-  border: 2px solid var(--gray-200);
+  border: 2px solid #e5e5e5;
   border-radius: 0.8rem;
   text-align: center;
   font-size: 1.6rem;
@@ -546,7 +587,7 @@
 
 /* Product Details */
 .product-details {
-  border-top: 1px solid var(--gray-200);
+  border-top: 1px solid #e5e5e5;
   padding-top: 3rem;
 }
 
@@ -554,7 +595,7 @@
   display: flex;
   gap: 2rem;
   margin-bottom: 3rem;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .tab-btn {
@@ -565,14 +606,14 @@
   cursor: pointer;
   font-size: 1.4rem;
   font-weight: 500;
-  color: var(--gray-500);
+  color: #666666;
   transition: all 0.3s ease;
 }
 
 .tab-btn:hover,
 .tab-btn.active {
-  color: var(--primary-light);
-  border-bottom-color: var(--primary-light);
+  color: #ff8800;
+  border-bottom-color: #ff8800;
 }
 
 .tab-panel {
@@ -590,7 +631,7 @@
 
 .product-specs li {
   padding: 1rem 0;
-  border-bottom: 1px solid var(--gray-150);
+  border-bottom: 1px solid #f0f0f0;
   display: flex;
   justify-content: space-between;
 }

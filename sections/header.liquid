@@ -23,8 +23,7 @@
             {% if settings.logo != blank %}
               <img src="{{ settings.logo | img_url: '200x' }}" alt="{{ shop.name }}" class="logo-image">
             {% else %}
-              {% comment %} <span class="logo-text">{{ shop.name }}</span> {% endcomment %}
-              <span class="logo-text">Logo</span>
+              <img src="{{ 'logo.jpg' | asset_url }}" alt="{{ shop.name }}" class="logo-image">
             {% endif %}
           </a>
         </div>
@@ -116,7 +115,7 @@
                 </a>
               {% else %}
                 <!-- Guest user options -->
-                <a href="/pages/signin" class="account-dropdown-link">
+                <a href="/pages/signin" class="account-dropdown-link account-signin" aria-label="Sign in">
                   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
                     <polyline points="10,17 15,12 10,7"></polyline>
@@ -124,7 +123,7 @@
                   </svg>
                   Sign In
                 </a>
-                <a href="/account/register" class="account-dropdown-link">
+                <a href="/pages/create-account" class="account-dropdown-link">
                   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                     <circle cx="8.5" cy="7" r="4"></circle>
@@ -133,6 +132,7 @@
                   </svg>
                   Create Account
                 </a>
+                <!-- Forgot Password removed per request -->
               {% endif %}
             </div>
           </div>
@@ -736,13 +736,25 @@ document.addEventListener('DOMContentLoaded', function() {
 <style>
 /* Header Styles */
 .header {
-  background: var(--black);
+  background: linear-gradient(135deg, #000000, #1a1a1a);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+  border-bottom: 2px solid #ff8800;
+}
+
+/* Ensure main content doesn't get hidden behind sticky header */
+.header + main,
+#MainContent {
+  position: relative;
+}
+
+/* Specific spacing for hero banner when it's the first element */
+.hero-banner-section {
+  position: relative;
+  z-index: 1;
 }
 
 .header-main {
@@ -770,7 +782,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .mobile-menu-toggle:hover {
-  background: var(--gray-800);
+  background: linear-gradient(135deg, rgba(255, 136, 0, 0.2), rgba(255, 102, 0, 0.1));
 }
 
 .hamburger-line {
@@ -837,10 +849,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .search-input:focus {
   outline: none;
-  border-color: var(--primary-light);
+  border-color: #ff8800;
   background: var(--gray-700);
   color: var(--white);
-  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.2);
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
   transform: translateY(-1px);
 }
 
@@ -859,7 +871,7 @@ document.addEventListener('DOMContentLoaded', function() {
   right: 0.8rem;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--primary-light);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   border: none;
   width: 4.4rem;
   height: 4.4rem;
@@ -870,13 +882,13 @@ document.addEventListener('DOMContentLoaded', function() {
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 136, 0, 0.3);
 }
 
 .search-btn:hover {
-  background: var(--primary-med);
+  background: linear-gradient(135deg, #ff6600, #ff4400);
   transform: translateY(-50%) scale(1.05);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
 }
 
 .search-btn:active {
@@ -1105,8 +1117,8 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .header-action:hover {
-  color: var(--primary-light);
-  background: var(--gray-800);
+  color: #ff8800;
+  background: linear-gradient(135deg, rgba(255, 136, 0, 0.1), rgba(255, 102, 0, 0.05));
   transform: translateY(-2px);
 }
 
@@ -1119,7 +1131,7 @@ document.addEventListener('DOMContentLoaded', function() {
   position: absolute;
   top: -0.4rem;
   right: -0.4rem;
-  background: var(--primary-light);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   color: var(--white);
   font-size: 1rem;
   font-weight: 600;
@@ -1131,26 +1143,25 @@ document.addEventListener('DOMContentLoaded', function() {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  animation: pulse 2s infinite;
+  box-shadow: 0 4px 12px rgba(255, 136, 0, 0.3);
+  animation: pulse-orange 2s infinite;
 }
 
-@keyframes pulse {
+@keyframes pulse-orange {
   0% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(255, 136, 0, 0.3);
   }
   50% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 0 0 4px rgba(var(--primary-light-rgb), 0.1);
+    box-shadow: 0 4px 12px rgba(255, 136, 0, 0.5), 0 0 0 4px rgba(255, 136, 0, 0.2);
   }
   100% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(255, 136, 0, 0.3);
   }
 }
 
 .header-nav {
   padding: 0;
-  background: var(--gray-900);
-  border-top: 1px solid var(--gray-700);
+  background: linear-gradient(135deg, #1a1a1a, #000000);
   overflow: visible;
 }
 
@@ -1196,10 +1207,10 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .nav-link:hover {
-  background: linear-gradient(135deg, #dc2626, #000000);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   color: var(--white);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
 }
 
 .nav-link:hover::before {
@@ -1262,7 +1273,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .dropdown-section a:hover {
-  color: var(--primary-light);
+  color: #ff8800;
 }
 
 .mega-dropdown {
@@ -1341,10 +1352,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .mega-categories-list li:hover,
 .mega-categories-list li.active {
-  background: linear-gradient(135deg, #dc2626, #000000);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   color: var(--white);
   transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
 }
 
 .mega-subcategories-list {
@@ -1408,10 +1419,8 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .mega-subcategory li a:hover {
-  color: var(--primary-light);
-  /* background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(0, 0, 0, 0.1)); */
+  color: #ff8800;
   transform: scale(1.05);
-  /* box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); */
 }
 
 .mega-subcategory img {
@@ -1499,10 +1508,10 @@ document.addEventListener('DOMContentLoaded', function() {
   transition: left 0.5s;
 }
 .mobile-category-item:hover {
-  background: linear-gradient(135deg, #dc2626, #000000);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   color: var(--white);
   transform: translateX(8px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
 }
 .mobile-category-item:hover::before {
   left: 100%;
@@ -1510,7 +1519,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .mobile-subcategory-title {
   font-size: 2rem;
   margin: 2rem 0;
-  color: var(--primary-light);
+  color: #ff8800;
   font-weight: 600;
   text-align: center;
 }
@@ -1539,10 +1548,10 @@ document.addEventListener('DOMContentLoaded', function() {
   transition: color 0.3s ease;
 }
 .mobile-subcategory-list a:hover {
-  color: var(--primary-light);
+  color: #ff8800;
 }
 .mobile-back-btn {
-  background: linear-gradient(135deg, #dc2626, #000000);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   border: none;
   color: var(--white);
   font-size: 1.4rem;
@@ -1557,9 +1566,9 @@ document.addEventListener('DOMContentLoaded', function() {
   gap: 0.8rem;
 }
 .mobile-back-btn:hover {
-  background: linear-gradient(135deg, #b91c1c, #000000);
+  background: linear-gradient(135deg, #ff6600, #ff4400);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.4);
 }
 
 /* Responsive Design */
@@ -1758,7 +1767,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .nav-link:focus,
 .mobile-category-item:focus,
 .mobile-back-btn:focus {
-  outline: 2px solid var(--primary-light);
+  outline: 2px solid #ff8800;
   outline-offset: 2px;
 }
 
@@ -1799,7 +1808,7 @@ html {
 
 /* Better visual hierarchy */
 .logo-text {
-  background: linear-gradient(135deg, var(--primary-light), var(--primary-med));
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1855,8 +1864,8 @@ html {
 }
 
 .account-dropdown-link:hover {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(0, 0, 0, 0.05));
-  color: var(--primary-light);
+  background: linear-gradient(135deg, rgba(255, 136, 0, 0.1), rgba(255, 102, 0, 0.05));
+  color: #ff8800;
   transform: translateX(4px);
 }
 
@@ -1876,7 +1885,7 @@ html {
   font-size: 1.3rem;
   color: var(--gray-600);
   font-weight: 600;
-  background: linear-gradient(135deg, #dc2626, #000000);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1890,8 +1899,8 @@ html {
 }
 
 .account-logout:hover {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(185, 28, 28, 0.05));
-  color: #dc2626;
+  background: linear-gradient(135deg, rgba(255, 136, 0, 0.1), rgba(255, 102, 0, 0.05));
+  color: #ff8800;
 }
 
 /* Login Status Indicator */
@@ -1955,7 +1964,7 @@ html {
     right: 0;
     position: absolute;
     margin-left: 0.5rem;
-    background: var(--primary-light);
+    background: linear-gradient(135deg, #ff8800, #ff6600);
   }
 }
 

@@ -100,7 +100,7 @@ a {
 }
 
 a:hover {
-  /* color: var(--primary-med); */
+  color: var(--primary-med);
 }
 
 /* Notification Styles */
@@ -225,6 +225,176 @@ a:hover {
   font-size: 1.6rem;
 }
 
+/* Product page-specific button adjustments */
+.product-actions {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.wishlist-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem 1.8rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.22);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.wishlist-btn .icon { width: 1.6rem; height: 1.6rem; stroke: #fff; fill: #fff; }
+
+.wishlist-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 136, 0, 0.32);
+}
+
+/* Ensure add-to-cart matches primary visual style (btn-primary already covers gradient) */
+.add-to-cart-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Shared primary button visuals (used by wishlist and add-to-cart) */
+.btn-primary-visuals,
+.btn-primary-visuals:link,
+.btn-primary-visuals:visited {
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.22);
+  transition: background 0.25s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn-primary-visuals::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.6s;
+}
+
+.btn-primary-visuals:hover::before {
+  left: 100%;
+}
+
+.btn-primary-visuals:hover {
+  background: linear-gradient(135deg, #ff6600, #ff4400);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 136, 0, 0.32);
+}
+
+.btn-primary-visuals:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Apply visuals to existing wishlist and add-to-cart classes */
+.wishlist-btn, .add-to-cart-btn, .product-page .add-to-cart-btn {
+  /* Shared primary visuals */
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.22);
+  transition: background 0.25s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.wishlist-btn::before,
+.add-to-cart-btn::before,
+.product-page .add-to-cart-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.6s;
+}
+
+.wishlist-btn:hover::before,
+.add-to-cart-btn:hover::before,
+.product-page .add-to-cart-btn:hover::before {
+  left: 100%;
+}
+
+.wishlist-btn:hover,
+.add-to-cart-btn:hover,
+.product-page .add-to-cart-btn:hover {
+  background: linear-gradient(135deg, #ff6600, #ff4400);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 136, 0, 0.32);
+}
+
+/* Ensure Add to Cart on product page matches wishlist button size and rounding */
+.product-actions .add-to-cart-btn {
+  padding: 1.2rem 1.8rem; /* same as wishlist-btn */
+  border-radius: 1rem;    /* same rounded corners */
+  gap: 0.8rem;
+}
+
+/* Protect product page Add to Cart from being overridden by .btn-lg */
+.product-page .add-to-cart-btn.btn-lg {
+  padding: 1.2rem 1.8rem;
+}
+
+.wishlist-btn:disabled,
+.add-to-cart-btn:disabled,
+.product-page .add-to-cart-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Ensure product page Add to Cart matches card buttons (scoped to avoid other overrides) */
+.product-page .add-to-cart-btn {
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.product-page .add-to-cart-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.6s;
+}
+
+.product-page .add-to-cart-btn:hover::before {
+  left: 100%;
+}
+
+.product-page .add-to-cart-btn:hover {
+  background: linear-gradient(135deg, #ff6600, #ff4400);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 136, 0, 0.36);
+}
+
+.product-page .add-to-cart-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Cards */
 .card {
   background: var(--white);
@@ -328,6 +498,8 @@ a:hover {
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  /* Add standard property for broader compatibility */
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -507,10 +679,20 @@ a:hover {
   width: 2.4rem;
   height: 2.4rem;
   display: inline-block;
+  header, .header {
+    margin-bottom: 0;
+  }
 }
 
+  .hero-banner-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
 .icon-sm {
   width: 1.6rem;
+  #MainContent {
+    margin-top: 0 !important;
+  }
   height: 1.6rem;
 }
 
@@ -543,6 +725,31 @@ a:hover {
 .hero-content {
   position: relative;
   z-index: 2;
+}
+
+/* Ensure no gaps below hero banner and its slides */
+.hero-banner-section {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Prevent the next section from inheriting top margin that creates a visible gap */
+.hero-banner-section + * {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Make sure indicators/nav don't affect document flow */
+.hero-nav,
+.hero-indicators {
+  pointer-events: auto;
+  user-select: none;
+}
+
+/* Defensive: ensure all hero container levels keep full height so slides can't collapse */
+.hero-banner-section, .hero-slider, .hero-slide, .hero-image {
+  display: block;
+  box-sizing: border-box;
 }
 
 .hero h1 {
@@ -626,7 +833,11 @@ a:hover {
   font-size: 1.4rem;
 }
 
-.filter-option:hover,
+.filter-option:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-light);
+}
+
 .filter-option.active {
   background: var(--primary-light);
   color: var(--white);
@@ -684,6 +895,12 @@ a:hover {
   
   .hero h1 {
     font-size: 3.2rem;
+  
+  /* Match the hero's underlying background to the categories section gradient
+     so any small gap between them visually blends in on mobile */
+  .hero-banner-section {
+    background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 25%, #f0f0f0 50%, #f5f5dc 75%, #ffffff 100%) !important;
+  }
   }
   
   .hero p {
@@ -730,6 +947,107 @@ a:hover {
   
   .product-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile: make hero banner truly edge-to-edge and ensure images are fully visible
+   - Remove scale() so edges are not clipped
+   - Use width: 100vw and height: auto inside banner slides so the image preserves full width
+   - Center image and prevent right-side cropping by avoiding overflow hidden on the immediate image wrapper
+   - Keep banner section full-bleed but remove negative margins on small screens which can cause horizontal clipping */
+@media (max-width: 480px) {
+  /* Keep hero as a fixed-height, full-bleed section on mobile and prevent slides from stacking */
+  .hero-banner-section {
+    width: 100vw !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow: hidden !important; /* slide overlay should hide non-active slides */
+    height: 35vh !important;
+    min-height: 180px !important;
+  }
+
+  /* Slider containers remain relative; slides remain absolute so they overlay each other */
+  .hero-slider, .hero-image {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .hero-slide {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .hero-slide.active {
+    opacity: 1 !important;
+  }
+
+  .hero-bg {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important; /* preserve full image visibility */
+    object-position: center top !important;
+    transform: none !important;
+    display: block !important;
+    max-width: none !important;
+  }
+
+  /* Prevent horizontal scrollbar while letting images be fully visible */
+  html, body {
+    overflow-x: hidden !important;
+  }
+}
+
+/* Extra-specific override for very narrow mobile viewports (e.g. 420x530)
+   Use !important to override inline section styles if present and ensure
+   the hero images are fully visible (no right-side cropping) */
+@media (max-width: 420px), (max-width: 430px) and (max-height: 560px) {
+  /* Tight narrow viewport tweaks — keep same behavior as 480px but with slightly taller min-height */
+  .hero-banner-section {
+    width: 100vw !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow: hidden !important;
+    height: 38vh !important;
+    min-height: 200px !important;
+  }
+
+  .hero-slider, .hero-image {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .hero-slide {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .hero-bg {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center top !important;
+    transform: none !important;
+    display: block !important;
+  }
+
+  html, body {
+    overflow-x: hidden !important;
   }
 }
 
@@ -835,10 +1153,10 @@ a:hover {
   border: 0 !important;
 }
 
-/* Focus styles */
+/* Focus styles: visible focus for accessibility */
 *:focus {
-  /* outline: 2px solid   var(--primary-light); */
-  /* outline-offset: 2px; */
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
 }
 
 /* Skip to content */

@@ -617,41 +617,67 @@
 
 <style>
 /* Collection Page Styles */
+body {
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
 .collection-page {
   min-height: 100vh;
 }
 
 .collection-header {
-  background: var(--gray-100); /* was --color-bg-light */
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
   padding: 4rem 0;
+  border-bottom: 2px solid rgba(255, 136, 0, 0.2);
 }
 
 .collection-breadcrumb {
   margin-bottom: 2rem;
   font-size: 1.4rem;
-  color: var(--gray-500); /* was --color-text-muted */
+  color: #666666;
 }
 
 .breadcrumb-separator {
   margin: 0 1rem;
+  color: #ff8800;
 }
 
 .breadcrumb-current {
-  color: var(--gray-700); /* was --color-text-dark */
-  font-weight: var(--fw-medium);
+  color: #ff8800;
+  font-weight: 600;
 }
 
 .collection-title {
   font-size: 4.8rem;
   margin-bottom: 1.6rem;
-  color: var(--gray-700); /* was --color-text-dark */
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
 }
 
 .collection-description {
   font-size: 1.6rem;
-  color: var(--gray-500); /* was --color-text-muted */
+  color: #666666;
   margin-bottom: 2rem;
   max-width: 60rem;
+  line-height: 1.6;
 }
 
 .collection-stats {
@@ -662,10 +688,12 @@
 
 .product-count {
   font-size: 1.4rem;
-  color: var(--gray-500); /* was --color-text-muted */
-  background: var(--gray-100); /* was --color-bg-light */
+  color: #ff8800;
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  border: 1px solid rgba(255, 136, 0, 0.3);
   padding: 0.8rem 1.6rem;
   border-radius: 2rem;
+  font-weight: 600;
 }
 
 .collection-content {
@@ -680,10 +708,11 @@
 
 /* Filters Sidebar */
 .filters-sidebar {
-  background: var(--white); /* was --color-bg-white */
-  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  border-radius: 1.2rem;
   padding: 2rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 136, 0, 0.1);
   height: fit-content;
   position: sticky;
   top: 2rem;
@@ -695,22 +724,32 @@
   align-items: center;
   margin-bottom: 3rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid var(--gray-200); /* was --color-border-light */
+  border-bottom: 2px solid rgba(255, 136, 0, 0.2);
 }
 
 .filters-title {
   font-size: 1.8rem;
   margin: 0;
-  color: var(--gray-700); /* was --color-text-dark */
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
 }
 
 .filters-clear {
   background: none;
   border: none;
-  color: var(--primary-light); /* was --color-primary */
+  color: #ff8800;
   font-size: 1.4rem;
   cursor: pointer;
   text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.filters-clear:hover {
+  color: #ff6600;
 }
 
 .filter-group {
@@ -723,9 +762,9 @@
 
 .filter-label {
   font-size: 1.6rem;
-  font-weight: var(--fw-semi);
+  font-weight: 600;
   margin-bottom: 1.6rem;
-  color: var(--gray-700); /* was --color-text-dark */
+  color: #1a1a1a;
 }
 
 .filter-options {
@@ -736,37 +775,47 @@
 
 .filter-option {
   padding: 1rem 1.6rem;
-  background: var(--gray-100); /* was --color-bg-light */
-  border: 2px solid transparent;
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  border: 2px solid rgba(255, 136, 0, 0.2);
   border-radius: 0.8rem;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.3s ease;
   font-size: 1.4rem;
   text-align: left;
-  color: var(--gray-700); /* was --color-text-dark */
+  color: #1a1a1a;
+  font-weight: 500;
 }
 
 .price-range-input{
   padding: 1rem 1.6rem;
-  background: var(--gray-100); /* was --color-bg-light */
-  border: 2px solid transparent;
+  background: white;
+  border: 2px solid rgba(255, 136, 0, 0.2);
   border-radius: 0.8rem;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.3s ease;
   font-size: 1.4rem;
   text-align: left;
-  color: var(--gray-700); /* was --color-text-dark */
+  color: #1a1a1a;
   width: 100% !important;
 }
 
+.price-range-input:focus {
+  outline: none;
+  border-color: #ff8800;
+  box-shadow: 0 0 0 3px rgba(255, 136, 0, 0.1);
+}
+
 .filter-option:hover {
-  background: var(--gray-200); /* was --color-bg-hover */
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5dc 100%);
+  border-color: #ff8800;
+  transform: translateY(-1px);
 }
 
 .filter-option.active {
-  background: var(--primary-light); /* was --color-primary */
-  color: var(--white);
-  border-color: var(--primary-light);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  color: white;
+  border-color: #ff8800;
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
 }
 
 .color-options {
@@ -777,19 +826,21 @@
 .color-option {
   width: 3.6rem;
   height: 3.6rem;
-  border-radius: var(--radius-full);
+  border-radius: 50%;
   padding: 0;
-  border: 2px solid var(--gray-200); /* was --color-border-light */
+  border: 2px solid rgba(255, 136, 0, 0.3);
   position: relative;
+  transition: all 0.3s ease;
 }
 
 .color-option:hover {
   transform: scale(1.1);
+  border-color: #ff8800;
 }
 
 .color-option.active {
-  border-color: var(--gray-700); /* was --color-text-dark */
-  box-shadow: 0 0 0 2px var(--primary-light);
+  border-color: #ff8800;
+  box-shadow: 0 0 0 3px rgba(255, 136, 0, 0.3);
 }
 
 /* Products Main */
@@ -803,7 +854,7 @@
   align-items: center;
   margin-bottom: 3rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid var(--gray-200); /* was --color-border-light */
+  border-bottom: 2px solid rgba(255, 136, 0, 0.2);
 }
 
 .products-sort {
@@ -814,17 +865,25 @@
 
 .products-sort label {
   font-size: 1.4rem;
-  color: var(--gray-700); /* was --color-text-dark */
-  font-weight: var(--fw-medium);
+  color: #1a1a1a;
+  font-weight: 600;
 }
 
 .sort-select {
   padding: 0.8rem 1.2rem;
-  border: 2px solid var(--gray-200); /* was --color-border-light */
+  border: 2px solid rgba(255, 136, 0, 0.2);
   border-radius: 0.8rem;
   font-size: 1.4rem;
-  background: var(--white); /* was --color-bg-white */
+  background: white;
   cursor: pointer;
+  transition: all 0.3s ease;
+  color: #1a1a1a;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: #ff8800;
+  box-shadow: 0 0 0 3px rgba(255, 136, 0, 0.1);
 }
 
 .products-view {
@@ -835,25 +894,28 @@
 .view-btn {
   width: 4rem;
   height: 4rem;
-  border: 2px solid var(--gray-200); /* was --color-border-light */
-  background: var(--white); /* was --color-bg-white */
+  border: 2px solid rgba(255, 136, 0, 0.2);
+  background: white;
   border-radius: 0.8rem;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #666666;
 }
 
 .view-btn:hover {
-  border-color: var(--primary-light);
-  color: var(--primary-light);
+  border-color: #ff8800;
+  color: #ff8800;
+  transform: translateY(-1px);
 }
 
 .view-btn.active {
-  background: var(--primary-light);
-  border-color: var(--primary-light);
-  color: var(--white);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  border-color: #ff8800;
+  color: white;
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
 }
 
 .products-grid {
@@ -914,14 +976,15 @@
 .color-swatch {
   width: 2rem;
   height: 2rem;
-  border-radius: var(--radius-full);
-  border: 2px solid var(--gray-200); /* was --color-border-light */
+  border-radius: 50%;
+  border: 2px solid rgba(255, 136, 0, 0.3);
   cursor: pointer;
-  transition: transform var(--transition-fast);
+  transition: all 0.3s ease;
 }
 
 .color-swatch:hover {
   transform: scale(1.2);
+  border-color: #ff8800;
 }
 
 /* Pagination */
@@ -934,13 +997,17 @@
 }
 
 #apply-price-filter{  
-  background-color: var(--primary-med);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
   color: white;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 136, 0, 0.3);
 }
 
-
 #apply-price-filter:hover{
-  background-color: var(--primary-light);
+  background: linear-gradient(135deg, #ff6600 0%, #e55100 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.4);
 }
 
 .pagination-btn {
@@ -948,18 +1015,20 @@
   align-items: center;
   gap: 0.8rem;
   padding: 1.2rem 2rem;
-  background: var(--white); /* was --color-bg-white */
-  border: 2px solid var(--gray-200); /* was --color-border-light */
+  background: white;
+  border: 2px solid rgba(255, 136, 0, 0.2);
   border-radius: 0.8rem;
-  color: var(--gray-700); /* was --color-text-dark */
+  color: #1a1a1a;
   text-decoration: none;
   font-size: 1.4rem;
-  transition: all var(--transition-fast);
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .pagination-btn:hover {
-  border-color: var(--primary-light);
-  color: var(--primary-light);
+  border-color: #ff8800;
+  color: #ff8800;
+  transform: translateY(-1px);
 }
 
 .pagination-numbers {
@@ -973,23 +1042,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--gray-200); /* was --color-border-light */
+  border: 2px solid rgba(255, 136, 0, 0.2);
   border-radius: 0.8rem;
-  color: var(--gray-700); /* was --color-text-dark */
+  color: #1a1a1a;
   text-decoration: none;
   font-size: 1.4rem;
-  transition: all var(--transition-fast);
+  transition: all 0.3s ease;
+  background: white;
+  font-weight: 500;
 }
 
 .pagination-number:hover {
-  border-color: var(--primary-light);
-  color: var(--primary-light);
+  border-color: #ff8800;
+  color: #ff8800;
+  transform: translateY(-1px);
 }
 
 .pagination-number.active {
-  background: var(--primary-light);
-  border-color: var(--primary-light);
-  color: var(--white);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  border-color: #ff8800;
+  color: white;
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
 }
 
 /* Responsive Design */
@@ -1070,12 +1143,21 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 1.6rem;
-  background: var(--white);
-  border: 2px solid var(--gray-200);
+  background: white;
+  border: 2px solid rgba(255, 136, 0, 0.2);
   border-radius: 0.8rem;
   font-size: 1.6rem;
   cursor: pointer;
   margin-bottom: 1.5rem;
+  color: #ff8800;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.filters-toggle-btn:hover {
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  color: white;
+  border-color: #ff8800;
 }
 
 @media (max-width: 768px) {
@@ -1090,12 +1172,13 @@
     width: 80%;
     max-width: 30rem;
     height: 100%;
-    background: var(--white);
-    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+    box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15);
     padding: 2rem;
     transition: left 0.3s ease;
     z-index: 999;
     overflow-y: auto;
+    border-right: 2px solid rgba(255, 136, 0, 0.2);
   }
 
   .filters-sidebar.active {
@@ -1457,4 +1540,78 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+</script>
+
+<script>
+// Ensure wishlist buttons on the collection page work (delegated, uses localStorage)
+document.addEventListener('DOMContentLoaded', function() {
+  // Seed active states from localStorage
+  try {
+    const stored = JSON.parse(localStorage.getItem('shopify-wishlist') || '[]');
+    // stored may contain objects (preferred) or legacy strings; normalize when checking
+    document.querySelectorAll('.product-card-wishlist').forEach(btn => {
+      if (!btn.dataset) return;
+      const pid = String(btn.dataset.productId || '');
+      const exists = stored.some(item => (typeof item === 'string' ? item === pid : String(item.id) === pid));
+      if (exists) btn.classList.add('active');
+    });
+  } catch (e) {
+    console.error('Wishlist init error:', e);
+  }
+
+  // Delegated click handler for wishlist buttons
+  document.body.addEventListener('click', function(e) {
+    const btn = e.target.closest && e.target.closest('.product-card-wishlist');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const productId = String(btn.dataset.productId || '');
+    if (!productId) return;
+
+    let wishlist = JSON.parse(localStorage.getItem('shopify-wishlist') || '[]');
+    // Find by id (handle both string and object entries)
+    const existingIndex = wishlist.findIndex(item => (typeof item === 'string' ? item === productId : String(item.id) === productId));
+    if (existingIndex > -1) {
+      // remove
+      wishlist.splice(existingIndex, 1);
+      btn.classList.remove('active');
+      showWishlistToast('Removed from wishlist');
+    } else {
+      // add - build an object similar to index.liquid's structure
+      const productCard = btn.closest && btn.closest('.product-card');
+      const titleFromDom = productCard ? (productCard.querySelector('.product-card-title') && productCard.querySelector('.product-card-title').textContent.trim()) : '';
+      const imgEl = productCard ? productCard.querySelector('img') : null;
+      const handleFromLink = productCard ? (productCard.querySelector('a[href*="/products/"]') && productCard.querySelector('a[href*="/products/"]').getAttribute('href').split('/products/')[1]) : '';
+      const wishlistItem = {
+        id: productId,
+        title: btn.dataset.productTitle || titleFromDom || 'Product',
+        handle: btn.dataset.productHandle || handleFromLink || '',
+        image: imgEl ? imgEl.getAttribute('src') : '',
+        addedAt: new Date().toISOString()
+      };
+
+      wishlist.push(wishlistItem);
+      btn.classList.add('active');
+      showWishlistToast('Added to wishlist');
+    }
+
+    localStorage.setItem('shopify-wishlist', JSON.stringify(wishlist));
+
+    // Update header count if present
+    const wishlistCount = document.querySelector('.wishlist-count');
+    if (wishlistCount) wishlistCount.textContent = wishlist.length;
+  });
+
+  function showWishlistToast(message) {
+    const existing = document.querySelector('.wishlist-toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'wishlist-toast';
+    toast.textContent = message;
+    toast.style.cssText = 'position:fixed;top:20px;right:20px;z-index:11000;padding:10px 14px;background:rgba(0,0,0,0.8);color:#fff;border-radius:8px;font-weight:600;';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 1800);
+  }
+});
 </script>

@@ -31,6 +31,25 @@
 
 <style>
 /* Wishlist Page Styles */
+body {
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
 .wishlist-page {
   min-height: 100vh;
   padding: 4rem 0;
@@ -44,14 +63,20 @@
 .page-title {
   font-size: 4.8rem;
   margin-bottom: 1.6rem;
-  color: var(--gray-700);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(255, 136, 0, 0.2);
 }
 
 .page-description {
   font-size: 1.6rem;
-  color: var(--gray-500);
+  color: #666666;
   max-width: 60rem;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
 .wishlist-content {
@@ -72,9 +97,10 @@
   max-width: 32rem;
   min-width: 22rem;
   margin-bottom: 2rem;
-  background: var(--white);
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
   border-radius: 1.2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 136, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
@@ -83,7 +109,7 @@
 
 .wishlist-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px var(--shadow-strong);
+  box-shadow: 0 12px 40px rgba(255, 136, 0, 0.25), 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .wishlist-item-image {
@@ -120,19 +146,23 @@
 .wishlist-remove-btn {
   width: 3.6rem;
   height: 3.6rem;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(255, 136, 0, 0.3);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  color: #ff8800;
 }
 
 .wishlist-remove-btn:hover {
-  background: var(--primary-light);
-  color: var(--white);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  color: white;
+  border-color: #ff8800;
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
 }
 
 .wishlist-item-content {
@@ -143,15 +173,17 @@
 .wishlist-item-title {
   font-size: 1.8rem;
   margin-bottom: 1rem;
-  color: var(--gray-700);
+  color: #1a1a1a;
   line-height: 1.4;
+  font-weight: 600;
 }
 
 .wishlist-item-price {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--primary-light);
+  color: #ff8800;
   margin-bottom: 1.6rem;
+  text-shadow: 0 1px 3px rgba(255, 136, 0, 0.2);
 }
 
 .wishlist-item-actions-bottom {
@@ -162,25 +194,28 @@
 .wishlist-add-to-cart {
   flex: 1;
   padding: 1.2rem 2rem;
-  background: var(--primary-light);
-  color: var(--white);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  color: white;
   border: none;
   border-radius: 0.8rem;
   font-size: 1.4rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 136, 0, 0.3);
 }
 
 .wishlist-add-to-cart:hover {
-  background: var(--primary-med);
+  background: linear-gradient(135deg, #ff6600 0%, #e55100 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.4);
 }
 
 .wishlist-view-btn {
   padding: 1.2rem 2rem;
-  background: var(--white);
-  color: var(--gray-700);
-  border: 2px solid var(--gray-200);
+  background: white;
+  color: #1a1a1a;
+  border: 2px solid rgba(255, 136, 0, 0.3);
   border-radius: 0.8rem;
   font-size: 1.4rem;
   font-weight: 600;
@@ -191,33 +226,65 @@
 }
 
 .wishlist-view-btn:hover {
-  border-color: var(--primary-light);
-  color: var(--primary-light);
+  border-color: #ff8800;
+  color: #ff8800;
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  transform: translateY(-1px);
 }
 
 .empty-state {
   text-align: center;
   padding: 6rem 2rem;
   grid-column: 1 / -1;
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 136, 0, 0.1);
 }
 
 .empty-icon {
   width: 8rem;
   height: 8rem;
-  color: var(--gray-300);
+  color: #ff8800;
   margin-bottom: 2rem;
+  opacity: 0.7;
 }
 
 .empty-state h3 {
   font-size: 2.4rem;
   margin-bottom: 1.6rem;
-  color: var(--gray-700);
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
 }
 
 .empty-state p {
   font-size: 1.6rem;
-  color: var(--gray-500);
+  color: #666666;
   margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.empty-state .btn {
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border-radius: 0.8rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
+}
+
+.empty-state .btn:hover {
+  background: linear-gradient(135deg, #ff6600 0%, #e55100 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 136, 0, 0.4);
 }
 
 /* Responsive Design */
@@ -253,7 +320,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get wishlist from localStorage (matching the main wishlist system)
   function getWishlist() {
     const wishlist = localStorage.getItem('shopify-wishlist');
-    return wishlist ? JSON.parse(wishlist) : [];
+    const parsed = wishlist ? JSON.parse(wishlist) : [];
+    // Normalize legacy entries that were stored as simple IDs (strings)
+    return parsed.map(item => {
+      if (!item) return null;
+      if (typeof item === 'string') {
+        return { id: item, title: 'Product', handle: '', image: '', addedAt: new Date().toISOString() };
+      }
+      // Ensure required fields exist
+      return Object.assign({ title: item.title || 'Product', handle: item.handle || '', image: item.image || '', addedAt: item.addedAt || new Date().toISOString() }, item);
+    }).filter(Boolean);
   }
   
   function saveWishlist(wishlist) {
@@ -275,15 +351,17 @@ document.addEventListener('DOMContentLoaded', function() {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: ${type === 'success' ? 'linear-gradient(135deg, #dc2626, #991b1b)' : 'linear-gradient(135deg, #dc2626, #b91c1c)'};
+      background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #ff8800, #ff6600)'};
       color: white;
       padding: 15px 20px;
       border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(255, 136, 0, 0.3);
       z-index: 10000;
       transform: translateX(400px);
       transition: all 0.3s ease;
       font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
     `;
     
     document.body.appendChild(notification);
@@ -303,26 +381,54 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Load and display wishlist
-  function loadWishlist() {
+  async function loadWishlist() {
     const wishlist = getWishlist();
-    
+
     if (wishlist.length === 0) {
       wishlistEmpty.style.display = 'block';
       wishlistGrid.innerHTML = '';
       return;
     }
-    
+
     wishlistEmpty.style.display = 'none';
-    
-    // Render wishlist items with updated structure
+
+    // Helper to format cents to money string (Shopify returns cents)
+    function formatMoney(cents) {
+      if (typeof cents !== 'number') return 'Price on request';
+      return '$' + (cents / 100).toFixed(2);
+    }
+
+    // Fetch product prices for non-sample items in parallel
+    const pricePromises = wishlist.map(item => {
+      const isSample = item.id.toString().startsWith('sample-');
+      if (isSample) return Promise.resolve({ id: item.id, formatted: '$' + (Math.floor(Math.random() * 100) + 20) + '.99' });
+      if (!item.handle) return Promise.resolve({ id: item.id, formatted: 'Price on request' });
+
+      // Fetch product JSON to read price
+      return fetch(`/products/${item.handle}.js`).then(resp => {
+        if (!resp.ok) throw new Error('Fetch failed');
+        return resp.json();
+      }).then(prod => {
+        // Shopify returns price in cents as integer
+        const priceCents = prod && prod.price ? prod.price : null;
+        return { id: item.id, formatted: formatMoney(priceCents) };
+      }).catch(() => ({ id: item.id, formatted: 'Price on request' }));
+    });
+
+    const priceResults = await Promise.all(pricePromises);
+    const priceMap = {};
+    priceResults.forEach(p => { priceMap[p.id] = p.formatted; });
+
+    // Render wishlist items with fetched prices
     wishlistGrid.innerHTML = wishlist.map(item => {
-      // For sample products
       const isSample = item.id.toString().startsWith('sample-');
       const productUrl = isSample ? '/collections/all' : `/products/${item.handle || item.id}`;
-      const productImage = isSample ? 
-        "{{ 'new-arrivals.jpeg' | asset_url }}" : 
+      const productImage = isSample ?
+        "{{ 'new-arrivals.jpeg' | asset_url }}" :
         (item.image || "{{ 'new-arrivals.jpeg' | asset_url }}");
-      
+
+      const priceText = priceMap[item.id] || 'Price on request';
+
       return `
         <div class="wishlist-item" data-product-id="${item.id}">
           <div class="wishlist-item-image">
@@ -339,7 +445,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="wishlist-item-content">
             <h3 class="wishlist-item-title">${item.title}</h3>
             <div class="wishlist-item-price">
-              ${isSample ? '$' + (Math.floor(Math.random() * 100) + 20) + '.99' : 'Price on request'}
+              ${priceText}
             </div>
             <div class="wishlist-item-meta">
               <small>Added: ${new Date(item.addedAt).toLocaleDateString()}</small>

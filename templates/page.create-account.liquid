@@ -201,7 +201,7 @@
 .create-account-page {
   min-height: 100vh;
   padding: 4rem 0;
-  background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
+  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 50%, #f5f5dc 100%);
   position: relative;
   overflow: hidden;
 }
@@ -209,18 +209,18 @@
 /* Form Errors */
 .form-errors {
   background: #fef2f2;
-  border: 2px solid #fecaca;
+  border: 2px solid #ff8800;
   border-radius: 1.2rem;
   padding: 2rem;
   margin-bottom: 3rem;
-  color: #dc2626;
+  color: #ff6600;
 }
 
 .form-errors h4 {
   margin: 0 0 1rem 0;
   font-size: 1.6rem;
   font-weight: 600;
-  color: #dc2626;
+  color: #ff6600;
 }
 
 .form-errors ul {
@@ -239,10 +239,11 @@
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23dc2626" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -254,21 +255,23 @@
 }
 
 .page-title {
-  font-size: 4.8rem;
+  font-size: 4.5rem;
   margin-bottom: 1.6rem;
-  color: var(--gray-700);
-  background: linear-gradient(135deg, #dc2626, #000000);
+  color: #1a1a1a;
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 2px 4px rgba(255, 136, 0, 0.1);
 }
 
 .page-description {
   font-size: 1.6rem;
-  color: var(--gray-500);
+  color: #666666;
   max-width: 60rem;
   margin: 0 auto;
   line-height: 1.6;
+  opacity: 0.8;
 }
 
 .create-account-content {
@@ -281,9 +284,9 @@
 .create-account-card {
   background: var(--white);
   border-radius: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(255, 136, 0, 0.15);
   overflow: hidden;
-  border: 1px solid rgba(220, 38, 38, 0.1);
+  border: 2px solid rgba(255, 136, 0, 0.1);
 }
 
 .account-form-section {
@@ -293,13 +296,14 @@
 .account-icon {
   width: 8rem;
   height: 8rem;
-  background: linear-gradient(135deg, #dc2626, #000000);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 2rem;
   color: var(--white);
+  box-shadow: 0 8px 24px rgba(255, 136, 0, 0.3);
 }
 
 .account-icon svg {
@@ -310,8 +314,8 @@
 .form-title {
   font-size: 2.4rem;
   margin-bottom: 1rem;
-  color: var(--gray-700);
-  background: linear-gradient(135deg, #dc2626, #000000);
+  color: #1a1a1a;
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -333,11 +337,11 @@
 .section-title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--gray-700);
+  color: #1a1a1a;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid var(--gray-100);
-  background: linear-gradient(135deg, #dc2626, #000000);
+  border-bottom: 2px solid #ff8800;
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -388,12 +392,12 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--primary-light);
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  border-color: #ff8800;
+  box-shadow: 0 0 0 3px rgba(255, 136, 0, 0.2);
 }
 
 .form-group input:focus + .input-icon {
-  color: var(--primary-light);
+  color: #ff8800;
 }
 
 /* Password Input Group */
@@ -415,7 +419,7 @@
 }
 
 .password-toggle:hover {
-  color: var(--primary-light);
+  color: #ff8800;
 }
 
 .password-toggle .icon {
@@ -467,8 +471,8 @@
 }
 
 .radio-option:hover {
-  border-color: var(--primary-light);
-  background: rgba(220, 38, 38, 0.05);
+  border-color: #ff8800;
+  background: rgba(255, 136, 0, 0.1);
 }
 
 .radio-option input[type="radio"] {
@@ -485,8 +489,8 @@
 }
 
 .radio-option input[type="radio"]:checked + .radio-custom {
-  border-color: var(--primary-light);
-  background: var(--primary-light);
+  border-color: #ff8800;
+  background: #ff8800;
 }
 
 .radio-option input[type="radio"]:checked + .radio-custom::after {
@@ -524,8 +528,8 @@
 }
 
 .checkbox-container:hover {
-  border-color: var(--primary-light);
-  background: rgba(220, 38, 38, 0.05);
+  border-color: #ff8800;
+  background: rgba(255, 136, 0, 0.1);
 }
 
 .checkbox-container input[type="checkbox"] {
@@ -545,8 +549,8 @@
 }
 
 .checkbox-container input[type="checkbox"]:checked + .checkmark {
-  background: var(--primary-light);
-  border-color: var(--primary-light);
+  background: #ff8800;
+  border-color: #ff8800;
 }
 
 .checkmark:after {
@@ -573,21 +577,21 @@
 }
 
 .terms-link {
-  color: var(--primary-light);
+  color: #ff8800;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .terms-link:hover {
-  color: var(--primary-dark);
+  color: #ff6600;
   text-decoration: underline;
 }
 
 /* Create Account Button */
 .create-account-btn {
   width: 100%;
-  background: linear-gradient(135deg, #dc2626, #000000);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   color: var(--white);
   border: none;
   padding: 1.6rem 2rem;
@@ -600,7 +604,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.3);
   position: relative;
   overflow: hidden;
   margin-bottom: 3rem;
@@ -622,9 +626,9 @@
 }
 
 .create-account-btn:hover {
-  background: linear-gradient(135deg, #b91c1c, #000000);
+  background: linear-gradient(135deg, #ff6600, #ff4400);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 136, 0, 0.4);
 }
 
 .create-account-btn:active {
@@ -689,8 +693,8 @@
 }
 
 .social-btn:hover {
-  border-color: var(--primary-light);
-  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.1);
+  border-color: #ff8800;
+  box-shadow: 0 6px 16px rgba(255, 136, 0, 0.2);
   transform: translateY(-2px);
 }
 
@@ -703,7 +707,7 @@
 .signin-link {
   text-align: center;
   padding: 2rem;
-  background: linear-gradient(135deg, #dc2626, #000000);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   border-radius: 1.5rem;
   color: var(--white);
 }
@@ -731,7 +735,7 @@
 
 .signin-btn:hover {
   background: var(--white);
-  color: var(--primary-light);
+  color: #ff8800;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
 }
