@@ -19,7 +19,7 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Women</h3>
-              <p class="category-description">Dresses, Tops, Pants & More</p>
+              
             </div>
           </a>
         </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Dresses</h3>
-              <p class="category-description">Casual & Formal</p>
+              
             </div>
           </a>
         </div>
@@ -43,7 +43,7 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Tops</h3>
-              <p class="category-description">Blouses & Shirts</p>
+              
             </div>
           </a>
         </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Men</h3>
-              <p class="category-description">Shirts, Pants, Suits</p>
+              
             </div>
           </a>
         </div>
@@ -68,7 +68,7 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Shirts</h3>
-              <p class="category-description">Dress & Casual</p>
+              
             </div>
           </a>
         </div>
@@ -80,7 +80,7 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Pants</h3>
-              <p class="category-description">Chinos & Jeans</p>
+              
             </div>
           </a>
         </div>
@@ -93,7 +93,7 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Kids</h3>
-              <p class="category-description">Ages 0-12</p>
+              
             </div>
           </a>
         </div>
@@ -106,7 +106,46 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Accessories</h3>
-              <p class="category-description">Bags, Jewelry & More</p>
+              
+            </div>
+          </a>
+        </div>
+        
+        <!-- Jackets -->
+        <div class="category-item">
+          <a href="/collections/all" class="category-link">
+            <div class="category-image">
+              <img src="../assets/women-jackets.jpeg" alt="Jackets">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Jackets</h3>
+              
+            </div>
+          </a>
+        </div>      
+        
+        <!-- Beauty and care -->
+        <div class="category-item">
+          <a href="/collections/all" class="category-link">
+            <div class="category-image">
+              <img src="../assets/beauty-personal-care.jpeg" alt="Beauty and Care">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Beauty and Care</h3>
+              
+            </div>
+          </a>
+        </div>
+        
+        <!-- New arrivals -->
+        <div class="category-item">
+          <a href="/collections/all" class="category-link">
+            <div class="category-image">
+              <img src="../assets/new-arrivals.jpeg" alt="New Arrivals">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">New Arrivals</h3>
+              
             </div>
           </a>
         </div>
@@ -119,7 +158,7 @@
             </div>
             <div class="category-content">
               <h3 class="category-name">Sale</h3>
-              <p class="category-description">Up to 50% Off</p>
+              
             </div>
           </a>
         </div>
@@ -141,10 +180,10 @@
 </section>
 
 <style>
-/* Categories Scroll Section Styles */
+/* Categories Section */
 .categories-scroll-section {
-  padding: 10rem 0;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 25%, #f0f0f0 50%, #f5f5dc 75%, #ffffff 100%);
+  padding: 3rem 0;
+  /* background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 25%, #f0f0f0 50%, #f5f5dc 75%, #ffffff 100%); */
   position: relative;
   overflow: hidden;
 }
@@ -152,172 +191,101 @@
 .categories-scroll-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="geometric" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ff8800" opacity="0.03"/><rect x="20" y="20" width="10" height="10" fill="none" stroke="%23ff8800" stroke-width="0.3" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23geometric)"/></svg>');
   opacity: 0.4;
   pointer-events: none;
 }
 
-.categories-scroll-section::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(0,0,0,0.02) 0%, transparent 70%);
-  animation: float 20s ease-in-out infinite;
-  pointer-events: none;
-}
-
 .categories-header {
   text-align: center;
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
   position: relative;
   z-index: 1;
 }
 
 .categories-title {
-  font-size: 4.5rem;
-  margin-bottom: 1.5rem;
-  color: #1a1a1a;
+  font-size: 3rem;
+  margin-bottom: 1rem;
   font-weight: 700;
   background: linear-gradient(135deg, #ff8800, #ff6600);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   text-shadow: 0 2px 4px rgba(255, 136, 0, 0.1);
-  animation: slideInLeft 1s ease-out;
 }
 
 .categories-subtitle {
-  font-size: 1.8rem;
-  color: #666666;
-  max-width: 70rem;
+  font-size: 1.4rem;
+  color: #666;
+  max-width: 60rem;
   margin: 0 auto;
-  line-height: 1.6;
   opacity: 0.8;
-  animation: slideInLeft 1s ease-out 0.2s both;
 }
 
+/* --- GRID LAYOUT (no scroll) --- */
 .categories-scroll-container {
-  position: relative;
-  overflow: hidden;
-  padding: 2rem 0;
+  overflow: visible;
+  padding: 1rem 0;
 }
 
 .categories-scroll {
-  display: flex;
-  gap: 3rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 2rem 0;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  position: relative;
-  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 per row desktop */
+  gap: 2rem;
+  padding: 0;
 }
 
-.categories-scroll::-webkit-scrollbar {
-  display: none;
-}
-
+/* Category Item */
 .category-item {
-  flex: 0 0 32rem;
-  background: var(--white);
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  position: relative;
-}
-
-.category-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 136, 0, 0.1), transparent);
-  transition: left 0.6s;
-  z-index: 1;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
 .category-item:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 30px 60px rgba(255, 136, 0, 0.15);
-  background: var(--white);
-  border-color: rgba(255, 136, 0, 0.2);
-}
-
-.category-item:hover::before {
-  left: 100%;
+  transform: translateY(-5px);
 }
 
 .category-link {
   display: block;
-  text-decoration: none;
   color: inherit;
-  position: relative;
-  z-index: 2;
+  text-decoration: none;
 }
 
 .category-image {
-  position: relative;
-  height: 24rem;
+  width: 12rem;
+  height: 12rem;
+  margin: 0 auto 0.8rem auto;
+  border-radius: 50%;
   overflow: hidden;
-  border-radius: 1.5rem 1.5rem 0 0;
-  margin: auto;
+  border: 3px solid rgba(255, 136, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.category-item:hover .category-image {
+  border-color: rgba(255, 136, 0, 0.3);
+  transform: scale(1.05);
 }
 
 .category-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.category-item:hover .category-image img {
-  transform: scale(1.1);
-}
-
-.category-overlay {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  background: linear-gradient(135deg, #ff8800, #ff6600);
-  color: var(--white);
-  padding: 0.8rem 1.6rem;
-  border-radius: 2.5rem;
-  font-size: 1.3rem;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(255, 136, 0, 0.3);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-  /* Hide the item-count overlay entirely (remove number bubble over images) */
-  .category-overlay {
-    display: none !important;
-  }
 
 .category-content {
-  padding: 2.5rem;
-  /* remove white card background so names sit directly on page */
-  background: transparent !important;
+  padding: 0 0.8rem;
 }
 
 .category-name {
-  font-size: 2.4rem;
-  margin-bottom: 1rem;
+  font-size: 1.6rem;
   color: var(--gray-700);
-  font-weight: 700;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
   transition: color 0.3s ease;
+  font-weight: 600;
 }
 
 .category-item:hover .category-name {
@@ -325,344 +293,73 @@
 }
 
 .category-description {
-  font-size: 1.6rem;
+  font-size: 1.1rem;
   color: var(--gray-500);
   margin: 0;
-  line-height: 1.5;
-  transition: color 0.3s ease;
+  line-height: 1.3;
 }
 
-.category-item:hover .category-description {
-  color: var(--gray-600);
+/* Hide overlay */
+.category-overlay {
+  display: none !important;
 }
 
+/* Remove scroll buttons completely */
 .scroll-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--white);
-  border: 2px solid rgba(255, 136, 0, 0.2);
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ff8800;
-  z-index: 2;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  display: none !important;
 }
 
-.scroll-btn:hover {
-  background: #ff8800;
-  border-color: #ff8800;
-  color: var(--white);
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 12px 35px rgba(255, 136, 0, 0.3);
-}
-
-.scroll-left {
-  left: 2rem;
-}
-
-.scroll-right {
-  right: 2rem;
-}
-
-/* Keyframe Animations */
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .categories-scroll {
+    grid-template-columns: repeat(6, 1fr); /* 4 per row tablet/mobile */
+    gap: 1.5rem;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
   .categories-scroll-section {
-    padding: 6rem 0;
+    padding: 3rem 0;
   }
 
   .categories-title {
-    font-size: 2.5rem;
-  }
-  
-  /* Improve horizontal scrolling smoothness on touch devices */
-  .categories-scroll-container {
-    -webkit-overflow-scrolling: touch; /* enable momentum scrolling on iOS */
-    overflow-x: auto;
-    overflow-y: hidden;
-    touch-action: pan-x; /* hint to browser that horizontal panning is primary */
-    -ms-touch-action: pan-x;
-    will-change: transform; /* hint to compositor to accelerate scrolling */
-    -webkit-transform: translateZ(0); /* promote to own layer */
-  }
-  
-  .categories-scroll {
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    will-change: transform;
-    transition: none; /* avoid expensive transitions during swipe */
-  }
-  
-  /* Reduce heavy box-shadows while scrolling (prevents repaint spikes) */
-  .category-item {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-    backface-visibility: hidden;
+    font-size: 2.4rem;
   }
 
   .categories-subtitle {
-    font-size: 1.2rem;
-  }
-
-  .categories-header{
-    margin-bottom: 2rem;
-  }
-
-  .categories-scroll-container {
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 1rem 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .categories-scroll-container::-webkit-scrollbar {
-    display: none;
-  }
-
-  .categories-scroll {
-    /* show 3 cards per row without horizontal scrolling */
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-    width: 100%;
-    padding: 0.8rem 0.6rem;
-    scroll-snap-type: none;
-    height: auto;
-  }
-
-  .category-item {
-    /* fluid card sizing for 3-up layout */
-    flex: none;
-    width: 100%;
-    height: auto;
-    background: transparent !important;
-    border-radius: 1.2rem;
-    box-shadow: none !important;
-    transition: transform 0.18s ease;
-    border: none !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    padding: 0.6rem 0.4rem;
-  }
-
-  .category-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-  }
-
-  .category-image {
-    height: 8rem;
-    width: 8rem;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 0.8rem;
-    border: 3px solid rgba(255, 136, 0, 0.08);
-    transition: all 0.25s ease;
-  }
-
-  .category-item:hover .category-image {
-    border-color: rgba(255, 136, 0, 0.3);
-    transform: scale(1.05);
-  }
-
-  .category-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .category-item:hover .category-image img {
-    transform: scale(1.1);
-  }
-
-  .category-content {
-    padding: 0 1rem;
-    background: transparent !important;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .category-name {
-    font-size: 1.6rem;
-    margin: 0;
-    color: var(--gray-700);
-    font-weight: 600;
-    transition: color 0.3s ease;
-  }
-
-  .category-item:hover .category-name {
-    color: #ff8800;
-  }
-
-  .category-description {
-    display: block;
-    font-size: 1.2rem;
-    color: var(--gray-500);
-    margin: 0.5rem 0 0 0;
-    line-height: 1.3;
-  }
-
-  .category-overlay {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: linear-gradient(135deg, #ff8800, #ff6600);
-    color: var(--white);
-    padding: 0.4rem 0.8rem;
-    border-radius: 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    box-shadow: 0 2px 8px rgba(255, 136, 0, 0.3);
-  }
-
-  .scroll-btn {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .categories-scroll-section {
-    /* Reduce top padding so categories sit much closer to the hero on very small screens */
-    padding: 1rem 0 !important;
-    /* Pull the categories block upward more to eliminate remaining whitespace */
-    margin-top: -6rem !important; /* pull up by ~60px */
-    z-index: 3;
-  }
-
-  .categories-title {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .categories-subtitle {
-    font-size: 1rem;
-  }
-
-  .categories-scroll {
-    grid-template-rows: repeat(2, 1fr);
-    grid-auto-columns: 13rem;
-    gap: 1.5rem 1rem;
-    height: 36rem;
-    padding: 0.5rem;
-  }
-
-  .category-item {
-    width: 13rem;
-    height: 16rem;
-    border-radius: 1.5rem;
-  }
-
-  .category-image {
-    height: 8rem;
-    width: 8rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .category-content {
-    padding: 0 0.8rem;
-  }
-
-  .category-name {
-    font-size: 1.4rem;
-  }
-
-  .category-description {
     font-size: 1.1rem;
   }
 
-  .category-overlay {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.8rem;
-    border-radius: 0.8rem;
+  .category-image {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .category-name {
+    font-size: 1.2rem;
+  }
+
+  .category-description {
+    font-size: 1rem;
   }
 }
 
-/* Desktop grid layout: use grid view on larger screens and make cards/images rounded */
-@media (min-width: 1024px) {
+@media (max-width: 600px) {
   .categories-scroll {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
-    gap: 3rem;
-    overflow: visible;
-    padding: 0;
-  }
-
-  .category-item {
-    flex: none;
-    width: auto;
-    height: auto;
-    border-radius: 3.5rem; /* more rounded cards */
-    display: block;
-    /* Remove white card background, border and heavy shadow so images sit directly on the page */
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    transition: transform 0.35s ease;
+    grid-template-columns: repeat(4, 1fr); /* 4 per row even on small mobile */
+    gap: 1rem;
   }
 
   .category-image {
-    height: 18rem;
-    border-radius: 50%; /* make image circular */
-    width: 18rem;
-    margin: 2rem auto 1.5rem auto;
-    overflow: hidden;
-    border: 6px solid rgba(255,136,0,0.06);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    width: 7rem;
+    height: 7rem;
   }
 
-  .category-image img {
-    border-radius: 50%;
+  .category-name {
+    font-size: 1.1rem;
   }
 
-  /* Adjust content alignment for grid */
-  .category-content {
-    padding: 2rem 2.5rem 3rem 2.5rem;
-    text-align: center;
+  .category-description {
+    font-size: 0.9rem;
   }
-
-  /* Hide scroll buttons in desktop grid view */
-  .scroll-btn {
-    display: none !important;
-  }
-  
-  /* Remove the gradient sweep used on hover for the card to avoid any white/colored overlay */
-  .category-item::before { display: none !important; }
 }
 
 </style>
