@@ -2,6 +2,190 @@
   Homepage template with hero banner and featured sections
 {% endcomment %}
 
+<style>
+  /* SHEIN-style Product Card Styles */
+  .product-card {
+    position: relative;
+    background: transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+  
+  .product-card-image {
+    position: relative;
+    width: 100%;
+    /* padding-top: 130%; */
+    max-height: 300px; /* Maximum height for the image container */
+    overflow: hidden;
+  }
+  
+  .product-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    max-height: 300px; /* Maximum height for the image */
+  }
+  
+  .product-card:hover .product-img {
+    transform: scale(1.05);
+  }
+  
+  .product-card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff4e4e;
+    color: white;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 2px;
+    z-index: 2;
+  }
+  
+  .product-card-content {
+    padding: 10px 8px;
+    background: transparent; /* Transparent background to blend with page background */
+  }
+  
+  .product-card-title {
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0 0 8px;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 36px;
+  }
+  
+  .product-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .product-card-price {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .product-card-price-current {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ff4e4e;
+  }
+  
+  .product-card-price-original {
+    font-size: 12px;
+    color: #999;
+    text-decoration: line-through;
+  }
+  
+  .product-card-actions {
+    display: flex;
+    gap: 5px;
+    opacity: 1; /* Always visible */
+  }
+  
+  .icon-btn {
+    /* background: transparent; */
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 1; /* Always visible */
+  }
+  
+  .icon-btn:hover {
+    background-color: rgba(56, 11, 11, 0.05);
+  }
+  
+  .icon-btn .icon {
+    width: 18px;
+    height: 18px;
+    color: #666;
+  }
+  
+  .wishlist-btn .icon {
+    color: #666; /* Always visible */
+  }
+  
+  .wishlist-btn:hover .icon {
+    color: #ff4e4e;
+  }
+ 
+  .cart-btn:hover .icon {
+    color: #000000;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 991px) {
+    .product-card-image {
+      padding-top: 140%; /* Slightly less tall on medium screens */
+    }
+    
+    .product-card-title {
+      font-size: 12px;
+      height: 32px;
+    }
+    
+    .icon-btn .icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    .product-card-content {
+      padding: 8px 5px;
+    }
+    
+    .product-card-title {
+      font-size: 11px;
+      margin-bottom: 5px;
+      height: 30px;
+    }
+    
+    .product-card-price-current {
+      font-size: 12px;
+    }
+    
+    .product-card-price-original {
+      font-size: 10px;
+    }
+    
+    .icon-btn .icon {
+      width: 14px;
+      height: 14px;
+    }
+  }
+</style>
+
+
 <!-- Hero Banner Section -->
 {% section 'hero-banner' %}
 
@@ -14,6 +198,7 @@
     <div class="section-header">
       <h2 class="section-title">🔥 Super Deals</h2>
       <p class="section-subtitle">Limited time offers you can't miss</p>
+      <a href="/collections/all" class="superDealArrow"><i class="fa-solid fa-arrow-right"></i></a>
     </div>
     
     <div class="deals-grid">
@@ -28,12 +213,12 @@
         </div>
         <div class="deal-content">
           <h3 class="deal-title">Summer Collection</h3>
-          <p class="deal-description">Women's dresses & tops</p>
+          <p class="deal-description">Dresses & tops</p>
           <div class="deal-price">
             <span class="deal-price-original">$299</span>
             <span class="deal-price-current">$89</span>
           </div>
-          <a href="/collections/women" class="btn btn-secondary deal-btn">Shop Now</a>
+          
         </div>
       </div>
       
@@ -53,7 +238,7 @@
             <span class="deal-price-original">$199</span>
             <span class="deal-price-current">$99</span>
           </div>
-          <a href="/collections/men" class="btn btn-secondary deal-btn">Shop Now</a>
+          
         </div>
       </div>
       
@@ -73,9 +258,50 @@
             <span class="deal-price-original">$149</span>
             <span class="deal-price-current">$89</span>
           </div>
-          <a href="/collections/kids" class="btn btn-secondary deal-btn">Shop Now</a>
+          
         </div>
       </div>
+      
+      <!-- Deal 4 -->
+      <div class="deal-card">
+        <div class="deal-badge">HOT DEAL</div>
+        <div class="deal-image">
+          <img src="{{ 'women-pants.jpeg' | asset_url }}" alt="Women Collection">
+          <div class="deal-overlay">
+            <div class="deal-discount">40% OFF</div>
+          </div>
+        </div>
+        <div class="deal-content">
+          <h3 class="deal-title">Women's Essential</h3>
+          <p class="deal-description">Fitting Jeans</p>
+          <div class="deal-price">
+            <span class="deal-price-original">$149</span>
+            <span class="deal-price-current">$89</span>
+          </div>
+          
+        </div>
+      </div>
+      
+      <!-- Deal 5 -->
+      <div class="deal-card">
+        <div class="deal-badge">SALE</div>
+        <div class="deal-image">
+          <img src="{{ 'women-jackets.jpeg' | asset_url }}" alt="Jackets">
+          <div class="deal-overlay">
+            <div class="deal-discount">40% OFF</div>
+          </div>
+        </div>
+        <div class="deal-content">
+          <h3 class="deal-title">Winter Collection</h3>
+          <p class="deal-description">Warm and Cozy</p>
+          <div class="deal-price">
+            <span class="deal-price-original">$149</span>
+            <span class="deal-price-current">$89</span>
+          </div>
+          
+        </div>
+      </div>
+    
     </div>
   </div>
 </section>
@@ -359,37 +585,36 @@
               <img src="{{ 'new-arrivals.jpeg' | asset_url }}" alt="{{ product.title }}" class="product-img">
             {% endif %}
             <div class="product-card-badge">New</div>
-            <button class="product-card-wishlist" data-product-id="{{ product.id }}" data-product-title="{{ product.title }}" data-product-handle="{{ product.handle }}">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-              </svg>
-            </button>
           </div>
           <div class="product-card-content">
             <h3 class="product-card-title">{{ product.title }}</h3>
-            <div class="product-card-price">
-              {% if product.price %}
-                <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
-                {% if product.compare_at_price > product.price %}
-                  <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+            <div class="product-card-bottom">
+              <div class="product-card-price">
+                {% if product.price %}
+                  <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
+                  {% if product.compare_at_price > product.price %}
+                    <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+                  {% endif %}
+                {% else %}
+                  <span class="product-card-price-current">$0.00</span>
                 {% endif %}
-              {% else %}
-                <span class="product-card-price-current">$0.00</span>
-              {% endif %}
-            </div>
-            <div class="product-card-rating">
-              <div class="product-card-stars">
-                <span>★★★★★</span>
               </div>
-              <span class="product-card-reviews">({{ product.metafields.reviews.count | default: 0 }})</span>
-            </div>
-            <div class="product-card-actions">
-              <button class="btn btn-primary btn-sm add-to-cart-btn" 
-                      data-product-id="{{ product.id }}" 
-                      data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                Add to Cart
-              </button>
-              <a href="{{ product.url }}" class="btn btn-secondary btn-sm">Details</a>
+              <div class="product-card-actions">
+                <button class="icon-btn wishlist-btn" data-product-id="{{ product.id }}" data-product-title="{{ product.title }}" data-product-handle="{{ product.handle }}">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                  </svg>
+                </button>
+                <button class="icon-btn cart-btn" 
+                        data-product-id="{{ product.id }}" 
+                        data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -401,7 +626,7 @@
               <img src="{{ 'new-arrivals.jpeg' | asset_url }}" alt="Sample Product {{ i }}" class="product-img">
               <div class="product-card-badge">New</div>
               <button class="product-card-wishlist" data-product-id="sample-{{ i }}" data-product-title="Sample Product {{ i }}">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
               </button>
@@ -447,7 +672,7 @@
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
             <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
           </svg>
         </div>
@@ -457,7 +682,7 @@
       
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
             <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
@@ -467,7 +692,7 @@
       
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
             <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
@@ -477,7 +702,7 @@
       
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
@@ -587,7 +812,7 @@
 
 .deals-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 3rem;
   margin-bottom: 4rem;
 }
@@ -600,9 +825,11 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 20px 40px rgba(255, 136, 0, 0.2), 0 0 0 1px rgba(255, 136, 0, 0.1);
   border: 1px solid rgba(255, 136, 0, 0.3);
-  height: 45rem;
+  height: 35rem;
   display: flex;
   flex-direction: column;
+  margin: auto;
+  width: 100%;
 }
 
 .deal-card:hover {
@@ -632,7 +859,7 @@
 
 .deal-image {
   position: relative;
-  height: 20rem;
+  height: 60%;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -654,7 +881,7 @@
 
 .deal-overlay {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
@@ -665,7 +892,7 @@
   color: #ff6b6b;
   padding: 1.5rem 2rem;
   border-radius: 50%;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 900;
   text-align: center;
   border: 3px solid #ff6b6b;
@@ -681,7 +908,7 @@
 }
 
 .deal-title {
-  font-size: 2.2rem;
+  font-size: 1.4rem;
   margin-bottom: 0.8rem;
   color: #ffffff;
   font-weight: 700;
@@ -709,7 +936,7 @@
 
 .deal-price-current {
   color: #ff8800;
-  font-size: 2.4rem;
+  font-size: 1.8rem;
   font-weight: 700;
   text-shadow: 0 0 15px rgba(255, 136, 0, 0.5);
 }
@@ -916,17 +1143,67 @@
   font-weight: 500;
 }
 
+/* === Super Deal Arrow Button === */
+.superDealArrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: #ff8800;
+  background: rgba(255, 136, 0, 0.1);
+  border: 2px solid rgba(255, 136, 0, 0.4);
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 136, 0, 0.3);
+  cursor: pointer;
+}
+
+.superDealArrow:hover {
+  background: linear-gradient(135deg, #ff8800, #ffaa44);
+  color: #fff;
+  box-shadow: 0 0 30px rgba(255, 136, 0, 0.6);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Positioning within section header */
+.section-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.section-header .section-title {
+  margin-bottom: 1rem;
+}
+
+.section-header .section-subtitle {
+  margin-bottom: 0;
+}
+
+
 /* Responsive Design for New Sections */
 @media (max-width: 768px) {
   .deals-grid {
-    display: flex;
+    /* display: flex;
     overflow-x: auto;
     gap: 1rem;
     padding: 1rem 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    -ms-overflow-style: none;
+    -ms-overflow-style: none; */
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 4rem;
   }
   
   .deals-grid::-webkit-scrollbar {
@@ -944,6 +1221,10 @@
     scroll-snap-align: start;
     max-width: 200px;
   }
+
+  .deal-card:nth-child(4), .deal-card:nth-child(5){
+    display: none;
+  }
   
   .deal-image,
   .featured-deal .deal-image {
@@ -951,7 +1232,7 @@
   }
   
   .deal-content {
-    padding: 1rem 0.8rem;
+    padding: 1.2rem 1rem;
   }
   
   .deal-title {
@@ -969,7 +1250,9 @@
   .deal-price-current {
     font-size: 1.5rem;
   }
-  
+  .deal-price{
+    margin-bottom: 0;
+  }
   .deal-price-original {
     font-size: 1.1rem;
   }
@@ -1022,9 +1305,16 @@
   .trend-image {
     height: 15rem;
   }
+  
 }
 
 @media (max-width: 480px) {
+  .superDealArrow {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    right: 1rem;
+  }
   .super-deals-section,
   .top-trends-section {
     padding: 3rem 0;
@@ -1064,13 +1354,13 @@
   }
   
   .deal-title {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     margin-bottom: 0.2rem;
     line-height: 1.1;
   }
   
   .deal-description {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     margin-bottom: 0.4rem;
     line-height: 1.2;
   }
@@ -1416,7 +1706,7 @@
 /* Featured Products */
 .featured-products {
   padding: 10rem 0;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 50%, #f5f5dc 100%);
+  /* background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 50%, #f5f5dc 100%); */
   position: relative;
   overflow: hidden;
 }
@@ -1428,9 +1718,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  /* background: 
     radial-gradient(circle at 20% 20%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 80% 80%, rgba(255, 102, 0, 0.1) 0%, transparent 50%); */
   pointer-events: none;
 }
 
@@ -1475,16 +1765,17 @@
   background: #ffffff;
   border-radius: 2.4rem;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.12);
+  /* box-shadow: 0 8px 32px rgba(255, 136, 0, 0.12); */
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   border: 1px solid rgba(255, 136, 0, 0.08);
   transform: translateY(0);
+  max-width: 300px;
 }
 
 .product-card:hover {
   transform: translateY(-12px);
-  box-shadow: 0 24px 64px rgba(255, 136, 0, 0.2);
+  box-shadow: 0 0 5px rgba(255, 136, 0, 0.2);
   border-color: rgba(255, 136, 0, 0.2);
 }
 
@@ -1496,6 +1787,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
+  width: 100%;
+  height: 40rem;
 }
 
 .product-img {
@@ -1578,7 +1872,7 @@
 }
 
 .product-card-title {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1rem;
   color: #1a1a1a;
@@ -1588,7 +1882,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 4.4rem;
+  /* min-height: 4.4rem; */
 }
 
 .product-card:hover .product-card-title {
@@ -1599,11 +1893,11 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0;
 }
 
 .product-card-price-current {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #ff8800;
   line-height: 1;
@@ -2611,7 +2905,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Wishlist functionality
-  const wishlistButtons = document.querySelectorAll('.product-card-wishlist');
+  const wishlistButtons = document.querySelectorAll('.wishlist-btn');
   
   // Initialize wishlist from localStorage
   function getWishlist() {
@@ -2640,7 +2934,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       button.classList.remove('active');
       icon.style.fill = 'none';
-      icon.style.stroke = 'currentColor';
+      icon.style.stroke = 'black';
       button.style.background = 'rgba(255, 255, 255, 0.95)';
       button.style.borderColor = 'transparent';
     }
@@ -2773,7 +3067,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add to Cart Functionality
 document.addEventListener('DOMContentLoaded', function() {
-  const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+  const addToCartButtons = document.querySelectorAll('.cart-btn');
   
   addToCartButtons.forEach(button => {
     button.addEventListener('click', function(e) {
@@ -2788,8 +3082,8 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Update button state
       const originalText = this.textContent;
-      this.textContent = 'Adding...';
       this.disabled = true;
+      // this.textContent = 'Adding...';
       
       // Add to cart via Shopify Ajax API
       fetch('/cart/add.js', {
@@ -2807,7 +3101,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(response => response.json())
       .then(data => {
         // Success feedback
-        this.textContent = 'Added!';
+        // this.textContent = 'Added!';
         this.style.background = 'linear-gradient(135deg, #059669, #047857)';
         
         // Show success notification
@@ -2815,7 +3109,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Reset button after delay
         setTimeout(() => {
-          this.textContent = originalText;
+          // this.textContent = originalText;
+        
           this.style.background = 'linear-gradient(135deg, #dc2626, #991b1b)';
           this.disabled = false;
         }, 2000);
@@ -2830,7 +3125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Reset button
         setTimeout(() => {
-          this.textContent = originalText;
+          // this.textContent = originalText;
           this.style.background = 'linear-gradient(135deg, #dc2626, #991b1b)';
           this.disabled = false;
         }, 2000);
