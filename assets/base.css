@@ -114,7 +114,7 @@ a:hover {
   border-radius: 0.8rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 10000;
-  transform: translateX(100%);
+  /* transform: translateX(100%); */
   transition: transform 0.3s ease;
   font-size: 1.4rem;
   font-weight: 500;
@@ -229,7 +229,7 @@ a:hover {
 .product-actions {
   display: flex;
   gap: 1.2rem;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .wishlist-btn {

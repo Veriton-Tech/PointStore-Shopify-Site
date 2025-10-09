@@ -237,26 +237,49 @@
    <!-- ...existing code... -->
 
   <!-- Related Products -->
-  {% assign related_products = collections[product.collections.first.handle].products | where: "id", product.id, false %}
-  {% if related_products.size > 0 %}
-    <div class="related-products">
-      <h3 class="related-title">You Might Also Like</h3>
-      <div class="related-grid">
-        {% for related_product in related_products limit: 4 %}
-          <div class="related-product">
-            <div class="related-product-image">
-              <img src="{{ related_product.featured_image | img_url: '300x300' }}" alt="{{ related_product.title }}" class="related-img">
-              <a href="/products/{{ related_product.handle }}" class="related-link">Quick View</a>
-            </div>
-            <div class="related-product-info">
-              <h4 class="related-product-title">{{ related_product.title }}</h4>
-              <div class="related-product-price">${{ related_product.price | money_without_currency }}</div>
-            </div>
+ {% assign related_products = collections[product.collections.first.handle].products | where: "id", product.id, false %}
+
+{% if related_products.size > 0 %}
+  <!-- Show Related Products -->
+  <div class="related-products">
+    <h3 class="related-title">You Might Also Like</h3>
+    <div class="related-grid">
+      {% for related_product in related_products limit: 4 %}
+        <div class="related-product">
+          <div class="related-product-image">
+            <img src="{{ related_product.featured_image | img_url: '300x300' }}" alt="{{ related_product.title }}" class="related-img">
+            <a href="/products/{{ related_product.handle }}" class="related-link">Quick View</a>
           </div>
-        {% endfor %}
-      </div>
+          <div class="related-product-info">
+            <h4 class="related-product-title">{{ related_product.title }}</h4>
+            <div class="related-product-price">${{ related_product.price | money_without_currency }}</div>
+          </div>
+        </div>
+      {% endfor %}
     </div>
-  {% endif %}
+  </div>
+
+{% else %}
+  <!-- Fallback: Show All Products -->
+  <div class="related-products">
+    <h3 class="related-title">You Might Also Like</h3>
+    <div class="related-grid">
+      {% for product_item in collections.all.products limit: 4 %}
+        <div class="related-product">
+          <div class="related-product-image">
+            <img src="{{ product_item.featured_image | img_url: '300x300' }}" alt="{{ product_item.title }}" class="related-img">
+            <a href="/products/{{ product_item.handle }}" class="related-link">Quick View</a>
+          </div>
+          <div class="related-product-info">
+            <h4 class="related-product-title">{{ product_item.title }}</h4>
+            <div class="related-product-price">${{ product_item.price | money_without_currency }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
   </div>
 </div>
 
@@ -264,7 +287,7 @@
 /* Product Page Styles */
 .product-page {
   padding: 4rem 0;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 50%, #f5f5dc 100%);
+  /* background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 50%, #f5f5dc 100%); */
   min-height: 100vh;
   position: relative;
 }
@@ -276,9 +299,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  /* background: 
     radial-gradient(circle at 20% 20%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 80% 80%, rgba(255, 102, 0, 0.1) 0%, transparent 50%); */
   pointer-events: none;
 }
 
@@ -324,6 +347,8 @@
 .product-images {
   position: relative;
   top: 2rem;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .product-main-image {
@@ -332,17 +357,19 @@
   margin-bottom: 2rem;
   border-radius: 1.2rem;
   overflow: hidden;
-  box-shadow: 0 8px 30px rgba(255, 136, 0, 0.15);
+  /* box-shadow   : 0 8px 30px rgba(255, 136, 0, 0.15); */
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
   border: 2px solid rgba(255, 136, 0, 0.1);
+  width: 100%;
+  max-height: 80%;
 }
 
 .product-main-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 
@@ -377,6 +404,7 @@
   gap: 1rem;
   overflow-x: auto;
   padding-bottom: 1rem;
+  flex-direction: column;
 }
 
 .product-thumbnail {
@@ -733,7 +761,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255, 107, 107, 0.9);
+  background: #ff8800;
   color: var(--white);
   padding: 1rem 2rem;
   border-radius: 2rem;
@@ -745,6 +773,10 @@
 
 .related-product:hover .related-link {
   opacity: 1;
+}
+
+.related-link:hover{
+  color: rgb(0, 0, 0);
 }
 
 .related-product-info {
@@ -760,7 +792,7 @@
 .related-product-price {
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--primary-light);
+  color: #ff8800;
 }
 
 /* Notification Styles */
@@ -906,17 +938,14 @@
   
   .product-title {
     font-size: 2.4rem;
-    text-align: center;
     margin-bottom: 1.5rem;
   }
   
   .product-rating {
-    justify-content: center;
     margin-bottom: 2rem;
   }
   
   .product-price {
-    text-align: center;
     margin-bottom: 2rem;
   }
   
@@ -999,7 +1028,7 @@
   }
   
   .product-rating {
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 0.5rem;
   }
   
@@ -1040,11 +1069,11 @@
   .option-label,
   .quantity-label {
     font-size: 1.4rem;
-    text-align: center;
+    /* text-align: center; */
   }
   
   .option-values {
-    justify-content: center;
+    /* justify-content: center; */
     gap: 0.8rem;
   }
   
@@ -1052,11 +1081,11 @@
     padding: 0.8rem 1.2rem;
     font-size: 1.2rem;
     min-width: 4rem;
-    justify-content: center;
+    /* justify-content: center; */
   }
   
   .quantity-controls {
-    justify-content: center;
+    /* justify-content: center;  */
     gap: 1rem;
   }
   

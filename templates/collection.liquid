@@ -124,7 +124,7 @@
                   <rect x="3" y="14" width="7" height="7"></rect>
                 </svg>
               </button>
-              <button class="view-btn" data-view="list" aria-label="List view">
+              {% comment %} <button class="view-btn" data-view="list" aria-label="List view">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="8" y1="6" x2="21" y2="6"></line>
                   <line x1="8" y1="12" x2="21" y2="12"></line>
@@ -133,7 +133,7 @@
                   <line x1="3" y1="12" x2="3.01" y2="12"></line>
                   <line x1="3" y1="18" x2="3.01" y2="18"></line>
                 </svg>
-              </button>
+              </button> {% endcomment %}
             </div>
 
             <!-- Filters Toggle Button -->
@@ -150,6 +150,7 @@
           <div class="products-grid" id="products-grid">
             {% if products.size > 0 %}
               {% for product in products %}
+              <a href="{{ product.url }}">
                 <div class="product-card" 
                      data-category="{{ product.type | downcase }}"
                      data-price="{{ product.price | money_without_currency | remove: '$' | times: 1 }}"
@@ -168,425 +169,61 @@
                       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                       </svg>
-                    </button>
-                    <div class="product-card-actions">
-                      <a href="{{ product.url }}" class="btn btn-primary btn-sm">Quick View</a>
-                      <button class="btn btn-secondary btn-sm add-to-cart-btn" 
-                              data-product-id="{{ product.id }}" 
-                              data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                        Add to Cart
                       </button>
-                    </div>
-                  </div>
-                  <div class="product-card-content">
-                    <h3 class="product-card-title">{{ product.title }}</h3>
-                    <div class="product-card-price">
-                      <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
-                      {% if product.compare_at_price > product.price %}
-                        <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
-                      {% endif %}
-                    </div>
-                    <div class="product-card-rating">
-                      <div class="product-card-stars">
-                        <span>★★★★★</span>
-                      </div>
-                      <span class="product-card-reviews">({{ product.metafields.reviews.count | default: 0 }})</span>
-                    </div>
-                    <div class="product-card-variants">
-                      {% for option in product.options_with_values %}
-                        {% if option.name == 'Color' %}
-                          <div class="product-colors">
-                            {% for value in option.values limit: 4 %}
-                              <span class="color-swatch" style="background: {{ value | downcase }};" title="{{ value }}"></span>
-                            {% endfor %}
-                          </div>
-                        {% endif %}
-                      {% endfor %}
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-            {% else %}
-
-              <!-- ================================================================== Sample Products for Demo -->
-              <div class="product-card" data-category="dress" data-price="89" data-colors="black,red,blue" data-sizes="s,m,l" data-brand="fashion">
-                <div class="product-card-image">
-                  <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop&crop=center" alt="Elegant Black Dress" class="product-img">
-                  <div class="product-card-badge new">New</div>
-                  <button class="product-card-wishlist" data-product-id="1">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                      </button>
-                      <div class="product-card-actions">
-                    <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="1">
-                      Add to Cart
-                      </button>
-                  </div>
-                  </div>
-                  <div class="product-card-content">
-                    <h3 class="product-card-title">Elegant Black Dress</h3>
-                    <div class="product-card-price">
-                      <span class="product-card-price-current">$89.99</span>
-                      <span class="product-card-price-original">$129.99</span>
-                      </div>
-                      <div class="product-card-rating">
-                        <div class="product-card-stars">
-                          <span>★★★★★</span>
-                          </div>
-                          <span class="product-card-reviews">(24)</span>
-                          </div>
-                          <div class="product-card-variants">
-                            <div class="product-colors">
-                              <span class="color-swatch" style="background: #000;" title="Black"></span>
-                              <span class="color-swatch" style="background: #ff0000;" title="Red"></span>
-                              <span class="color-swatch" style="background: #0000ff;" title="Blue"></span>
-                              </div>
-                              </div>
-                              </div>
-                              </div>
-                              
-                              <div class="product-card" data-category="shirt" data-price="45" data-colors="white,blue" data-sizes="s,m,l,xl" data-brand="casual">
-                                <div class="product-card-image">
-                  <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop&crop=center" alt="Classic White Shirt" class="product-img">
-                  <button class="product-card-wishlist" data-product-id="2">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                  </button>
-                  <div class="product-card-actions">
-                    <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="2">
-                      Add to Cart
-                      </button>
-                      </div>
                       </div>
                       <div class="product-card-content">
-                        <h3 class="product-card-title">Classic White Shirt</h3>
+                        <h3 class="product-card-title">{{ product.title }}</h3>
                         <div class="product-card-price">
-                          <span class="product-card-price-current">$45.99</span>
-                          </div>
-                          <div class="product-card-rating">
-                            <div class="product-card-stars">
-                              <span>★★★★☆</span>
-                              </div>
-                              <span class="product-card-reviews">(18)</span>
-                              </div>
-                              <div class="product-card-variants">
-                                <div class="product-colors">
-                                  <span class="color-swatch" style="background: #fff; border: 1px solid #ddd;" title="White"></span>
-                                  <span class="color-swatch" style="background: #0000ff;" title="Blue"></span>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    
-                    <div class="product-card" data-category="pants" data-price="65" data-colors="black,khaki" data-sizes="s,m,l" data-brand="premium">
-                <div class="product-card-image">
-                  <img src="https://images.unsplash.com/photo-1506629905607-1a0b0b0b0b0b?w=400&h=400&fit=crop&crop=center" alt="Slim Fit Chinos" class="product-img">
-                  <div class="product-card-badge sale">Sale</div>
-                  <button class="product-card-wishlist" data-product-id="3">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                      </button>
-                      <div class="product-card-actions">
-                        <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="3">
-                      Add to Cart
-                      </button>
-                      </div>
-                      </div>
-                <div class="product-card-content">
-                  <h3 class="product-card-title">Slim Fit Chinos</h3>
-                  <div class="product-card-price">
-                    <span class="product-card-price-current">$65.99</span>
-                    <span class="product-card-price-original">$89.99</span>
-                  </div>
-                  <div class="product-card-rating">
-                    <div class="product-card-stars">
-                      <span>★★★★★</span>
-                    </div>
-                    <span class="product-card-reviews">(32)</span>
-                    </div>
-                    <div class="product-card-variants">
-                      <div class="product-colors">
-                        <span class="color-swatch" style="background: #000;" title="Black"></span>
-                        <span class="color-swatch" style="background: #f0e68c;" title="Khaki"></span>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    
-                    <div class="product-card" data-category="jacket" data-price="120" data-colors="navy,black" data-sizes="s,m,l,xl" data-brand="outerwear">
-                      <div class="product-card-image">
-                  <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop&crop=center" alt="Denim Jacket" class="product-img">
-                  <button class="product-card-wishlist" data-product-id="4">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                      </button>
-                      <div class="product-card-actions">
-                        <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                        <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="4">
-                          Add to Cart
-                    </button>
-                    </div>
-                    </div>
-                    <div class="product-card-content">
-                      <h3 class="product-card-title">Classic Denim Jacket</h3>
-                      <div class="product-card-price">
-                        <span class="product-card-price-current">$120.99</span>
-                        </div>
-                  <div class="product-card-rating">
-                    <div class="product-card-stars">
-                      <span>★★★★☆</span>
-                      </div>
-                      <span class="product-card-reviews">(15)</span>
-                      </div>
-                      <div class="product-card-variants">
-                        <div class="product-colors">
-                      <span class="color-swatch" style="background: #000080;" title="Navy"></span>
-                      <span class="color-swatch" style="background: #000;" title="Black"></span>
-                    </div>
-                  </div>
-                </div>
-                </div>
-
-                <div class="product-card" data-category="shoes" data-price="95" data-colors="brown,black" data-sizes="7,8,9,10,11" data-brand="footwear">
-                <div class="product-card-image">
-                  <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop&crop=center" alt="Leather Loafers" class="product-img">
-                  <div class="product-card-badge new">New</div>
-                  <button class="product-card-wishlist" data-product-id="5">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                      </button>
-                      <div class="product-card-actions">
-                        <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                        <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="5">
-                          Add to Cart
-                          </button>
-                          </div>
-                          </div>
-                          <div class="product-card-content">
-                            <h3 class="product-card-title">Leather Loafers</h3>
-                  <div class="product-card-price">
-                    <span class="product-card-price-current">$95.99</span>
-                    </div>
-                    <div class="product-card-rating">
-                      <div class="product-card-stars">
-                        <span>★★★★★</span>
-                        </div>
-                        <span class="product-card-reviews">(28)</span>
-                        </div>
-                        <div class="product-card-variants">
-                          <div class="product-colors">
-                            <span class="color-swatch" style="background: #8b4513;" title="Brown"></span>
-                      <span class="color-swatch" style="background: #000;" title="Black"></span>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-                      
-                      <div class="product-card" data-category="accessories" data-price="35" data-colors="black,brown" data-sizes="one-size" data-brand="accessories">
-                        <div class="product-card-image">
-                          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop&crop=center" alt="Leather Handbag" class="product-img">
-                  <button class="product-card-wishlist" data-product-id="6">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                      </button>
-                      <div class="product-card-actions">
-                        <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                        <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="6">
-                          Add to Cart
-                    </button>
-                    </div>
-                    </div>
-                    <div class="product-card-content">
-                      <h3 class="product-card-title">Leather Handbag</h3>
-                      <div class="product-card-price">
-                        <span class="product-card-price-current">$35.99</span>
-                        <span class="product-card-price-original">$49.99</span>
-                        </div>
-                        <div class="product-card-rating">
-                          <div class="product-card-stars">
-                            <span>★★★★☆</span>
+                          <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
+                          {% if product.compare_at_price > product.price %}
+                            <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+                          {% endif %}
+                          <div class="product-card-actions">
+                              <button class="btn btn-secondary btn-sm add-to-cart-btn" 
+                                      data-product-id="{{ product.id }}" 
+                                      data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                                <i class="fa-solid fa-cart-plus"></i>
+                              </button>
                             </div>
-                            <span class="product-card-reviews">(12)</span>
-                            </div>
-                            <div class="product-card-variants">
-                              <div class="product-colors">
-                                <span class="color-swatch" style="background: #000;" title="Black"></span>
-                                <span class="color-swatch" style="background: #8b4513;" title="Brown"></span>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                <div class="product-card" data-category="dress" data-price="75" data-colors="pink,blue,green" data-sizes="s,m,l,xl" data-brand="fashion">
-                                  <div class="product-card-image">
-                                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop&crop=center" alt="Summer Floral Dress" class="product-img">
-                                    <div class="product-card-badge new">New</div>
-                  <button class="product-card-wishlist" data-product-id="7">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                  </button>
-                  <div class="product-card-actions">
-                    <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                    <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="7">
-                      Add to Cart
-                      </button>
-                      </div>
-                      </div>
-                      <div class="product-card-content">
-                        <h3 class="product-card-title">Summer Floral Dress</h3>
-                        <div class="product-card-price">
-                          <span class="product-card-price-current">$75.99</span>
                           </div>
                           <div class="product-card-rating">
                             <div class="product-card-stars">
                               <span>★★★★★</span>
+                            </div>
+                              <span class="product-card-reviews">({{ product.metafields.reviews.count | default: 0 }})</span>
                               </div>
-                              <span class="product-card-reviews">(36)</span>
-                              </div>
-                  <div class="product-card-variants">
-                    <div class="product-colors">
-                      <span class="color-swatch" style="background: #ffc0cb;" title="Pink"></span>
-                      <span class="color-swatch" style="background: #0000ff;" title="Blue"></span>
-                      <span class="color-swatch" style="background: #00ff00;" title="Green"></span>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-                      
-                      <div class="product-card" data-category="shirt" data-price="55" data-colors="white,black,striped" data-sizes="s,m,l,xl" data-brand="casual">
-                        <div class="product-card-image">
-                  <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&h=400&fit=crop&crop=center" alt="Casual Button Shirt" class="product-img">
-                  <button class="product-card-wishlist" data-product-id="8">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                      </button>
-                      <div class="product-card-actions">
-                        <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                        <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="8">
-                          Add to Cart
-                          </button>
+                              {% comment %} <div class="product-card-variants">
+                                {% for option in product.options_with_values %}
+                                  {% if option.name == 'Color' %}
+                                    <div class="product-colors">
+                                      {% for value in option.values limit: 4 %}
+                                        <span class="color-swatch" style="background: {{ value | downcase }};" title="{{ value }}"></span>
+                                      {% endfor %}
+                                    </div>
+                                  {% endif %}
+                                {% endfor %}
+                              </div> {% endcomment %}
+                            
                           </div>
-                          </div>
-                          <div class="product-card-content">
-                  <h3 class="product-card-title">Casual Button Shirt</h3>
-                  <div class="product-card-price">
-                    <span class="product-card-price-current">$55.99</span>
-                    <span class="product-card-price-original">$69.99</span>
-                    </div>
-                    <div class="product-card-rating">
-                      <div class="product-card-stars">
-                        <span>★★★★☆</span>
                         </div>
-                    <span class="product-card-reviews">(22)</span>
-                    </div>
-                    <div class="product-card-variants">
-                      <div class="product-colors">
-                        <span class="color-swatch" style="background: #fff; border: 1px solid #ddd;" title="White"></span>
-                        <span class="color-swatch" style="background: #000;" title="Black"></span>
-                        <span class="color-swatch" style="background: linear-gradient(45deg, #000 25%, #fff 25%, #fff 50%, #000 50%);" title="Striped"></span>
-                        </div>
-                        </div>
-                </div>
-              </div>
-              
-              <div class="product-card" data-category="shoes" data-price="85" data-colors="white,black,red" data-sizes="7,8,9,10,11,12" data-brand="sneakers">
-                <div class="product-card-image">
-                  <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop&crop=center" alt="Classic Sneakers" class="product-img">
-                  <div class="product-card-badge sale">Sale</div>
-                  <button class="product-card-wishlist" data-product-id="9">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                      </button>
-                      <div class="product-card-actions">
-                        <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                        <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="9">
-                          Add to Cart
-                          </button>
-                          </div>
-                          </div>
-                          <div class="product-card-content">
-                  <h3 class="product-card-title">Classic Sneakers</h3>
-                  <div class="product-card-price">
-                    <span class="product-card-price-current">$85.99</span>
-                    <span class="product-card-price-original">$120.99</span>
-                    </div>
-                    <div class="product-card-rating">
-                      <div class="product-card-stars">
-                        <span>★★★★★</span>
-                        </div>
-                    <span class="product-card-reviews">(45)</span>
-                    </div>
-                    <div class="product-card-variants">
-                      <div class="product-colors">
-                        <span class="color-swatch" style="background: #fff; border: 1px solid #ddd;" title="White"></span>
-                      <span class="color-swatch" style="background: #000;" title="Black"></span>
-                      <span class="color-swatch" style="background: #ff0000;" title="Red"></span>
-                      </div>
-                      </div>
-                </div>
-              </div>
-
-              <div class="product-card" data-category="jacket" data-price="110" data-colors="navy,black,olive" data-sizes="s,m,l,xl,xxl" data-brand="outerwear">
-                <div class="product-card-image">
-                  <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop&crop=center" alt="Bomber Jacket" class="product-img">
-                  <button class="product-card-wishlist" data-product-id="10">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                      </button>
-                      <div class="product-card-actions">
-                        <a href="/product/{{ product.handle }}" class="btn btn-primary btn-sm">Quick View</a>
-                        <button class="btn btn-secondary btn-sm add-to-cart-btn" data-product-id="10">
-                          Add to Cart
-                          </button>
-                          </div>
-                          </div>
-                          <div class="product-card-content">
-                            <h3 class="product-card-title">Bomber Jacket</h3>
-                            <div class="product-card-price">
-                    <span class="product-card-price-current">$110.99</span>
-                    </div>
-                  <div class="product-card-rating">
-                    <div class="product-card-stars">
-                      <span>★★★★☆</span>
-                      </div>
-                      <span class="product-card-reviews">(28)</span>
-                      </div>
-                      <div class="product-card-variants">
-                        <div class="product-colors">
-                          <span class="color-swatch" style="background: #000080;" title="Navy"></span>
-                          <span class="color-swatch" style="background: #000;" title="Black"></span>
-                          <span class="color-swatch" style="background: #808000;" title="Olive"></span>
-                          </div>
-                          </div>
-                          </div>
-                          </div>
+                      </a>
+                      {% endfor %}
+                    
+             
                         {% endif %}
-                        <!-- ================================================================== Sample Products for Demo -->
-                        </div>
+                      
+                    </div>
           
-                        <!-- Pagination -->
-                        {% if paginate.pages > 1 %}
-                          <div class="pagination">
-                            {% if paginate.previous %}
-                <a href="{{ paginate.previous.url }}" class="pagination-btn">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="15,18 9,12 15,6"></polyline>
-                  </svg>
-                  Previous
-                  </a>
+              <!-- Pagination -->
+              {% if paginate.pages > 1 %}
+                <div class="pagination">
+                  {% if paginate.previous %}
+                  <a href="{{ paginate.previous.url }}" class="pagination-btn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="15,18 9,12 15,6"></polyline>
+                    </svg>
+                    Previous
+                    </a>
                 {% endif %}
                 
                 <div class="pagination-numbers">
@@ -948,15 +585,18 @@ body::before {
 
 /* Product Card Actions */
 .product-card-actions {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
+ 
   display: flex;
   gap: 1rem;
-  opacity: 0;
-  transform: translateY(10px);
   transition: all var(--transition-fast);
+}
+
+add-to-cart-btn{
+  width: 50px;
+}
+
+.add-to-cart-btn:hover{
+  color: black;
 }
 
 .product-card:hover .product-card-actions {
@@ -966,6 +606,15 @@ body::before {
 
 .product-card-variants {
   margin-top: 1rem;
+}
+
+.product-card-price{
+  justify-content: space-between !important;
+  margin-bottom: 0 !important;
+}
+
+.product-card-content{
+  padding: 2rem 1.6rem 0rem !important;
 }
 
 .product-colors {
@@ -1077,6 +726,8 @@ body::before {
     gap: 2rem;
   }
 }
+
+/* ======================================================================================== */
 
 @media (max-width: 768px) {
   .collection-header {
@@ -1198,6 +849,60 @@ body::before {
   }
 }
 
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  max-width: 400px;
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: slideInRight 0.3s ease;
+}
+.notification-success {
+  background: #10b981;
+  color: white;
+}
+.notification-error {
+  background: #ef4444;
+  color: white;
+}
+.notification-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+.notification-message {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+.notification-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 15px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+.notification-close:hover {
+  opacity: 1;
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
 
 </style>
 
@@ -1416,7 +1121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset button after 2 seconds
         setTimeout(() => {
           this.disabled = false;
-          this.textContent = originalText;
+          this.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
         }, 2000);
       })
       .catch(error => {
@@ -1463,69 +1168,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
     
-    // Add notification styles if not already present
-    if (!document.querySelector('.notification-styles')) {
-      const style = document.createElement('style');
-      style.className = 'notification-styles';
-      style.textContent = `
-        .notification {
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          z-index: 10000;
-          max-width: 400px;
-          padding: 0;
-          border-radius: 8px;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-          animation: slideInRight 0.3s ease;
-        }
-        .notification-success {
-          background: #10b981;
-          color: white;
-        }
-        .notification-error {
-          background: #ef4444;
-          color: white;
-        }
-        .notification-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 15px 20px;
-        }
-        .notification-message {
-          flex: 1;
-          font-size: 14px;
-          font-weight: 500;
-        }
-        .notification-close {
-          background: none;
-          border: none;
-          color: inherit;
-          font-size: 18px;
-          cursor: pointer;
-          padding: 0;
-          margin-left: 15px;
-          opacity: 0.8;
-          transition: opacity 0.2s ease;
-        }
-        .notification-close:hover {
-          opacity: 1;
-        }
-        @keyframes slideInRight {
-          from {
-            transform: translateX(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-      `;
-      document.head.appendChild(style);
-    }
-    
+   
     document.body.appendChild(notification);
     
     // Auto remove after 5 seconds
