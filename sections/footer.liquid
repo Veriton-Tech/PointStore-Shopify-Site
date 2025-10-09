@@ -105,6 +105,62 @@
             <a href="/pages/partnerships">Partnerships</a>
           </li>
         </ul>
+        <!-- Footer Newsletter (moved here after Partnerships) -->
+        <div class="footer-newsletter">
+          <h5 class="footer-newsletter-title">Sign up for PS style news</h5>
+
+          <!-- Email subscribe form -->
+          <form id="footer-newsletter-email-form" class="footer-newsletter-form footer-newsletter-form--single">
+            <input
+              type="email"
+              name="contact[email]"
+              class="footer-newsletter-input"
+              placeholder="Enter your email address"
+              required>
+            <button type="submit" class="footer-newsletter-btn">Subscribe</button>
+          </form>
+
+          <!-- Phone subscribe form -->
+          <form id="footer-newsletter-phone-form" class="footer-newsletter-form footer-newsletter-form--phone">
+            <div class="footer-newsletter-phone-group">
+              <select name="contact[country_code]" class="footer-country-code-select" aria-label="Country code">
+                <option value="+1">+1</option>
+                <option value="+44">+44</option>
+                <option value="+61">+61</option>
+                <option value="+91">+91</option>
+                <option value="+971">+971</option>
+              </select>
+              <input
+                type="tel"
+                name="contact[phone]"
+                class="footer-phone-input"
+                placeholder="Contact number"
+                required>
+            </div>
+            <button type="submit" class="footer-newsletter-btn">Subscribe</button>
+          </form>
+
+          <!-- WhatsApp subscribe form (matches phone styling) -->
+          <form id="footer-newsletter-whatsapp-form" class="footer-newsletter-form footer-newsletter-form--phone">
+            <div class="footer-newsletter-phone-group">
+              <select name="contact[whatsapp_country_code]" class="footer-country-code-select" aria-label="WhatsApp country code">
+                <option value="+1">+1</option>
+                <option value="+44">+44</option>
+                <option value="+61">+61</option>
+                <option value="+91">+91</option>
+                <option value="+971">+971</option>
+              </select>
+              <input
+                type="tel"
+                name="contact[whatsapp]"
+                class="footer-phone-input footer-whatsapp-input"
+                placeholder="WhatsApp number"
+                required>
+            </div>
+            <button type="submit" class="footer-newsletter-btn">Subscribe</button>
+          </form>
+          <p class="footer-newsletter-policy">By clicking the SUBSCRIBE button, you are agreeing to our <a href="/pages/privacy-policy">Privacy & Cookie Policy</a></p>
+        </div>
       </div>
     </div>
 
@@ -171,6 +227,7 @@
           <a href="/pages/privacy-policy">Terms of Service</a>
           <a href="/pages/privacy-policy">Cookie Policy</a>
         </div>
+        
       </div>
     </div>
   </div>
@@ -179,23 +236,15 @@
 <style>
   /* Footer Styles */
   .footer {
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-    color: var(--white);
+    background: #ffffff; /* white background */
+    color: #111111; /* black text */
     padding: 6rem 0 2rem;
     position: relative;
     overflow: hidden;
   }
 
-  .footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="footer-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ff8800" opacity="0.05"/><rect x="15" y="15" width="10" height="10" fill="none" stroke="%23ff8800" stroke-width="0.2" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23footer-pattern)"/></svg>');
-    pointer-events: none;
-  }
+  /* remove dark patterned overlay on light footer */
+  .footer::before { display: none; }
 
   .footer-content {
     display: flex;
@@ -214,7 +263,7 @@
   .footer-section h4 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
-    color: var(--white);
+    color: #111111;
     font-weight: 600;
   }
 
@@ -236,7 +285,7 @@
   }
 
   .footer-description {
-    color: #f5f5dc;
+    color: #333333;
     line-height: 1.6;
     margin-bottom: 2rem;
     font-size: 1.4rem;
@@ -258,19 +307,26 @@
     justify-content: center;
     width: 4rem;
     height: 4rem;
-    background: var(--gray-800);
-    border: 2px solid var(--gray-600);
+    background: var(--gray-100);
+    border: 2px solid var(--gray-200);
     border-radius: 50%;
-    color: var(--white);
+    color: #111111;
     text-decoration: none;
     transition: all 0.3s ease;
+  }
+
+  /* Ensure the icon inside social-link is black by default */
+  .social-link i,
+  .social-link .icon {
+    color: #111111;
   }
 
   .social-link:hover {
     background: #ff8800;
     border-color: #ff8800;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 136, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 136, 0, 0.2);
+    color: #ffffff;
   }
 
   .social-link .icon {
@@ -289,7 +345,7 @@
   }
 
   .footer-links a {
-    color: var(--white);
+    color: #111111;
     text-decoration: none;
     font-size: 1.4rem;
     transition: color 0.3s ease;
@@ -306,7 +362,7 @@
   .footer-payment h4 {
     font-size: 1.6rem;
     margin-bottom: 2rem;
-    color: var(--white);
+    color: #111111;
   }
 
   .payment-methods {
@@ -320,18 +376,18 @@
     align-items: center;
     gap: 0.8rem;
     padding: 1rem 1.6rem;
-    background: var(--gray-800);
-    border: 1px solid var(--gray-600);
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
     border-radius: 0.8rem;
-    color: var(--white);
+    color: #111111;
     font-size: 1.2rem;
     font-weight: 500;
     transition: all 0.3s ease;
   }
 
   .payment-method:hover {
-    background: var(--gray-700);
-    border-color: #ff8800;
+    background: #fff6ef;
+    border-color: #ffcc99;
     transform: translateY(-2px);
   }
 
@@ -341,20 +397,9 @@
   }
 
   .footer-bottom {
-    border-top: 1px solid var(--gray-600);
+    border-top: 1px solid var(--gray-200);
     padding-top: 2rem;
     position: relative;
-  }
-
-  .footer-bottom::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #ff8800, transparent);
-    opacity: 0.3;
   }
 
   .footer-bottom-content {
@@ -364,7 +409,7 @@
   }
 
   .footer-copyright p {
-    color: var(--white);
+    color: #111111;
     font-size: 1.4rem;
     margin: 0;
   }
@@ -375,7 +420,7 @@
   }
 
   .footer-legal a {
-    color: var(--white);
+    color: #111111;
     text-decoration: none;
     font-size: 1.4rem;
     transition: color 0.3s ease;
@@ -383,12 +428,112 @@
 
   .footer-legal a:hover {
     color: #ff8800;
-    text-shadow: 0 0 8px rgba(255, 136, 0, 0.3);
+    text-shadow: none;
   }
 
   .footer-content .footer-section:not(:first-child) a:hover {
     color: #ff8800;
-    text-shadow: 1px 1px 5px rgb(0, 0, 0);
+  }
+
+  /* Footer newsletter (compact) */
+  .footer-newsletter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.8rem;
+    max-width: 42rem; /* make this section a bit bigger */
+    margin-top: 3.6rem; /* move it a bit lower (increased) */
+  }
+
+  /* Move the title slightly left while keeping forms aligned to the right */
+  .footer-newsletter-title {
+    align-self: flex-start; /* place title at the left edge of the newsletter container */
+    margin-left: 0; /* ensure no extra offset */
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+    color: #111111;
+    font-weight: 800; /* increased weight */
+  }
+
+  .footer-newsletter-form {
+    display: flex;
+    width: 100%;
+    gap: 0.8rem;
+    align-items: center;
+  }
+
+  /* Variants: single-line email form and phone-form grouping */
+  .footer-newsletter-form--single { flex-wrap: nowrap; }
+  .footer-newsletter-form--phone { flex-wrap: nowrap; }
+
+  .footer-newsletter-phone-group {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .footer-country-code-select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 1.2rem 0.8rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--gray-200);
+    background: #ffffff;
+    font-size: 1.1rem;
+    color: #111111;
+    min-width: 6rem;
+  }
+
+  .footer-phone-input {
+    padding: 1.6rem 1.6rem; /* match email input */
+    border-radius: 1.2rem;
+    border: 1px solid var(--gray-200);
+    font-size: 1.2rem;
+    outline: none;
+    background: #ffffff;
+    flex: 1 1 auto;
+    font-weight: 600;
+  }
+
+  .footer-whatsapp-input { /* identical to phone input, kept for semantic clarity */ }
+
+  .footer-newsletter-input {
+    flex: 1;
+    padding: 1.6rem 1.6rem; /* bigger input */
+    border-radius: 1.2rem;
+    border: 1px solid var(--gray-200);
+    font-size: 1.2rem;
+    outline: none;
+    background: #ffffff;
+    font-weight: 600;
+  }
+
+  .footer-newsletter-btn {
+    background: #000000; /* black button */
+    color: #ffffff;
+    border: none;
+    padding: 1.2rem 1.8rem; /* bigger button */
+    border-radius: 1.2rem;
+    font-weight: 900; /* bolder button text */
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+
+  .footer-newsletter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    background: #000000;
+  }
+
+  .footer-newsletter-privacy { color: #666666; font-size: 1.1rem; margin: 0; text-align: right; }
+
+  .footer-newsletter-policy {
+    color: #666666;
+    font-size: 1.05rem;
+    margin: 0.6rem 0 0;
+    text-align: left;
+    font-weight: 600;
   }
 
   @media (max-width: 1024px) {
@@ -415,5 +560,15 @@
       gap: 1rem;
       flex-wrap: wrap;
     }
+    /* Stack newsletter forms on small screens */
+    .footer-newsletter {
+      align-items: stretch;
+    }
+    .footer-newsletter-title { align-self: flex-start; }
+    .footer-newsletter-form {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .footer-newsletter-phone-group { flex-direction: row; }
   }
 </style>
