@@ -1,180 +1,245 @@
 {% comment %}
-  Horizontal scrolling categories section
+  Vertical scrolling categories section (3x6 desktop, 3x4 mobile)
 {% endcomment %}
-
 <section class="categories-scroll-section">
   <div class="container category-container">
     <div class="categories-header">
       <h2 class="categories-title">Shop by Category</h2>
-      <p class="categories-subtitle">Explore our curated collections</p>
+      <p class="categories-subtitle">Explore our latest fashion collections</p>
     </div>
-    
+
     <div class="categories-scroll-container">
-      <div class="categories-scroll" id="categories-scroll">
-        <!-- Women Categories -->
+      <div class="categories-scroll-vertical" id="categories-scroll">
+
+        <!-- Women -->
         <div class="category-item">
-          <a href="/collections/all" class="category-link">
+          <a href="/collections/women" class="category-link">
             <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=300&h=300&fit=crop&crop=center" alt="Women's Fashion">
+              <img src="https://plus.unsplash.com/premium_photo-1690350731538-57344931ac02?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Women">
             </div>
             <div class="category-content">
               <h3 class="category-name">Women</h3>
-              
             </div>
           </a>
         </div>
-        
+
+        <!-- Men -->
         <div class="category-item">
-          <a href="/collections/all" class="category-link">
+          <a href="/collections/men" class="category-link">
             <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=300&h=300&fit=crop&crop=center" alt="Dresses">
-            </div>
-            <div class="category-content">
-              <h3 class="category-name">Dresses</h3>
-              
-            </div>
-          </a>
-        </div>
-        
-        <div class="category-item">
-          <a href="/collections/all" class="category-link">
-            <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=300&h=300&fit=crop&crop=center" alt="Tops & Blouses">
-            </div>
-            <div class="category-content">
-              <h3 class="category-name">Tops</h3>
-              
-            </div>
-          </a>
-        </div>
-        
-        <!-- Men Categories -->
-        <div class="category-item">
-          <a href="/collections/all" class="category-link">
-            <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=center" alt="Men's Fashion">
+              <img src="https://images.unsplash.com/photo-1609167694417-61a4897b21c5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Men">
             </div>
             <div class="category-content">
               <h3 class="category-name">Men</h3>
-              
             </div>
           </a>
         </div>
-        
+
+        <!-- Kids -->
         <div class="category-item">
-          <a href="/collections/all" class="category-link">
+          <a href="/collections/kids" class="category-link">
             <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=300&h=300&fit=crop&crop=center" alt="Men's Shirts">
-            </div>
-            <div class="category-content">
-              <h3 class="category-name">Shirts</h3>
-              
-            </div>
-          </a>
-        </div>
-        
-        <div class="category-item">
-          <a href="/collections/all" class="category-link">
-            <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=697&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Men's Pants">
-            </div>
-            <div class="category-content">
-              <h3 class="category-name">Pants</h3>
-              
-            </div>
-          </a>
-        </div>
-        
-        <!-- Kids Categories -->
-        <div class="category-item">
-          <a href="/collections/all" class="category-link">
-            <div class="category-image">
-              <img src="https://plus.unsplash.com/premium_photo-1675183689638-a68fe7048da9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Kids Fashion">
+              <img src="https://plus.unsplash.com/premium_photo-1691367782367-2bd37f646abc?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Kids">
             </div>
             <div class="category-content">
               <h3 class="category-name">Kids</h3>
-              
             </div>
           </a>
         </div>
-        
-        <!-- Accessories -->
+
+        <!-- Shirts -->
         <div class="category-item">
-          <a href="/collections/all" class="category-link">
+          <a href="/collections/shirts" class="category-link">
             <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=300&h=300&fit=crop&crop=center" alt="Accessories">
+              <img src="{{ "men-shirts.jpeg" |  asset_url }}" alt="Shirts">
             </div>
             <div class="category-content">
-              <h3 class="category-name">Accessories</h3>
-              
+              <h3 class="category-name">Shirts</h3>
             </div>
           </a>
         </div>
-        
+
+        <!-- Pants -->
+        <div class="category-item">
+          <a href="/collections/pants" class="category-link">
+            <div class="category-image">
+              <img src="{{ "men-pants.jpeg" |  asset_url }}" alt="Pants">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Pants</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Blouses -->
+        <div class="category-item">
+          <a href="/collections/blouses" class="category-link">
+            <div class="category-image">
+              <img src="{{ "women-blouses.jpeg" |  asset_url }}" alt="Blouses">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Blouses</h3>
+            </div>
+          </a>
+        </div>
+
         <!-- Jackets -->
         <div class="category-item">
-          <a href="/collections/all" class="category-link">
+          <a href="/collections/jackets" class="category-link">
             <div class="category-image">
-              <img src="../assets/women-jackets.jpeg" alt="Jackets">
+              <img src="{{ "women-jackets.jpeg" |  asset_url }}" alt="Jackets">
             </div>
             <div class="category-content">
               <h3 class="category-name">Jackets</h3>
-              
-            </div>
-          </a>
-        </div>      
-        
-        <!-- Beauty and care -->
-        <div class="category-item">
-          <a href="/collections/all" class="category-link">
-            <div class="category-image">
-              <img src="../assets/beauty-personal-care.jpeg" alt="Beauty and Care">
-            </div>
-            <div class="category-content">
-              <h3 class="category-name">Beauty and Care</h3>
-              
             </div>
           </a>
         </div>
-        
-        <!-- New arrivals -->
+
+        <!-- Blazers -->
         <div class="category-item">
-          <a href="/collections/all" class="category-link">
+          <a href="/collections/blazers" class="category-link">
             <div class="category-image">
-              <img src="../assets/new-arrivals.jpeg" alt="New Arrivals">
+              <img src="{{ "men-blazers.jpeg" |  asset_url }}" alt="Blazers">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Blazers</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Suits -->
+        <div class="category-item">
+          <a href="/collections/suits" class="category-link">
+            <div class="category-image">
+              <img src="{{ "men-suits.jpeg" |  asset_url }}" alt="Suits">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Suits</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Skirts -->
+        <div class="category-item">
+          <a href="/collections/skirts" class="category-link">
+            <div class="category-image">
+              <img src="{{ "women-skirts.jpeg" |  asset_url }}" alt="Skirts">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Skirts</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Dresses -->
+        <div class="category-item">
+          <a href="/collections/dresses" class="category-link">
+            <div class="category-image">
+              <img src="{{ "women-dresses.jpeg" |  asset_url }}" alt="Dresses">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Dresses</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Shorts -->
+        <div class="category-item">
+          <a href="/collections/shorts" class="category-link">
+            <div class="category-image">
+              <img src="{{ "men-shorts.jpeg" |  asset_url }}" alt="Shorts">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Shorts</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- T-Shirts -->
+        <div class="category-item">
+          <a href="/collections/t-shirts" class="category-link">
+            <div class="category-image">
+              <img src="{{ "men-tshirts.jpeg" |  asset_url }}" alt="T-Shirts">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">T-Shirts</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Jumpers -->
+        <div class="category-item">
+          <a href="/collections/jumpers" class="category-link">
+            <div class="category-image">
+              <img src="{{ "kids-jumpers.jpeg" |  asset_url }}" alt="Jumpers">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Jumpers</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Casual -->
+        <div class="category-item">
+          <a href="/collections/casual" class="category-link">
+            <div class="category-image">
+              <img src="{{ "kids-tshirts.jpeg" |  asset_url }}" alt="Casual">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Casual</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Accessories -->
+        <div class="category-item">
+          <a href="/collections/accessories" class="category-link">
+            <div class="category-image">
+              <img src="{{ "women-skirts.jpeg" |  asset_url }}" alt="Accessories">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Accessories</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Beauty & Care -->
+        <div class="category-item">
+          <a href="/collections/beauty-care" class="category-link">
+            <div class="category-image">
+              <img src="{{ "supplements.jpg" |  asset_url }}" alt="Beauty and Care">
+            </div>
+            <div class="category-content">
+              <h3 class="category-name">Beauty & Care</h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- New Arrivals -->
+        <div class="category-item">
+          <a href="/collections/new-arrivals" class="category-link">
+            <div class="category-image">
+              <img src="{{ "new-arrivals.jpeg" |  asset_url }}" alt="New Arrivals">
             </div>
             <div class="category-content">
               <h3 class="category-name">New Arrivals</h3>
-              
             </div>
           </a>
         </div>
-        
+
         <!-- Sale -->
         <div class="category-item">
-          <a href="/collections/all" class="category-link">
+          <a href="/collections/sale" class="category-link">
             <div class="category-image">
-              <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=300&h=300&fit=crop&crop=center" alt="Sale">
+              <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=300&h=300&fit=crop&crop=center" alt="Sale">
             </div>
             <div class="category-content">
               <h3 class="category-name">Sale</h3>
-              
             </div>
           </a>
         </div>
+
       </div>
-      
-      <!-- Scroll Buttons -->
-      <button class="scroll-btn scroll-left" id="scroll-left" aria-label="Scroll left">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="15,18 9,12 15,6"></polyline>
-        </svg>
-      </button>
-      <button class="scroll-btn scroll-right" id="scroll-right" aria-label="Scroll right">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="9,18 15,12 9,6"></polyline>
-        </svg>
-      </button>
     </div>
   </div>
 </section>
@@ -183,7 +248,6 @@
 /* Categories Section */
 .categories-scroll-section {
   padding: 3rem 0;
-  /* background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 25%, #f0f0f0 50%, #f5f5dc 75%, #ffffff 100%); */
   position: relative;
   overflow: hidden;
 }
@@ -222,17 +286,46 @@
   opacity: 0.8;
 }
 
-/* --- GRID LAYOUT (no scroll) --- */
+/* Vertical Scroll Container */
 .categories-scroll-container {
-  overflow: visible;
+  position: relative;
+  overflow-y: scroll;
   padding: 1rem 0;
+  max-height: calc(3 * (12rem + 5rem)); /* show only 3 rows */
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 136, 0, 0.5) transparent;
 }
 
-.categories-scroll {
+.categories-scroll-vertical {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 per row desktop */
+  grid-template-columns: repeat(6, 1fr);
   gap: 2rem;
-  padding: 0;
+  overflow-y: visible;
+  padding: 0 1rem;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 136, 0, 0.5) transparent;
+}
+
+.categories-scroll-vertical::-webkit-scrollbar {
+  width: 8px;
+}
+
+.categories-scroll-vertical::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.categories-scroll-vertical::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff8800, #ff6600);
+  border-radius: 10px;
+  opacity: 0.6;
+}
+
+.categories-scroll-vertical::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
 }
 
 /* Category Item */
@@ -242,6 +335,7 @@
   border-radius: 1.5rem;
   text-align: center;
   transition: transform 0.3s ease;
+  scroll-snap-align: start;
 }
 
 .category-item:hover {
@@ -260,12 +354,12 @@
   margin: 0 auto 0.8rem auto;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid rgba(255, 136, 0, 0.08);
+  /* border: 3px solid rgba(255, 136, 0, 0.08); */
   transition: all 0.3s ease;
 }
 
 .category-item:hover .category-image {
-  border-color: rgba(255, 136, 0, 0.3);
+  border: 1px solid rgba(255, 136, 0, 0.3);
   transform: scale(1.05);
 }
 
@@ -285,47 +379,33 @@
   font-weight: 600;
   margin-bottom: 0.3rem;
   transition: color 0.3s ease;
-  font-weight: 600;
 }
 
 .category-item:hover .category-name {
   color: #ff8800;
 }
 
-.category-description {
-  font-size: 1.1rem;
-  color: var(--gray-500);
-  margin: 0;
-  line-height: 1.3;
-}
-
-/* Hide overlay */
-.category-overlay {
-  display: none !important;
-}
-
-/* Remove scroll buttons completely */
-.scroll-btn {
-  display: none !important;
-}
-
-/* --- RESPONSIVE --- */
+/* Responsive */
 @media (max-width: 1024px) {
-  .categories-scroll {
-    grid-template-columns: repeat(6, 1fr); /* 4 per row tablet/mobile */
+  .categories-scroll-vertical {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .category-image {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .categories-scroll-container {
+    max-height: calc(3 * (10rem + 5rem)); 
+  }
+
+}
+
+@media (max-width: 768px) {
+  .categories-scroll-vertical {
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-  }
-
-  .categories-scroll-section {
-    padding: 3rem 0;
-  }
-
-  .categories-title {
-    font-size: 2.4rem;
-  }
-
-  .categories-subtitle {
-    font-size: 1.1rem;
   }
 
   .category-image {
@@ -334,17 +414,17 @@
   }
 
   .category-name {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
-  .category-description {
-    font-size: 1rem;
+  .categories-scroll-container {
+    max-height: calc(3 * (8rem + 4rem)); 
   }
 }
 
-@media (max-width: 600px) {
-  .categories-scroll {
-    grid-template-columns: repeat(4, 1fr); /* 4 per row even on small mobile */
+@media (max-width: 480px) {
+  .categories-scroll-vertical {
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
   }
 
@@ -356,125 +436,30 @@
   .category-name {
     font-size: 1.1rem;
   }
-
-  .category-description {
-    font-size: 0.9rem;
+  .categories-scroll-container {
+    max-height: calc(3 * (7rem + 3.5rem)); 
   }
 }
-
 </style>
 
 <script>
-// Categories Scroll Functionality
 document.addEventListener('DOMContentLoaded', function() {
-  const scrollContainer = document.getElementById('categories-scroll');
-  const scrollLeftBtn = document.getElementById('scroll-left');
-  const scrollRightBtn = document.getElementById('scroll-right');
-  
-  if (!scrollContainer || !scrollLeftBtn || !scrollRightBtn) return;
-  
-  const scrollAmount = 350;
-  
-  scrollLeftBtn.addEventListener('click', function() {
-    scrollContainer.scrollBy({
-      left: -scrollAmount,
-      behavior: 'smooth'
-    });
-  });
-  
-  scrollRightBtn.addEventListener('click', function() {
-    scrollContainer.scrollBy({
-      left: scrollAmount,
-      behavior: 'smooth'
-    });
-  });
-  
-  // Update button visibility based on scroll position
-  function updateButtonVisibility() {
-    const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
-    
-    scrollLeftBtn.style.opacity = scrollLeft > 0 ? '1' : '0.5';
-    scrollRightBtn.style.opacity = scrollLeft < scrollWidth - clientWidth ? '1' : '0.5';
-    
-    // Disable buttons at extremes
-    scrollLeftBtn.disabled = scrollLeft <= 0;
-    scrollRightBtn.disabled = scrollLeft >= scrollWidth - clientWidth;
-  }
-  
-  scrollContainer.addEventListener('scroll', updateButtonVisibility);
-  updateButtonVisibility();
-  
-  // Add scroll animations for category items
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
+  // Simple fade-in on scroll for vertical items
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.animation = 'slideInLeft 0.6s ease forwards';
         entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateX(0)';
+        entry.target.style.transform = 'translateY(0)';
       }
     });
-  }, observerOptions);
-  
-  // Observe category items for scroll animations
-  const categoryItems = document.querySelectorAll('.category-item');
-  categoryItems.forEach((item, index) => {
+  }, { threshold: 0.1 });
+
+  const items = document.querySelectorAll('.category-item');
+  items.forEach(item => {
     item.style.opacity = '0';
-    item.style.transform = 'translateX(50px)';
-    item.style.animationDelay = `${index * 0.1}s`;
+    item.style.transform = 'translateY(20px)';
+    item.style.transition = 'all 0.5s ease';
     observer.observe(item);
-  });
-  
-  // Add hover effects for category items
-  categoryItems.forEach(item => {
-    item.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateY(-8px) scale(1.02)';
-    });
-    
-    item.addEventListener('mouseleave', function() {
-      this.style.transform = 'translateY(0) scale(1)';
-    });
-  });
-  
-  // Touch/swipe support for mobile
-  let startX = 0;
-  let isScrolling = false;
-  
-  scrollContainer.addEventListener('touchstart', function(e) {
-    startX = e.touches[0].clientX;
-    isScrolling = true;
-  });
-  
-  scrollContainer.addEventListener('touchmove', function(e) {
-    if (!isScrolling) return;
-    
-    const currentX = e.touches[0].clientX;
-    const diffX = startX - currentX;
-    
-    if (Math.abs(diffX) > 50) {
-      if (diffX > 0) {
-        // Swipe left - scroll right
-        scrollContainer.scrollBy({
-          left: scrollAmount,
-          behavior: 'smooth'
-        });
-      } else {
-        // Swipe right - scroll left
-        scrollContainer.scrollBy({
-          left: -scrollAmount,
-          behavior: 'smooth'
-        });
-      }
-      isScrolling = false;
-    }
-  });
-  
-  scrollContainer.addEventListener('touchend', function() {
-    isScrolling = false;
   });
 });
 </script>
