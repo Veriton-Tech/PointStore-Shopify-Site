@@ -955,19 +955,19 @@ a:hover {
    - Use width: 100vw and height: auto inside banner slides so the image preserves full width
    - Center image and prevent right-side cropping by avoiding overflow hidden on the immediate image wrapper
    - Keep banner section full-bleed but remove negative margins on small screens which can cause horizontal clipping */
-@media (max-width: 480px) {
-  /* Keep hero as a fixed-height, full-bleed section on mobile and prevent slides from stacking */
-  .hero-banner-section {
+@media (min-width: 480px) {
+  
+  /* .hero-banner-section {
     width: 100vw !important;
     left: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    overflow: hidden !important; /* slide overlay should hide non-active slides */
+    overflow: hidden !important;
     height: 35vh !important;
     min-height: 180px !important;
   }
 
-  /* Slider containers remain relative; slides remain absolute so they overlay each other */
+  
   .hero-slider, .hero-image {
     position: relative !important;
     width: 100% !important;
@@ -1000,10 +1000,10 @@ a:hover {
     max-width: none !important;
   }
 
-  /* Prevent horizontal scrollbar while letting images be fully visible */
+  
   html, body {
     overflow-x: hidden !important;
-  }
+  } */
 }
 
 /* Extra-specific override for very narrow mobile viewports (e.g. 420x530)
@@ -1011,7 +1011,7 @@ a:hover {
    the hero images are fully visible (no right-side cropping) */
 @media (max-width: 420px), (max-width: 430px) and (max-height: 560px) {
   /* Tight narrow viewport tweaks — keep same behavior as 480px but with slightly taller min-height */
-  .hero-banner-section {
+  /* .hero-banner-section {
     width: 100vw !important;
     left: 0 !important;
     margin-left: 0 !important;
@@ -1048,7 +1048,7 @@ a:hover {
 
   html, body {
     overflow-x: hidden !important;
-  }
+  } */
 }
 
 /* Utility Classes */

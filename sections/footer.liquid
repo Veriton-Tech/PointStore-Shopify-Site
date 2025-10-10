@@ -457,7 +457,7 @@
 
   .footer-newsletter-form {
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     gap: 0.8rem;
     align-items: center;
   }
@@ -493,10 +493,11 @@
     background: #ffffff;
     flex: 1 1 auto;
     font-weight: 600;
+    width: 100%;
   }
-
+  
   .footer-whatsapp-input { /* identical to phone input, kept for semantic clarity */ }
-
+  
   .footer-newsletter-input {
     flex: 1;
     padding: 1.6rem 1.6rem; /* bigger input */
@@ -506,6 +507,8 @@
     outline: none;
     background: #ffffff;
     font-weight: 600;
+    max-width: 260px;
+    width: 100%;
   }
 
   .footer-newsletter-btn {
@@ -566,7 +569,7 @@
     }
     .footer-newsletter-title { align-self: flex-start; }
     .footer-newsletter-form {
-      flex-direction: column;
+      /* flex-direction: column; */
       gap: 0.8rem;
     }
     .footer-newsletter-phone-group { flex-direction: row; }
