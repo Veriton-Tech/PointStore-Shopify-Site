@@ -103,29 +103,6 @@
 
         <!-- Product Options -->
         <form class="product-form" id="product-form" action="/cart/add" method="post" enctype="multipart/form-data">
-          {% unless product.has_only_default_variant %}
-            {% for option in product.options_with_values %}
-              <div class="product-option">
-                <h4 class="option-label">{{ option.name }}</h4>
-                <div class="option-values">
-                  {% for value in option.values %}
-                    <button type="button" 
-                            class="option-value {% if forloop.first %}selected{% endif %}"
-                            data-option="{{ option.name }}"
-                            data-value="{{ value }}">
-                      {% if option.name == 'Color' %}
-                        <span class="color-swatch" style="background: {{ value | downcase }};" title="{{ value }}"></span>
-                        <span class="value-text">{{ value }}</span>
-                      {% else %}
-                        {{ value }}
-                      {% endif %}
-                    </button>
-                  {% endfor %}
-                </div>
-              </div>
-            {% endfor %}
-          {% endunless %}
-
           <!-- Hidden variant selector -->
           <select name="id" id="ProductSelect" class="product-variant-selector" style="display: none;">
             {% for variant in product.variants %}
@@ -140,6 +117,32 @@
               </option>
             {% endfor %}
           </select>
+
+          <!-- Product Options (Color / Size) shown above Quantity -->
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              {% if option.name == 'Color' or option.name == 'Size' %}
+                <div class="product-option">
+                  <h4 class="option-label">{{ option.name }}</h4>
+                  <div class="option-values">
+                    {% for value in option.values %}
+                      <button type="button" 
+                              class="option-value {% if forloop.first %}selected{% endif %}"
+                              data-option="{{ option.name }}"
+                              data-value="{{ value }}">
+                        {% if option.name == 'Color' %}
+                          <span class="color-swatch" style="background: {{ value | downcase }};" title="{{ value }}"></span>
+                          <span class="value-text">{{ value }}</span>
+                        {% else %}
+                          {{ value }}
+                        {% endif %}
+                      </button>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endunless %}
 
           <!-- Quantity -->
           <div class="product-quantity">
@@ -212,8 +215,11 @@
                   </div>
                 </div>
                 <div class="reviews-list">
-                  <!-- Reviews would be populated here -->
-                  <p>No reviews yet. Be the first to review this product!</p>
+                  <!-- Judge.me reviews widget -->
+                  <!-- Start of Judge.me code -->
+                  <div style='clear:both'></div>
+                  <div id='judgeme_product_reviews' class='jdgm-widget jdgm-review-widget' data-product-title='{{ product.title | escape }}' data-id='{{ product.id }}' data-auto-install='false'>{{ product.metafields.judgeme.widget }}</div>
+                  <!-- End of Judge.me code -->
                 </div>
               </div>
             </div>

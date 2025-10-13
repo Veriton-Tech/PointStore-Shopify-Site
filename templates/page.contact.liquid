@@ -143,21 +143,13 @@
 .contact-page {
   min-height: 100vh;
   padding: 4rem 0;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 50%, #f5f5dc 100%);
+  background: #ffffff;
   position: relative;
 }
 
 .contact-page::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 20% 20%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
-  pointer-events: none;
+  /* remove decorative overlay */
+  display: none;
 }
 
 .container {

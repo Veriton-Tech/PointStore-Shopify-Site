@@ -1,12 +1,12 @@
 {% comment %}
   Vertical scrolling categories section (3x6 desktop, 3x4 mobile)
 {% endcomment %}
+<div class="container category-container">
+  <div class="categories-header">
+    {% comment %} <h2 class="categories-title">Shop by Category</h2> {% endcomment %}
+    <p class="categories-subtitle">Second-hand fashion ♻️ from $9.90 | Free shipping on orders over $250</p> 
+  </div>
 <section class="categories-scroll-section">
-  <div class="container category-container">
-    <div class="categories-header">
-      <h2 class="categories-title">Shop by Category</h2>
-      <p class="categories-subtitle">Explore our latest fashion collections</p>
-    </div>
 
     <div class="categories-scroll-container">
       <div class="categories-scroll-vertical" id="categories-scroll">
@@ -265,7 +265,34 @@
   text-align: center;
   margin-bottom: 3rem;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  /* width: 100vw; */
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.categories-subtitle {
+  background: #ff880086;
+  font-size: 1.8rem;
+  color: #000000;
+  /* max-width: 60rem; */
+  margin: 0 auto;
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.category-container{
+  padding: 0;
+  max-width: none;
 }
 
 .categories-title {
@@ -276,14 +303,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 4px rgba(255, 136, 0, 0.1);
-}
-
-.categories-subtitle {
-  font-size: 1.4rem;
-  color: #666;
-  max-width: 60rem;
-  margin: 0 auto;
-  opacity: 0.8;
 }
 
 /* Vertical Scroll Container */

@@ -206,6 +206,9 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
+  <!-- Font Awesome loaded globally so icon fonts are available site-wide -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
     {%- endunless -%}

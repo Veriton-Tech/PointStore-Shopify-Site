@@ -371,6 +371,21 @@
     left: 1.5rem;
   }
 }
+
+/* Track Order button style override (page-scoped) */
+.track-form button[type="submit"],
+.track-form .btn-primary {
+  background: linear-gradient(135deg, #ff8800, #ff6600) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 6px 18px rgba(255,136,0,0.18) !important;
+}
+
+.track-form button[type="submit"]:hover,
+.track-form .btn-primary:hover {
+  background: linear-gradient(135deg, #ff6600, #e55100) !important;
+  transform: translateY(-2px);
+}
 </style>
 
 <script>

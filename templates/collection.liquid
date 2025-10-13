@@ -33,6 +33,24 @@
   <div class="collection-content">
     <div class="container">
 
+
+<style>
+/* Collection Page Styles: ensure clean white background like cart page */
+body {
+  background: #ffffff;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Remove any decorative overlay for collection pages */
+body::before {
+  display: none;
+}
+
+.collection-page {
+  padding: 3.5rem 0;
+}
+</style>
       <div class="collection-layout">
         <!-- Filters Sidebar -->
         <aside class="filters-sidebar">
@@ -174,9 +192,24 @@
                       <div class="product-card-content">
                         <h3 class="product-card-title">{{ product.title }}</h3>
                         <div class="product-card-price">
-                          <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
-                          {% if product.compare_at_price > product.price %}
-                            <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+                          {% if product.price %}
+                            <div class="price-row">
+                              <div class="price-left">
+                                <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
+                                {% if product.compare_at_price > product.price %}
+                                  <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+                                {% endif %}
+                              </div>
+                              <div class="product-card-side">
+                                {% if product.compare_at_price > product.price %}
+                                  {% assign discount_amount = product.compare_at_price | minus: product.price %}
+                                  {% assign discount_pct = discount_amount | times: 100 | divided_by: product.compare_at_price | round %}
+                                  <div class="product-discount-badge">-{{ discount_pct }}%</div>
+                                {% endif %}
+                              </div>
+                            </div>
+                          {% else %}
+                            <span class="product-card-price-current">$0.00</span>
                           {% endif %}
                           <div class="product-card-actions">
                               <button class="btn btn-secondary btn-sm add-to-cart-btn" 
@@ -190,8 +223,8 @@
                             <div class="product-card-stars">
                               <span>★★★★★</span>
                             </div>
-                              <span class="product-card-reviews">({{ product.metafields.reviews.count | default: 0 }})</span>
-                              </div>
+                            <span class="product-card-reviews">({{ product.metafields.reviews.count | default: 0 }})</span>
+                          </div>
                               {% comment %} <div class="product-card-variants">
                                 {% for option in product.options_with_values %}
                                   {% if option.name == 'Color' %}
@@ -571,6 +604,11 @@ body::before {
   flex-direction: row;
   align-items: center;
   gap: 2rem;
+  background: linear-gradient(180deg, #ffffff, #fbfbfb);
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 30px rgba(16,24,40,0.06);
+  border: 1px solid rgba(16,24,40,0.04);
+  overflow: hidden;
 }
 
 .products-grid.list-view .product-card-image {

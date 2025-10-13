@@ -17,10 +17,6 @@
            loading="lazy">
     </a>
     
-    {% if product.compare_at_price > product.price %}
-      <div class="product-card-badge sale">Sale</div>
-    {% endif %}
-    
     {% if product.tags contains 'new' %}
       <div class="product-card-badge new">New</div>
     {% endif %}
@@ -54,9 +50,24 @@
     </h3>
     
     <div class="product-card-price">
-      <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
-      {% if product.compare_at_price > product.price %}
-        <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+      {% if product.price %}
+        <div class="price-row">
+          <div class="price-left">
+            <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
+            {% if product.compare_at_price > product.price %}
+              <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+            {% endif %}
+          </div>
+          <div class="product-card-side">
+            {% if product.compare_at_price > product.price %}
+              {% assign discount_amount = product.compare_at_price | minus: product.price %}
+              {% assign discount_pct = discount_amount | times: 100 | divided_by: product.compare_at_price | round %}
+              <div class="product-discount-badge">-{{ discount_pct }}%</div>
+            {% endif %}
+          </div>
+        </div>
+      {% else %}
+        <span class="product-card-price-current">$0.00</span>
       {% endif %}
     </div>
     
@@ -92,17 +103,18 @@
 <style>
 /* Product Card Styles */
 .product-card {
-  background: var(--white);
-  border-radius: 1.2rem;
+  background: linear-gradient(180deg, #ffffff, #fbfbfb);
+  border-radius: var(--radius-md); /* use smaller global radius */
   overflow: hidden;
-  box-shadow: 0 6px 30px rgba(10, 10, 10, 0.06);
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  box-shadow: 0 8px 30px rgba(16, 24, 40, 0.06), 0 1px 0 rgba(255,255,255,0.6) inset;
+  border: 1px solid rgba(16,24,40,0.04); /* subtle border for elegance */
+  transition: transform 0.28s cubic-bezier(.2,.9,.3,1), box-shadow 0.28s cubic-bezier(.2,.9,.3,1);
   position: relative;
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 40px rgba(16,24,40,0.12), 0 2px 6px rgba(16,24,40,0.06);
 }
 
 .product-card-image {
@@ -134,7 +146,7 @@
   top: 0.9rem;
   left: 0.9rem;
   padding: 0.45rem 0.9rem;
-  border-radius: 1.6rem;
+  border-radius: 0.8rem;
   font-size: 1rem;
   font-weight: 700;
   color: var(--white);
@@ -145,6 +157,15 @@
 .product-card-badge.sale {
   background: var(--primary-light);
 }
+
+  /* Discount percentage badge (higher visual priority) */
+  .product-card-badge.discount {
+    background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+    padding: 0.4rem 0.85rem;
+    font-size: 1.05rem;
+    color: var(--white);
+    box-shadow: 0 6px 18px rgba(255, 30, 30, 0.18);
+  }
 
 .product-card-badge.new {
   background: var(--success);

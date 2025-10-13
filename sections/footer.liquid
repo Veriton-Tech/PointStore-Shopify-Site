@@ -22,8 +22,7 @@
           {% endif %}
         </div>
         <p class="footer-description">
-          Discover the latest fashion trends with our curated collection of clothing and accessories.    
-          Shop the best styles for women, men, and kids.
+          Discover a new way to dress with Point Store. Second-hand clothing carefully selected for style, quality, and prices from S/9.90. Each piece has a story… and deserves a second chance!
         </p>
         <div class="footer-social">
           <h4>Follow Us</h4>
@@ -68,19 +67,10 @@
             <a href="/pages/shipping">Shipping Info</a>
           </li>
           <li>
-            <a href="/pages/returns">Returns & Exchanges</a>
+            <a href="/pages/returns">Sales Policy</a>
           </li>
           <li>
-            <a href="/pages/size-guide">Size Guide</a>
-          </li>
-          <li>
-            <a href="/pages/faq">FAQ</a>
-          </li>
-          <li>
-            <a href="/pages/track-order">Track Your Order</a>
-          </li>
-          <li>
-            <a href="/pages/help">Help Center</a>
+            <a href="/pages/track-order">Order Tracking</a>
           </li>
         </ul>
       </div>
@@ -93,21 +83,13 @@
             <a href="/pages/about">About Us</a>
           </li>
           <li>
-            <a href="/pages/careers">Careers</a>
-          </li>
-          <li>
-            <a href="/pages/press">Press</a>
-          </li>
-          <li>
-            <a href="/pages/sustainability">Sustainability</a>
-          </li>
-          <li>
-            <a href="/pages/partnerships">Partnerships</a>
+            <a href="/pages/sustainability">Sustainable Fashion</a>
           </li>
         </ul>
         <!-- Footer Newsletter (moved here after Partnerships) -->
         <div class="footer-newsletter">
-          <h5 class="footer-newsletter-title">Sign up for PS style news</h5>
+          <h5 style="text-align: left; align-self: flex-start">Subscribe</h5>
+          <h3 class="footer-newsletter-title">Subscribe and receive news and exclusive promotions. Dress with style, conscience, and attitude with Point Store.</h3>
 
           <!-- Email subscribe form -->
           <form id="footer-newsletter-email-form" class="footer-newsletter-form footer-newsletter-form--single">
@@ -236,8 +218,8 @@
 <style>
   /* Footer Styles */
   .footer {
-    background: #ffffff; /* white background */
-    color: #111111; /* black text */
+    background: #000000; /* black background */
+    color: #ffffff; /* white text */
     padding: 6rem 0 2rem;
     position: relative;
     overflow: hidden;
@@ -263,7 +245,7 @@
   .footer-section h4 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
-    color: #111111;
+    color: #ffffff;
     font-weight: 600;
   }
 
@@ -285,7 +267,7 @@
   }
 
   .footer-description {
-    color: #333333;
+    color: #ffffff;
     line-height: 1.6;
     margin-bottom: 2rem;
     font-size: 1.4rem;
@@ -307,10 +289,10 @@
     justify-content: center;
     width: 4rem;
     height: 4rem;
-    background: var(--gray-100);
-    border: 2px solid var(--gray-200);
+    background: rgba(255,255,255,0.06); /* subtle light circle on dark footer */
+    border: 2px solid rgba(255,255,255,0.08);
     border-radius: 50%;
-    color: #111111;
+    color: #ffffff; /* icon color */
     text-decoration: none;
     transition: all 0.3s ease;
   }
@@ -318,7 +300,8 @@
   /* Ensure the icon inside social-link is black by default */
   .social-link i,
   .social-link .icon {
-    color: #111111;
+    color: #ffffff;
+    font-size: 1.4rem;
   }
 
   .social-link:hover {
@@ -345,7 +328,7 @@
   }
 
   .footer-links a {
-    color: #111111;
+    color: #ffffff;
     text-decoration: none;
     font-size: 1.4rem;
     transition: color 0.3s ease;
@@ -362,7 +345,7 @@
   .footer-payment h4 {
     font-size: 1.6rem;
     margin-bottom: 2rem;
-    color: #111111;
+    color: #ffffff;
   }
 
   .payment-methods {
@@ -376,18 +359,18 @@
     align-items: center;
     gap: 0.8rem;
     padding: 1rem 1.6rem;
-    background: var(--gray-100);
-    border: 1px solid var(--gray-200);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
     border-radius: 0.8rem;
-    color: #111111;
+    color: #ffffff;
     font-size: 1.2rem;
     font-weight: 500;
     transition: all 0.3s ease;
   }
 
   .payment-method:hover {
-    background: #fff6ef;
-    border-color: #ffcc99;
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.1);
     transform: translateY(-2px);
   }
 
@@ -397,7 +380,7 @@
   }
 
   .footer-bottom {
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid rgba(255,255,255,0.08);
     padding-top: 2rem;
     position: relative;
   }
@@ -409,7 +392,7 @@
   }
 
   .footer-copyright p {
-    color: #111111;
+    color: #ffffff;
     font-size: 1.4rem;
     margin: 0;
   }
@@ -420,7 +403,7 @@
   }
 
   .footer-legal a {
-    color: #111111;
+    color: #ffffff;
     text-decoration: none;
     font-size: 1.4rem;
     transition: color 0.3s ease;
@@ -439,7 +422,7 @@
   .footer-newsletter {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: 0.8rem;
     max-width: 42rem; /* make this section a bit bigger */
     margin-top: 3.6rem; /* move it a bit lower (increased) */
@@ -451,13 +434,13 @@
     margin-left: 0; /* ensure no extra offset */
     font-size: 1.25rem;
     margin-bottom: 0.6rem;
-    color: #111111;
-    font-weight: 800; /* increased weight */
+    color: #ffffff;
+    font-weight: 400; /* increased weight */
   }
 
   .footer-newsletter-form {
     display: flex;
-    /* width: 100%; */
+    width: 100%;
     gap: 0.8rem;
     align-items: center;
   }
@@ -512,8 +495,8 @@
   }
 
   .footer-newsletter-btn {
-    background: #000000; /* black button */
-    color: #ffffff;
+    background: #ffffff; /* white button */
+    color: #111111; /* dark text for contrast */
     border: none;
     padding: 1.2rem 1.8rem; /* bigger button */
     border-radius: 1.2rem;
@@ -526,13 +509,13 @@
   .footer-newsletter-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-    background: #000000;
+    background: #f2f2f2;
   }
 
   .footer-newsletter-privacy { color: #666666; font-size: 1.1rem; margin: 0; text-align: right; }
 
   .footer-newsletter-policy {
-    color: #666666;
+    color: #ffffff;
     font-size: 1.05rem;
     margin: 0.6rem 0 0;
     text-align: left;

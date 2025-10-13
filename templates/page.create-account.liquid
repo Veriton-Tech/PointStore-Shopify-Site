@@ -4,11 +4,6 @@
 
 <div class="create-account-page">
   <div class="container">
-    <!-- Page Header -->
-    <div class="page-header">
-      <h1 class="page-title">Create Account</h1>
-      <p class="page-description">Join us today and start your shopping journey with exclusive benefits</p>
-    </div>
 
     <!-- Create Account Content -->
     <div class="create-account-content">
@@ -26,6 +21,8 @@
           <p class="form-description">Fill in your details below to create your account and start shopping.</p>
           
           {% form 'create_customer', class: 'account-form', id: 'account-form' %}
+            <!-- Ensure Shopify redirects back to storefront after account creation -->
+            <input type="hidden" name="return_to" value="{{ routes.root_url }}">
             <!-- Shopify Form Errors -->
             {% if form.errors %}
               <div class="form-errors">
@@ -50,7 +47,7 @@
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                    <input type="text" id="customer_first_name" name="customer[first_name]" placeholder="Enter your first name" value="{{ form.first_name }}" required>
+                    <input type="text" id="customer_first_name" name="customer[first_name]" placeholder="Enter your first name" value="{{ form.first_name }}" autocomplete="given-name" required>
                   </div>
                 </div>
 
@@ -61,7 +58,7 @@
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                    <input type="text" id="customer_last_name" name="customer[last_name]" placeholder="Enter your last name" value="{{ form.last_name }}" required>
+                    <input type="text" id="customer_last_name" name="customer[last_name]" placeholder="Enter your last name" value="{{ form.last_name }}" autocomplete="family-name" required>
                   </div>
                 </div>
               </div>
@@ -73,7 +70,7 @@
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
-                  <input type="email" id="customer_email" name="customer[email]" placeholder="Enter your email address" value="{{ form.email }}" required>
+                  <input type="email" id="customer_email" name="customer[email]" placeholder="Enter your email address" value="{{ form.email }}" autocomplete="email" required>
                 </div>
               </div>
 
@@ -83,7 +80,7 @@
                   <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                   </svg>
-                  <input type="tel" id="customer_phone" name="customer[phone]" placeholder="Enter your phone number" value="{{ form.phone }}">
+                  <input type="tel" id="customer_phone" name="customer[phone]" placeholder="Enter your phone number" value="{{ form.phone }}" autocomplete="tel">
                 </div>
               </div>
             </div>
@@ -99,7 +96,7 @@
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                   </svg>
-                  <input type="password" id="customer_password" name="customer[password]" placeholder="Create a strong password" required>
+                  <input type="password" id="customer_password" name="customer[password]" placeholder="Create a strong password" autocomplete="new-password" required>
                   <button type="button" class="password-toggle" aria-label="Show password">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -122,7 +119,7 @@
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                   </svg>
-                  <input type="password" id="customer_password_confirmation" name="customer[password_confirmation]" placeholder="Confirm your password" required>
+                  <input type="password" id="customer_password_confirmation" name="customer[password_confirmation]" placeholder="Confirm your password" autocomplete="new-password" required>
                   <button type="button" class="password-toggle" aria-label="Show password">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -201,7 +198,7 @@
 .create-account-page {
   min-height: 100vh;
   padding: 4rem 0;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 50%, #f5f5dc 100%);
+  background: #ffffff;
   position: relative;
   overflow: hidden;
 }
@@ -234,9 +231,16 @@
   font-size: 1.4rem;
 }
 
-.create-account-page::before {
-  content: '';
-  position: absolute;
+/* remove decorative overlays to keep create-account page clean */
+  body {
+    background: #ffffff;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  body::before {
+    display: none;
+  }
   top: 0;
   left: 0;
   width: 100%;
@@ -265,6 +269,10 @@
   text-shadow: 0 2px 4px rgba(255, 136, 0, 0.1);
 }
 
+.page-header{
+  text-align: center;
+}
+
 .page-description {
   font-size: 1.6rem;
   color: #666666;
@@ -272,6 +280,7 @@
   margin: 0 auto;
   line-height: 1.6;
   opacity: 0.8;
+  text-align: center;
 }
 
 .create-account-content {
@@ -797,82 +806,99 @@
 <script>
 // Create Account page functionality
 document.addEventListener('DOMContentLoaded', function() {
-  // Password toggle functionality
-  const passwordToggles = document.querySelectorAll('.password-toggle');
-  
-  passwordToggles.forEach(toggle => {
-    toggle.addEventListener('click', function() {
-      const input = this.parentElement.querySelector('input');
-      const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-      input.setAttribute('type', type);
-      this.setAttribute('aria-label', type === 'password' ? 'Show password' : 'Hide password');
-      
-      const icon = this.querySelector('svg');
-      if (type === 'password') {
-        icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
-      } else {
-        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.54 18.54 0 0 1 2.68-3.42M2.36 2.36 21.64 21.64M16.61 16.61A4 4 0 0 1 12 16a4 4 0 0 1-4-4c0-1.06.35-2.04.94-2.83"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
-      }
+  try {
+    // Password toggle functionality (guarded)
+    var passwordToggles = document.querySelectorAll('.password-toggle') || [];
+    passwordToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        try {
+          var input = this.parentElement ? this.parentElement.querySelector('input') : null;
+          if (!input) return;
+          var type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+          input.setAttribute('type', type);
+          this.setAttribute('aria-label', type === 'password' ? 'Show password' : 'Hide password');
+
+          var icon = this.querySelector('svg');
+          if (icon) {
+            if (type === 'password') {
+              icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+            } else {
+              icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.54 18.54 0 0 1 2.68-3.42M2.36 2.36 21.64 21.64M16.61 16.61A4 4 0 0 1 12 16a4 4 0 0 1-4-4c0-1.06.35-2.04.94-2.83"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+            }
+          }
+        } catch (err) {
+          // ignore per-toggle errors
+        }
+      });
     });
-  });
 
-  // Password strength indicator
-  const passwordInput = document.getElementById('customer_password');
-  const strengthFill = document.getElementById('strength-fill');
-  const strengthText = document.getElementById('strength-text');
-  const confirmPasswordInput = document.getElementById('customer_password_confirmation');
+    // Password strength indicator
+    var passwordInput = document.getElementById('customer_password');
+    var strengthFill = document.getElementById('strength-fill');
+    var strengthText = document.getElementById('strength-text');
+    var confirmPasswordInput = document.getElementById('customer_password_confirmation');
 
-  if (passwordInput && strengthFill && strengthText) {
-    passwordInput.addEventListener('input', function() {
-      const password = this.value;
-      const strength = calculatePasswordStrength(password);
-      
-      strengthFill.style.width = strength.percentage + '%';
-      strengthFill.style.backgroundColor = strength.color;
-      strengthText.textContent = strength.text;
-      strengthText.style.color = strength.color;
-    });
-  }
+    if (passwordInput && strengthFill && strengthText) {
+      passwordInput.addEventListener('input', function() {
+        try {
+          var password = this.value;
+          var strength = calculatePasswordStrength(password);
+          strengthFill.style.width = strength.percentage + '%';
+          strengthFill.style.backgroundColor = strength.color;
+          strengthText.textContent = strength.text;
+          strengthText.style.color = strength.color;
+        } catch (err) {
+          // ignore
+        }
+      });
+    }
 
-  // Password confirmation validation
-  if (confirmPasswordInput) {
-    confirmPasswordInput.addEventListener('input', function() {
-      const password = passwordInput.value;
-      const confirmPassword = this.value;
-      
-      if (confirmPassword && password !== confirmPassword) {
-        this.style.borderColor = '#ef4444';
-        this.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
-      } else {
-        this.style.borderColor = '';
-        this.style.boxShadow = '';
-      }
-    });
-  }
+    // Password confirmation validation
+    if (confirmPasswordInput && passwordInput) {
+      confirmPasswordInput.addEventListener('input', function() {
+        try {
+          var password = passwordInput.value;
+          var confirmPassword = this.value;
+          if (confirmPassword && password !== confirmPassword) {
+            this.style.borderColor = '#ef4444';
+            this.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+          } else {
+            this.style.borderColor = '';
+            this.style.boxShadow = '';
+          }
+        } catch (err) {
+          // ignore
+        }
+      });
+    }
 
-  // Form submission - Let Shopify handle the submission
-  const accountForm = document.getElementById('account-form');
-  const createAccountBtn = document.querySelector('.create-account-btn');
-  const btnText = createAccountBtn.querySelector('.btn-text');
+    // Form submission - Let Shopify handle the submission
+    var accountForm = document.getElementById('account-form');
+    var createAccountBtn = document.querySelector('.create-account-btn');
+    var btnText = createAccountBtn ? createAccountBtn.querySelector('.btn-text') : null;
 
-  if (accountForm) {
-    accountForm.addEventListener('submit', function(e) {
-      const password = passwordInput.value;
-      const confirmPassword = confirmPasswordInput.value;
-      
-      if (password !== confirmPassword) {
-        e.preventDefault();
-        alert('Passwords do not match. Please try again.');
-        return;
-      }
-      
-      // Add loading state
-      createAccountBtn.disabled = true;
-      btnText.textContent = 'Creating Account...';
-      
-      // Form will submit normally to Shopify's endpoint
-      // Shopify will handle success/error responses and redirects
-    });
+    if (accountForm) {
+      accountForm.addEventListener('submit', function(e) {
+        try {
+          var password = passwordInput ? passwordInput.value : '';
+          var confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
+          if (password !== confirmPassword) {
+            e.preventDefault();
+            alert('Passwords do not match. Please try again.');
+            return;
+          }
+
+          // Add loading state if elements exist
+          if (createAccountBtn) createAccountBtn.disabled = true;
+          if (btnText) btnText.textContent = 'Creating Account...';
+        } catch (err) {
+          // ignore submission-time JS errors; allow form to submit
+        }
+      });
+    }
+  } catch (e) {
+    // Top-level guard
+    console.warn('Create account script initialization failed', e);
   }
 
   // Password strength calculation

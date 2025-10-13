@@ -6,16 +6,19 @@
   /* SHEIN-style Product Card Styles */
   .product-card {
     position: relative;
-    background: transparent;
-    border-radius: 4px;
+  background: linear-gradient(180deg, #ffffff, #fbfbfb);
+  border-radius: var(--radius-md); /* reduced radius for home cards - use global variable */
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: transform 0.28s cubic-bezier(.2,.9,.3,1), box-shadow 0.28s cubic-bezier(.2,.9,.3,1);
     margin-bottom: 20px;
+    box-shadow: 0 8px 30px rgba(16,24,40,0.06);
+    border: 1px solid rgba(16,24,40,0.04);
+    max-height: 450px !important;
   }
   
   .product-card:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(16,24,40,0.12);
+    transform: translateY(-6px) scale(1.01);
   }
   
   .product-card-image {
@@ -50,8 +53,55 @@
     padding: 3px 8px;
     font-size: 11px;
     font-weight: 500;
-    border-radius: 2px;
+    border-radius: 0.8rem;
     z-index: 2;
+  }
+
+  .product-card-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .product-card-stars {
+    color: #f5a623; /* gold */
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .product-card-reviews {
+    font-size: 12px;
+    color: #777;
+  }
+
+  /* Layout for price row with discount on the right */
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .price-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .product-card-side {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .product-discount-badge {
+    background: #ff4e4e;
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 0.8rem;
+    font-size: 12px;
+    font-weight: 700;
   }
   
   .product-card-content {
@@ -486,8 +536,8 @@
 <section class="featured-products">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Featured Products</h2>
-      <p class="section-subtitle">Handpicked just for you</p>
+      <h2 class="section-title">--- For You ---</h2>
+      {% comment %} <p class="section-subtitle">Handpicked just for you</p> {% endcomment %}
       </div>
       
       <div class="products-grid">
@@ -512,22 +562,44 @@
               {% else %}
               <img src="{{ 'new-arrivals.jpeg' | asset_url }}" alt="{{ product.title }}" class="product-img">
             {% endif %}
-            <div class="product-card-badge">New</div>
+            {% if product.tags contains 'new' %}
+              <div class="product-card-badge">New</div>
+            {% endif %}
             </div>
             <div class="product-card-content">
               <h3 class="product-card-title">{{ product.title }}</h3>
               <div class="product-card-bottom">
                 <div class="product-card-price">
-                  {% if product.price %}
-                    <span class="product-card-price-current">${{ product.price | money_without_currency }}</span>
-                    {% if product.compare_at_price > product.price %}
-                      <span class="product-card-price-original">${{ product.compare_at_price | money_without_currency }}</span>
-                    {% endif %}
+                    {%- comment -%} Prefer variant-level pricing for accuracy, fall back to product-level {%- endcomment -%}
+                    {% assign variant = product.selected_or_first_available_variant %}
+                    {% assign sale_price = variant.price | default: product.price %}
+                    {% assign compare_price = variant.compare_at_price | default: product.compare_at_price %}
+                    {% if sale_price %}
+                      <div class="price-row">
+                        <div class="price-left">
+                          <span class="product-card-price-current">${{ sale_price | money_without_currency }}</span>
+                          {% if compare_price and compare_price > sale_price %}
+                            <span class="product-card-price-original">${{ compare_price | money_without_currency }}</span>
+                          {% endif %}
+                        </div>
+                        <div class="product-card-side">
+                          {% if compare_price and compare_price > sale_price %}
+                            {% assign discount_amount = compare_price | minus: sale_price %}
+                            {% assign discount_pct = discount_amount | times: 100 | divided_by: compare_price | round %}
+                            <div class="product-discount-badge">-{{ discount_pct }}%</div>
+                          {% endif %}
+                        </div>
+                      </div>
                     {% else %}
-                    <span class="product-card-price-current">$0.00</span>
-                  {% endif %}
+                      <span class="product-card-price-current">$0.00</span>
+                    {% endif %}
+                  <!-- Reviews (stars + count) placed under price -->
+                  <div class="product-card-rating">
+                    <div class="product-card-stars">★★★★★</div>
+                    <span class="product-card-reviews">({{ product.metafields.reviews.count | default: 0 }})</span>
                   </div>
-                  <div class="product-card-actions">
+                </div>
+                <div class="product-card-actions">
                     <button class="icon-btn wishlist-btn" data-product-id="{{ product.id }}" data-product-title="{{ product.title }}" data-product-handle="{{ product.handle }}">
                       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -560,8 +632,8 @@
 <section class="why-choose-us">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Why Choose Us</h2>
-      <p class="section-subtitle">Experience the difference with our premium service</p>
+      <h2 class="section-title">Why choose Point Store?</h2>
+      <p class="section-subtitle">Renew your style with unique pieces, carefully selected and ready for a second story. Affordable, modern, and purposeful fashion</p>
     </div>
     
     <div class="features-grid">
@@ -572,7 +644,7 @@
           </svg>
         </div>
         <h3 class="feature-title">Free Shipping</h3>
-        <p class="feature-description">Free shipping on orders over $50. Fast and reliable delivery to your doorstep.</p>
+        <p class="feature-description">Free shipping from $250. Enjoy free delivery on purchases over $250.</p>
       </div>
       
       <div class="feature-card">
@@ -582,29 +654,20 @@
           </svg>
         </div>
         <h3 class="feature-title">Quality Guarantee</h3>
-        <p class="feature-description">100% satisfaction guarantee. Premium quality products with excellent craftsmanship.</p>
+        <p class="feature-description">Carefully selected items. Each piece goes through detailed inspection to ensure excellent condition, cleanliness, and style.</p>
       </div>
       
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
-            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <h3 class="feature-title">24/7 Support</h3>
-        <p class="feature-description">Round-the-clock customer support. We're here to help you whenever you need us.</p>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
         </div>
-        <h3 class="feature-title">Easy Returns</h3>
-        <p class="feature-description">30-day return policy. Easy and hassle-free returns for your peace of mind.</p>
+        <h3 class="feature-title">Support</h3>
+        <p class="feature-description">Personalized attention. Our team is available before, during, and after your purchase.</p>
       </div>
+  
     </div>
   </div>
 </section>
@@ -1143,22 +1206,22 @@
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  gap: 4rem;
-  margin-top: 6rem;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 2.4rem;
+  margin-top: 4rem;
   position: relative;
   z-index: 1;
 }
 
 .feature-card {
   background: rgba(255, 255, 255, 0.9);
-  padding: 4rem 3rem;
-  border-radius: 2rem;
+  padding: 2.2rem 1.6rem;
+  border-radius: 1.2rem;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   position: relative;
   overflow: hidden;
 }
@@ -1170,14 +1233,14 @@
 }
 
 .feature-icon {
-  width: 9rem;
-  height: 9rem;
+  width: 5.6rem;
+  height: 5.6rem;
   background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 3rem;
+  margin: 0 auto 1.6rem;
   color: var(--white);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -1185,19 +1248,43 @@
 }
 
 .feature-title {
-  font-size: 2.6rem;
-  margin-bottom: 2rem;
-  color: var(--gray-700);
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  color: var(--gray-800);
   font-weight: var(--fw-semi);
   transition: color 0.3s ease;
 }
 
 .feature-description {
-  font-size: 1.6rem;
-  color: var(--gray-500);
+  font-size: 1.25rem;
+  color: var(--gray-600);
   line-height: 1.7;
   margin: 0;
   transition: color 0.3s ease;
+}
+
+/* Desktop: force 4 columns and slightly tighter spacing so four cards fit on one row */
+@media (min-width: 1200px) {
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .feature-card {
+    padding: 2rem 1.4rem;
+  }
+
+  .feature-icon {
+    width: 5.2rem;
+    height: 5.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-title { font-size: 1.5rem; }
+  .feature-description { font-size: 1.15rem; }
 }
 
 .feature-card::before {
@@ -1955,7 +2042,7 @@
   }
 
   .features-grid {
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     overflow-x: auto;
     gap: 1.5rem;

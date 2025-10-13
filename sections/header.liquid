@@ -2,7 +2,6 @@
   Header section with navigation and search
 {% endcomment %}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 
 <header class="header">
 
@@ -23,7 +22,7 @@
             {% if settings.logo != blank %}
               <img src="{{ settings.logo | img_url: '200x' }}" alt="{{ shop.name }}" class="logo-image">
             {% else %}
-              <img src="{{ 'logo.jpg' | asset_url }}" alt="{{ shop.name }}" class="logo-image">
+              <img src="{{ 'image1.jpg' | asset_url }}" alt="{{ shop.name }}" class="logo-image">
             {% endif %}
           </a>
         </div>
@@ -730,7 +729,18 @@ document.addEventListener('DOMContentLoaded', function() {
       closeSearchDialog();
     }
   });
+
+  window.addEventListener('scroll', function() {
+  const header = document.querySelector('.header');
+  if (window.scrollY > 100) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
 });
+
+});
+
 </script>
 
 <style>
@@ -743,6 +753,11 @@ document.addEventListener('DOMContentLoaded', function() {
   z-index: 1000;
   backdrop-filter: blur(10px);
   border-bottom: 2px solid #ff8800;
+  width: 100%;
+}
+
+.header.scrolled{
+  position: fixed !important;
 }
 
 /* Ensure main content doesn't get hidden behind sticky header */
@@ -1720,7 +1735,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   .header-actions {
-    gap: 0.8rem;
+    gap: 0rem;
   }
 
   .header-action {
@@ -1954,13 +1969,17 @@ html {
     max-width: none;
     order: 2;
   }
+  .icon{
+    width: 1.4rem;
+    height: 1.4rem;
+  }
   .search-input {
     display: none;
   }
   .search-btn {
     display: flex;
-    width: 3.6rem;
-    height: 3.6rem;
+    width: 2.6rem;
+    height: 2.6rem;
     right: 0;
     position: absolute;
     margin-left: 0.5rem;

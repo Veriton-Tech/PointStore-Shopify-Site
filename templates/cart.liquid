@@ -192,22 +192,14 @@
 <style>
 /* Cart Page Styles */
 body {
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  background: #ffffff;
   position: relative;
   min-height: 100vh;
 }
 
+/* Remove decorative background for cart page to keep it clean and white */
 body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 20% 80%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
+  display: none;
 }
 
 .cart-page {
@@ -239,11 +231,17 @@ body::before {
 .cart-count {
   background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
   color: white;
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 600;
-  padding: 0.8rem 1.6rem;
-  border-radius: 2rem;
-  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
+  padding: 0.2rem 0.4rem;
+  border-radius: 1rem;
+  min-width: 1.8rem;
+  height: 1.8rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(255, 136, 0, 0.3);
   animation: pulse 2s infinite;
 }
 
@@ -255,11 +253,11 @@ body::before {
 
 /* Cart Items */
 .cart-items {
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
-  border-radius: 1.2rem;
-  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
   overflow: hidden;
-  border: 1px solid rgba(255, 136, 0, 0.1);
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 .cart-items-header {
@@ -282,9 +280,9 @@ body::before {
   grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
   gap: 2rem;
   padding: 2rem;
-  border-bottom: 1px solid rgba(255, 136, 0, 0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
   align-items: center;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  background: #ffffff;
 }
 
 .cart-item:last-child {
@@ -292,8 +290,8 @@ body::before {
 }
 
 .cart-item:hover {
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 80%);
-  box-shadow: 0 2px 8px rgba(255, 136, 0, 0.1);
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
 .cart-item-product {
@@ -448,7 +446,7 @@ body::before {
   text-align: center;
   font-size: 1.6rem;
   font-weight: 600;
-  color: #ff8800;
+  color:white;
 }
 
 .cart-item-actions {
@@ -479,11 +477,32 @@ body::before {
 
 .cart-actions {
   padding: 2rem;
-  border-top: 1px solid rgba(255, 136, 0, 0.2);
+  border-top: 1px solid rgba(0,0,0,0.06);
   display: flex;
   gap: 2rem;
   justify-content: flex-end;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  background: #ffffff;
+}
+
+/* Make Update Cart and Continue Shopping buttons have orange border and orange hover */
+.cart-actions .btn.btn-secondary,
+.cart-actions .btn.btn-outline {
+  background: #ffffff;
+  color: #ff8800;
+  border: 2px solid rgba(255,136,0,0.18);
+  padding: 0.9rem 1.4rem;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  transition: all 0.18s ease;
+}
+
+.cart-actions .btn.btn-secondary:hover,
+.cart-actions .btn.btn-outline:hover {
+  background: linear-gradient(135deg, #ff8800, #ff6600);
+  color: #ffffff;
+  border-color: #ff8800;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255,136,0,0.16);
 }
 
 /* Cart Summary */
@@ -494,11 +513,11 @@ body::before {
 }
 
 .summary-card {
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
-  border-radius: 1.2rem;
+  background: #ffffff;
+  border-radius: var(--radius-md);
   padding: 2rem;
-  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 136, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 .summary-title {
@@ -591,91 +610,88 @@ body::before {
 }
 
 .payment-icon {
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
-  border: 1px solid rgba(255, 136, 0, 0.2);
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
   padding: 0.8rem 1.2rem;
-  border-radius: 0.4rem;
+  border-radius: 0.6rem;
   font-size: 1.2rem;
   color: #666666;
 }
 
 .promo-section {
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
-  border-radius: 1.2rem;
-  padding: 2rem;
-  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 136, 0, 0.1);
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.6rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 .promo-title {
   font-size: 1.6rem;
-  margin-bottom: 1.6rem;
-  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
   font-weight: 600;
 }
 
 .promo-input-group {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 .promo-input {
   flex: 1;
-  padding: 1.2rem 1.6rem;
-  border: 2px solid rgba(255, 136, 0, 0.2);
-  border-radius: 0.8rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 0.6rem;
   font-size: 1.4rem;
-  background: white;
+  background: #ffffff;
 }
 
 .promo-input:focus {
   outline: none;
-  border-color: #ff8800;
-  box-shadow: 0 0 0 3px rgba(255, 136, 0, 0.1);
+  border-color: rgba(0,0,0,0.12);
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.02);
 }
 
 .promo-input-group .btn {
-  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+  background: linear-gradient(135deg, #ff8800, #ff6600);
   color: white;
   border: none;
-  padding: 1.2rem 2rem;
-  border-radius: 0.8rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 0.6rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .promo-input-group .btn:hover {
-  background: linear-gradient(135deg, #ff6600 0%, #e55100 100%);
+  background: linear-gradient(135deg, #ff6600, #e55100);
   transform: translateY(-1px);
 }
 
 .security-badges {
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
-  border-radius: 1.2rem;
-  padding: 2rem;
-  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 136, 0, 0.1);
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 .security-badge {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
-  color: #ff8800;
+  padding: 0.8rem 0.6rem;
+  color: #1a1a1a;
   font-size: 1.4rem;
   font-weight: 500;
 }
 
 .security-badge:not(:last-child) {
-  border-bottom: 1px solid rgba(255, 136, 0, 0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
 .security-badge .icon {
-  color: #ff8800;
+  color: #ff8800; /* icon accent remains orange */
 }
 
 /* Empty Cart */

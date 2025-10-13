@@ -32,22 +32,13 @@
 <style>
 /* Wishlist Page Styles */
 body {
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  background: #ffffff;
   position: relative;
   min-height: 100vh;
 }
 
 body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 20% 80%, rgba(255, 136, 0, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
+  display: none;
 }
 
 .wishlist-page {
@@ -97,7 +88,7 @@ body::before {
   max-width: 32rem;
   min-width: 22rem;
   margin-bottom: 2rem;
-  background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+  background: #ffffff;
   border-radius: 1.2rem;
   box-shadow: 0 8px 32px rgba(255, 136, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(255, 136, 0, 0.1);
@@ -385,8 +376,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const wishlist = getWishlist();
 
     if (wishlist.length === 0) {
-      wishlistEmpty.style.display = 'block';
+      // Clear any existing items then show the empty-state card.
       wishlistGrid.innerHTML = '';
+      // If the empty node isn't attached, append it back to the grid
+      if (!wishlistEmpty.parentNode || wishlistEmpty.parentNode !== wishlistGrid) {
+        wishlistGrid.appendChild(wishlistEmpty);
+      }
+      wishlistEmpty.style.display = 'block';
       return;
     }
 
