@@ -807,22 +807,49 @@ add-to-cart-btn{
 }
 
 @media (max-width: 480px) {
-  .collection-title {
-    font-size: 2.8rem;
+
+  .featured-products .section-title {
+    font-size: 2.8rem !important;
   }
-  
+
+  /* ✅ 2 products per row on mobile */
   .products-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    padding: 0 0.8rem !important;
   }
-  
-  .products-grid.list-view .product-card {
-    flex-direction: column;
-    text-align: center;
+
+  /* ✅ Make product cards smaller to fit 2 per row nicely */
+  .product-card {
+    max-width: 100% !important;
+    border-radius: 1.6rem !important;
   }
-  
-  .products-grid.list-view .product-card-image {
-    width: 100%;
-    height: 25rem;
+
+  .product-card-image {
+    height: 14rem !important; /* smaller image height */
+  }
+
+  .product-card-content {
+    padding: 1rem !important;
+  }
+
+  .product-card-title {
+    font-size: 1.3rem !important;
+    line-height: 1.3 !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .product-card-price-current {
+    font-size: 1.4rem !important;
+  }
+
+  .product-card-actions {
+    gap: 0.6rem !important;
+  }
+
+  .product-card-actions .btn {
+    padding: 0.8rem 1rem !important;
+    font-size: 1.1rem !important;
   }
 }
 
