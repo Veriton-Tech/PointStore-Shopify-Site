@@ -1169,3 +1169,41 @@ a:hover {
 .skip-to-content-link:focus {
   top: 6px;
 }
+
+/* Hide Google Translate top frame bar */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+/* Hide the white space left by the bar */
+body {
+  top: 0px !important;
+}
+
+.VIpgJd-ZVi9od-ORHb{
+  display: none !important;
+}
+
+/* Prevent flickering from translate iframe adjustments */
+.goog-te-banner-frame,
+.goog-te-balloon-frame {
+  visibility: hidden !important;
+}
+
+/* Hide the mini translate icon that floats in bottom corner */
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+.skiptranslate{
+  display: none !important;
+}
+
+.skiptranslate.goog-te-gadget{
+  display: block !important;
+  color: black;
+}
+
+.skiptranslate.goog-te-gadget span{
+  display: none;
+}

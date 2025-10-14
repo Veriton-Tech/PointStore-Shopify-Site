@@ -196,6 +196,7 @@
         font-style: var(--font-body-style);
         font-weight: var(--font-body-weight);
       }
+      
 
       @media screen and (min-width: 750px) {
         body {
@@ -281,6 +282,32 @@
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',        // your site’s original language
+          includedLanguages: 'es,en' // Spanish + English
+        },
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+    // Force Google Translate to open automatically in Spanish after load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const select = document.querySelector('.goog-te-combo');
+        if (select) {
+          select.value = 'es'; // Set Spanish
+          select.dispatchEvent(new Event('change'));
+        }
+      }, 1200);
+    });
+  </script>
+  
   </body>
 </html>
 
