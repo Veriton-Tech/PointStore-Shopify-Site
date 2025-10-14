@@ -64,13 +64,16 @@
             <a href="/pages/contact">Contact Us</a>
           </li>
           <li>
-            <a href="/pages/shipping">Shipping Info</a>
+            <a href="/pages/shipping-info">Shipping Information</a>
           </li>
           <li>
-            <a href="/pages/returns">Sales Policy</a>
+            <a href="/pages/sales-policy">Sales Policy</a>
           </li>
           <li>
             <a href="/pages/track-order">Order Tracking</a>
+          </li>
+          <li>
+            <a href="/pages/complaints">Complaints</a>
           </li>
         </ul>
       </div>
@@ -141,7 +144,7 @@
             </div>
             <button type="submit" class="footer-newsletter-btn">Subscribe</button>
           </form>
-          <p class="footer-newsletter-policy">By clicking the SUBSCRIBE button, you are agreeing to our <a href="/pages/privacy-policy">Privacy & Cookie Policy</a></p>
+          <p class="footer-newsletter-policy">By clicking the SUBSCRIBE button, you are agreeing to our <a href="/pages/terms">Terms & Conditions</a></p>
         </div>
       </div>
     </div>
@@ -173,28 +176,12 @@
             class="payment-icon"
             viewBox="0 0 24 24"
             fill="currentColor">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2z" />
+            <!-- Placeholder wallet icon for Plin -->
+            <path d="M2 7h20v10H2V7zm2 2v6h16V9H4zm2-4h8v2H6V5z" />
           </svg>
-          <span>PayPal</span>
+          <span>Plin</span>
         </div>
-        <div class="payment-method">
-          <svg
-            class="payment-icon"
-            viewBox="0 0 24 24"
-            fill="currentColor">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2z" />
-          </svg>
-          <span>Apple Pay</span>
-        </div>
-        <div class="payment-method">
-          <svg
-            class="payment-icon"
-            viewBox="0 0 24 24"
-            fill="currentColor">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2z" />
-          </svg>
-          <span>Google Pay</span>
-        </div>
+        <!-- Mercado Pago removed per request -->
       </div>
     </div>
 
@@ -205,9 +192,7 @@
           <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
         </div>
         <div class="footer-legal">
-          <a href="/pages/privacy-policy">Privacy Policy</a>
-          <a href="/pages/privacy-policy">Terms of Service</a>
-          <a href="/pages/privacy-policy">Cookie Policy</a>
+          <!-- Bottom legal links removed per request -->
         </div>
         
       </div>
@@ -516,10 +501,24 @@
 
   .footer-newsletter-policy {
     color: #ffffff;
-    font-size: 1.05rem;
+    font-size: 1.15rem; /* increased */
     margin: 0.6rem 0 0;
     text-align: left;
     font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .footer-newsletter-policy a {
+    color: #ff8800; /* make link prominent */
+    font-weight: 800;
+    font-size: 1.22rem; /* slightly larger than surrounding text */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-newsletter-policy a:hover {
+    color: #ff6600;
+    text-decoration: none;
   }
 
   @media (max-width: 1024px) {
@@ -556,5 +555,8 @@
       gap: 0.8rem;
     }
     .footer-newsletter-phone-group { flex-direction: row; }
+    /* Make newsletter policy more legible on small screens */
+    .footer-newsletter-policy { font-size: 1.12rem; }
+    .footer-newsletter-policy a { font-size: 1.18rem; }
   }
 </style>

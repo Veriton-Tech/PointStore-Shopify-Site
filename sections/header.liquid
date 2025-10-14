@@ -357,11 +357,11 @@
         <li class="nav-item" data-category="sale">
           <a href="/collections/all?category=sale" class="nav-link">Sale</a>
         </li>
-        <li class="nav-item" data-category="new">
-          <a href="/collections/all?category=new" class="nav-link">New Arrivals</a>
-        </li>
         <li class="nav-item">
           <a href="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item" data-category="new">
+          <a href="/collections/all?category=new" class="nav-link">New Arrivals</a>
         </li>
       </ul>
     </div>
@@ -783,7 +783,7 @@ document.addEventListener('DOMContentLoaded', function() {
   align-items: center;
   gap: 3rem;
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .mobile-menu-toggle {
@@ -815,10 +815,6 @@ document.addEventListener('DOMContentLoaded', function() {
   transition: transform 0.3s ease;
 }
 
-.header-logo:hover {
-  transform: scale(1.05);
-}
-
 .logo-link {
   text-decoration: none;
   color: var(--white);
@@ -834,6 +830,7 @@ document.addEventListener('DOMContentLoaded', function() {
   width: auto;
   border-radius: 0.8rem;
   transition: all 0.3s ease;
+  
 }
 
 .header-search {
@@ -1297,7 +1294,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .mega-dropdown-menu {
   position: fixed;
-  top: auto;
+  top: auto !important;
   left: 50%;
   transform: translateX(-50%);
   background: var(--white);
@@ -1605,6 +1602,27 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   .mega-subcategory ul li {
+/* Place search icon just right of centered logo on desktop */
+@media (min-width: 769px) {
+  .header-search {
+    position: absolute;
+    /* position to sit immediately left of the wishlist icon */
+    right: 5.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1100;
+  }
+
+  /* Keep header actions at the far right but vertically centered */
+  .header-actions {
+    position: absolute;
+    right: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    gap: 0.6rem;
+    z-index: 1099;
+  }
+}
     width: 15%;
   }
 }
@@ -1720,6 +1738,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 }
 
+/* Desktop: increase logo size for better prominence */
+@media (min-width: 769px) {
+  .logo-image {
+    height: 5.8rem; /* increased from 4.5rem */
+  }
+}
+
 @media (max-width: 480px) {
   .header-main {
     padding: 0.8rem 1rem;
@@ -1771,6 +1796,68 @@ document.addEventListener('DOMContentLoaded', function() {
   .category-container{
     padding: 0 !important;
   }
+}
+
+/* Collapse the search bar on desktop: hide the input and results, keep the search icon visible */
+@media (min-width: 769px) {
+  .header-search {
+    max-width: 0;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .header-search .search-input,
+  .header-search .search-results {
+    display: none !important;
+  }
+
+  .header-search .search-btn {
+    display: flex !important;
+    width: 3.6rem;
+    height: 3.6rem;
+    padding: 0;
+    margin: 0 0.4rem 0 0; /* small spacing to the right so it's left of wishlist */
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    border-radius: 0.8rem;
+    background: linear-gradient(135deg, #ff8800, #ff6600) !important;
+  }
+
+  /* ensure the search icon sits before the header actions visually */
+  .header-content {
+    align-items: center;
+  }
+}
+
+/* Desktop tweaks: center logo and tighten action spacing */
+@media (min-width: 769px) {
+  .header-content { position: relative; }
+
+  /* center the logo horizontally without changing DOM order */
+  .header-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50%;
+    transform-origin: center;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  /* pull actions together (search + wishlist + cart) */
+  .header-actions {
+    gap: 0.6rem; /* tighter gap so search icon sits closer to wishlist */
+  }
+
+  /* reduce the right margin on the search icon to bring it closer */
+  .header-search .search-btn {
+    margin: 0 0.12rem 0 -12px !important;
+  }
+
+  /* ensure header-logo doesn't intercept pointer events for right-side actions */
+  .header-logo { pointer-events: none; }
+  .header-logo .logo-link { pointer-events: auto; }
 }
 
 /* Focus states for accessibility */
@@ -2045,4 +2132,6 @@ html {
   justify-content: center;
   cursor: pointer;
 }
+
+
 </style>

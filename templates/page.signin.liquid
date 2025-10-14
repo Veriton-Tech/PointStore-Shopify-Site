@@ -6,8 +6,7 @@
   <div class="container">
     <!-- Page Header -->
     <div class="page-header">
-      <h1 class="page-title">Sign In</h1>
-      <p class="page-description">Welcome back! Please sign in to your account</p>
+  <img src="{{ 'image1.jpg' | asset_url }}" alt="Sign in" class="page-header-image">
     </div>
 
     <!-- Sign In Content -->
@@ -183,19 +182,19 @@
 
   /* Form Errors */
   .form-errors {
-    background: #fef2f2;
-    border: 2px solid #ff8800;
+    background: #ffffff;
+    border: 2px solid #000000;
     border-radius: 1.2rem;
     padding: 2rem;
     margin-bottom: 3rem;
-    color: #ff6600;
+    color: #000000;
   }
 
   .form-errors h4 {
     margin: 0 0 1rem 0;
     font-size: 1.6rem;
     font-weight: 600;
-    color: #ff6600;
+    color: #000000;
   }
 
   .form-errors ul {
@@ -227,15 +226,25 @@
     z-index: 1;
   }
 
+  .page-header-image {
+    display: block;
+    margin: 0 auto 1.6rem;
+    max-width: 160px;
+    width: 100%;
+    height: auto;
+    border-radius: 0.8rem;
+    object-fit: cover;
+  }
+
   .page-title {
     font-size: 4.5rem;
     margin-bottom: 1.6rem;
     color: #1a1a1a;
-    background: linear-gradient(135deg, #ff8800, #ff6600);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 2px 4px rgba(255, 136, 0, 0.1);
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   }
 
   .page-description {
@@ -254,9 +263,9 @@
   .signin-card {
     background: var(--white);
     border-radius: 2rem;
-    box-shadow: 0 20px 40px rgba(255, 136, 0, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
     overflow: hidden;
-    border: 2px solid rgba(255, 136, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.05);
   }
 
   .signin-form-section {
@@ -268,10 +277,10 @@
     margin-bottom: 3rem;
     color: #1a1a1a;
     text-align: center;
-    background: linear-gradient(135deg, #ff8800, #ff6600);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
   }
 
   .signin-form {
@@ -317,12 +326,12 @@
 
   .form-group input:focus {
     outline: none;
-    border-color: #ff8800;
-    box-shadow: 0 0 0 3px rgba(255, 136, 0, 0.2);
+    border-color: #000000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
   }
 
   .form-group input:focus + .input-icon {
-    color: #ff8800;
+    color: #000000;
   }
 
   .password-toggle {
@@ -338,7 +347,7 @@
   }
 
   .password-toggle:hover {
-    color: #ff8800;
+    color: #000000;
   }
 
   .eye-icon {
@@ -362,7 +371,7 @@
   .remember-me input[type="checkbox"] {
     width: 1.8rem;
     height: 1.8rem;
-    accent-color: #ff8800;
+    accent-color: #000000;
   }
 
   .remember-me label {
@@ -373,7 +382,7 @@
   }
 
   .forgot-password {
-    color: #ff8800;
+    color: #000000;
     text-decoration: none;
     font-size: 1.4rem;
     font-weight: 500;
@@ -381,13 +390,13 @@
   }
 
   .forgot-password:hover {
-    color: #ff6600;
-    text-shadow: 0 0 8px rgba(255, 136, 0, 0.3);
+    color: #111111;
+    text-shadow: none;
   }
 
   .signin-btn {
     width: 100%;
-    background: linear-gradient(135deg, #ff8800, #ff6600);
+    background: #1a1a1a;
     color: var(--white);
     border: none;
     padding: 1.6rem 2rem;
@@ -400,7 +409,7 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    box-shadow: 0 6px 20px rgba(255, 136, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
   }
@@ -421,9 +430,9 @@
   }
 
   .signin-btn:hover {
-    background: linear-gradient(135deg, #ff6600, #ff4400);
+    background: #0f0f0f;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 136, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
   }
 
   .signin-btn:active {
@@ -436,7 +445,7 @@
   }
 
   .signup-section {
-    background: linear-gradient(135deg, #ff8800, #ff6600);
+    background: #1a1a1a;
     padding: 3rem;
     text-align: center;
     color: var(--white);

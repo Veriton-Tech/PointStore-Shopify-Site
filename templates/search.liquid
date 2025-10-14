@@ -214,53 +214,8 @@
         </div>
       {% endif %}
     {% elsif search.performed == false %}
-      <!-- Search Suggestions -->
-      <div class="search-suggestions">
-        <div class="suggestions-content">
-          <h2 class="suggestions-title">{{ 'general.search.suggestions_title' | t }}</h2>
-          <p class="suggestions-subtitle">{{ 'general.search.suggestions_subtitle' | t }}</p>
-          
-          <div class="popular-categories">
-            <h3>{{ 'general.search.popular_categories' | t }}</h3>
-            <div class="category-grid">
-              <a href="/collections/women" class="category-card">
-                <div class="category-image">
-                  <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&h=200&fit=crop&crop=center" alt="Women's Fashion">
-                </div>
-                <div class="category-info">
-                  <h4>Women</h4>
-                  <p>Dresses, Tops & More</p>
-                </div>
-              </a>
-              
-              <a href="/collections/men" class="category-card">
-                <div class="category-image">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=center" alt="Men's Fashion">
-                </div>
-                <div class="category-info">
-                  <h4>Men</h4>
-                  <p>Shirts, Pants & More</p>
-                </div>
-              </a>
-              
-              <a href="/collections/kids" class="category-card">
-                <div class="category-image">
-                  <img src="https://images.unsplash.com/photo-1506629905607-1a0b0b0b0b0b?w=200&h=200&fit=crop&crop=center" alt="Kids Fashion">
-                </div>
-                <div class="category-info">
-                  <h4>Kids</h4>
-                  <p>Ages 0-12</p>
-                </div>
-              </a>
-              
-              <a href="/collections/accessories" class="category-card">
-                <div class="category-image">
-                  <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=200&h=200&fit=crop&crop=center" alt="Accessories">
-                </div>
-                <div class="category-info">
-                  <h4>Accessories</h4>
-                  <p>Bags, Jewelry & More</p>
-                </div>
+  
+  
               </a>
             </div>
           </div>
@@ -276,6 +231,12 @@
   min-height: 100vh;
   padding: 4rem 0;
   background: var(--gray-50);
+}
+
+/* Local accent colors for search page (override primary locally) */
+.search-page {
+  --search-accent: #ff8800;
+  --search-accent-2: #ff6600;
 }
 
 .search-header {
@@ -325,7 +286,7 @@
 
 .search-page-search .search-input:focus {
   outline: none;
-  border-color: var(--primary-light);
+  border-color: var(--search-accent);
   background: var(--white);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   transform: translateY(-2px);
@@ -336,7 +297,7 @@
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--primary-light);
+  background: linear-gradient(135deg, var(--search-accent), var(--search-accent-2));
   border: none;
   width: 5rem;
   height: 5rem;
@@ -351,7 +312,7 @@
 }
 
 .search-page-search .search-btn:hover {
-  background: var(--primary-med);
+  background: linear-gradient(135deg, var(--search-accent-2), #ff4400);
   transform: translateY(-50%) scale(1.05);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
@@ -829,6 +790,42 @@
   .category-grid {
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   }
+
+  /* Ensure the search bar is responsive and visible on tablet/mobile */
+  .search-page-search {
+    max-width: 100%;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .search-page-search .search-bar {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .search-page-search .search-input {
+    padding: 1rem 5.2rem 1rem 1rem;
+    font-size: 1.4rem;
+    width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    background: var(--white) !important;
+    color: var(--gray-800) !important;
+    border-color: var(--gray-200) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .search-page-search .search-btn {
+    width: 4rem;
+    height: 4rem;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
 }
 
 @media (max-width: 480px) {
@@ -842,6 +839,30 @@
   
   .result-content {
     padding: 1.5rem;
+  }
+
+  /* Tweak search bar for small phones */
+  .search-page-search {
+    padding: 0 1rem;
+  }
+
+  .search-page-search .search-input {
+    padding: 0.9rem 4.6rem 0.9rem 0.9rem;
+    font-size: 1.3rem;
+    width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    background: var(--white) !important;
+    color: var(--gray-800) !important;
+    border-color: var(--gray-200) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .search-page-search .search-btn {
+    width: 3.6rem;
+    height: 3.6rem;
+    right: 0.6rem;
   }
 }
 </style>

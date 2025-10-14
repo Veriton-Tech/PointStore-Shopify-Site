@@ -77,17 +77,19 @@
                     {% endif %}
                   </div>
 
-                  <div class="cart-item-total">
-                    <span class="item-total">${{ item.final_line_price | money_without_currency }}</span>
-                  </div>
+                  <div class="cart-item-end">
+                    <div class="cart-item-total">
+                      <span class="item-total">${{ item.final_line_price | money_without_currency }}</span>
+                    </div>
 
-                  <div class="cart-item-actions">
-                    <button type="button" class="remove-item-btn" data-item-key="{{ item.key }}">
-                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="3,6 5,6 21,6"></polyline>
-                        <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
-                      </svg>
-                    </button>
+                    <div class="cart-item-actions">
+                      <button type="button" class="remove-item-btn" data-item-key="{{ item.key }}">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="3,6 5,6 21,6"></polyline>
+                          <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
               {% endfor %}
@@ -187,14 +189,175 @@
       </div>
     {% endif %}
   </div>
+  
+{% if related_products.size > 0 %}
+  <!-- Show Related Products -->
+  <div class="related-products">
+    <h3 class="related-title">You Might Also Like</h3>
+    <div class="related-grid">
+      {% for related_product in related_products limit: 4 %}
+        <div class="related-product">
+          <div class="related-product-image">
+            <img src="{{ related_product.featured_image | img_url: '300x300' }}" alt="{{ related_product.title }}" class="related-img">
+            <a href="/products/{{ related_product.handle }}" class="related-link">Quick View</a>
+          </div>
+          <div class="related-product-info">
+            <h4 class="related-product-title">{{ related_product.title }}</h4>
+            <div class="related-product-price">${{ related_product.price | money_without_currency }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% else %}
+  <!-- Fallback: Show All Products -->
+  <div class="related-products">
+    <h3 class="related-title">You Might Also Like</h3>
+    <div class="related-grid">
+      {% for product_item in collections.all.products limit: 4 %}
+        <div class="related-product">
+          <div class="related-product-image">
+            <img src="{{ product_item.featured_image | img_url: '300x300' }}" alt="{{ product_item.title }}" class="related-img">
+            <a href="/products/{{ product_item.handle }}" class="related-link">Quick View</a>
+          </div>
+          <div class="related-product-info">
+            <h4 class="related-product-title">{{ product_item.title }}</h4>
+            <div class="related-product-price">${{ product_item.price | money_without_currency }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
 </div>
 
 <style>
+
+
+/* Related Products */
+.related-products {
+  margin-top: 8rem;
+}
+
+.related-title {
+  font-size: 2.8rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: var(--gray-700);
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 3rem;
+}
+
+.related-product {
+  background: var(--white);
+  border-radius: 1.2rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.related-product:hover {
+  transform: translateY(-4px);
+}
+
+.related-product-image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.related-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.related-product:hover .related-img {
+  transform: scale(1.05);
+}
+
+.related-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ff8800;
+  color: var(--white);
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.related-product:hover .related-link {
+  opacity: 1;
+}
+
+.related-link:hover{
+  color: rgb(0, 0, 0);
+}
+
+.related-product-info {
+  padding: 2rem;
+}
+
+.related-product-title {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+}
+
+.related-product-price {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ff8800;
+}
+
 /* Cart Page Styles */
 body {
   background: #ffffff;
   position: relative;
   min-height: 100vh;
+}
+
+/* Ensure cart page text appears black for better contrast */
+.cart-page {
+  color: #000000;
+}
+
+/* Override decorative gradient headings so they render as solid black text on cart */
+.cart-page .cart-title,
+.cart-page .summary-title,
+.cart-page .empty-cart-title {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+
+/* Make other text elements explicitly black on the cart page */
+.cart-page .item-title,
+.cart-page .item-variant,
+.cart-page .item-properties,
+.cart-page .summary-label,
+.cart-page .summary-value,
+.cart-page .item-price-current,
+.cart-page .item-price-original,
+.cart-page .empty-cart-text,
+.cart-page .promo-title,
+.cart-page .payment-text,
+.cart-page .security-badge {
+  color: #000000 !important;
 }
 
 /* Remove decorative background for cart page to keep it clean and white */
@@ -454,6 +617,12 @@ body::before {
   justify-content: center;
 }
 
+/* Make the .cart-item-end wrapper transparent on desktop so its children occupy the grid cells
+   (.cart-item-total and .cart-item-actions) — mobile override will switch to flex. */
+.cart-item-end {
+  display: contents;
+}
+
 .remove-item-btn {
   width: 3.6rem;
   height: 3.6rem;
@@ -503,6 +672,22 @@ body::before {
   border-color: #ff8800;
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(255,136,0,0.16);
+}
+
+/* Override Update/Continue buttons to use black text on cart page (improves contrast) */
+/* Make Update/Continue buttons orange with white text (cart page) */
+.cart-page .cart-actions .btn.btn-secondary,
+.cart-page .cart-actions .btn.btn-outline {
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 6px 20px rgba(255,136,0,0.12);
+}
+
+.cart-page .cart-actions .btn.btn-secondary:hover,
+.cart-page .cart-actions .btn.btn-outline:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 30px rgba(255,136,0,0.16) !important;
 }
 
 /* Cart Summary */
@@ -774,13 +959,74 @@ body::before {
 
   .cart-item {
     grid-template-columns: 1fr;
-    gap: 1.6rem;
+    gap: 1rem; /* reduced gap */
     text-align: center;
+    padding: 1rem; /* reduce vertical padding */
   }
 
   .cart-item-product {
     flex-direction: column;
     text-align: center;
+  }
+
+  /* On narrow screens, use grid within each cart item to place image/title left, quantity right,
+     and a right-aligned end container (price + delete) on the second row */
+  .cart-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "product quantity"
+      "product end";
+    align-items: center;
+    gap: 0.6rem 1rem;
+    text-align: left;
+  }
+
+  .cart-item-product {
+    grid-area: product;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* hide the original price column under the image on mobile to avoid duplication */
+  .cart-item-price {
+    display: none;
+  }
+
+  .cart-item-image {
+    width: 4.8rem;
+    height: 4.8rem;
+    flex-shrink: 0;
+    border-radius: 0.6rem;
+    overflow: hidden;
+  }
+
+  .cart-item-quantity {
+    grid-area: quantity;
+    justify-self: end;
+  }
+
+  /* end container wraps price + actions so they appear inline on the right */
+  .cart-item-end {
+    grid-area: end;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    justify-self: end;
+    justify-content: flex-end;
+  }
+
+  .cart-item-total {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .cart-item-actions {
+    margin: 0;
   }
 
   .cart-actions {
@@ -804,12 +1050,22 @@ body::before {
   }
 
   .cart-item-image {
-    width: 6rem;
-    height: 6rem;
+    width: 4.8rem; /* smaller image */
+    height: 4.8rem; /* smaller image */
   }
 
   .item-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem; /* reduced font size */
+    margin-bottom: 0.4rem;
+  }
+
+  .cart-item {
+    padding: 0.8rem; /* compact padding on very small screens */
+    gap: 0.8rem;
+  }
+
+  .quantity-controls {
+    border-width: 1px; /* thinner border visually */
   }
 }
 
