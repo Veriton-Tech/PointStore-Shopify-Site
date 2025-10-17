@@ -713,6 +713,7 @@
 <!-- Newsletter Section removed (moved to footer) -->
 
 <style>
+
 /* === Paired Section Layout === */
 .paired-sections {
   display: flex;
@@ -2462,10 +2463,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const notification = document.createElement('div');
     notification.className = `wishlist-notification wishlist-notification-${type}`;
     notification.innerHTML = `
-      <div class="wishlist-notification-content">
-        <span class="wishlist-notification-icon">${type === 'success' ? '♥' : '✗'}</span>
-        <span class="wishlist-notification-message">${message}</span>
-      </div>
+    <div class="wishlist-notification-content">
+    <span class="wishlist-notification-icon">${type === 'success' ? '♥' : '✗'}</span>
+    <span class="wishlist-notification-message">${message}</span>
+    </div>
     `;
     
     // Add styles
@@ -2483,40 +2484,40 @@ document.addEventListener('DOMContentLoaded', function() {
       transition: all 0.3s ease;
       font-weight: 600;
       backdrop-filter: blur(10px);
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-      notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Animate out and remove
-    setTimeout(() => {
-      notification.style.transform = 'translateX(400px)';
+      `;
+      
+      document.body.appendChild(notification);
+      
+      // Animate in
       setTimeout(() => {
-        if (notification.parentNode) {
-          notification.parentNode.removeChild(notification);
-        }
-      }, 300);
-    }, 3000);
-  }
-  
-  // Initialize buttons based on existing wishlist
-  wishlistButtons.forEach(button => {
-    const productId = button.getAttribute('data-product-id');
-    if (productId && isInWishlist(productId)) {
-      updateWishlistButton(button, true);
+        notification.style.transform = 'translateX(0)';
+      }, 100);
+      
+      // Animate out and remove
+      setTimeout(() => {
+        notification.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, 3000);
     }
     
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
+    // Initialize buttons based on existing wishlist
+    wishlistButtons.forEach(button => {
+      const productId = button.getAttribute('data-product-id');
+      if (productId && isInWishlist(productId)) {
+        updateWishlistButton(button, true);
+      }
       
-      const productId = this.getAttribute('data-product-id');
-      const productTitle = this.getAttribute('data-product-title') || 'Product';
-      const productHandle = this.getAttribute('data-product-handle');
-      
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const productId = this.getAttribute('data-product-id');
+        const productTitle = this.getAttribute('data-product-title') || 'Product';
+        const productHandle = this.getAttribute('data-product-handle');
+        
       if (!productId) {
         showWishlistNotification('Unable to add to wishlist', 'error');
         return;
@@ -2543,6 +2544,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateWishlistButton(this, true);
         showWishlistNotification(`${productTitle} added to wishlist`, 'success');
       }
+      document.querySelector('.wishlist-count').textContent = wishlist.length;
       
       saveWishlist(wishlist);
       
@@ -2621,7 +2623,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset button after delay
         setTimeout(() => {
           // this.textContent = originalText;
-        
+          
           this.style.background = 'linear-gradient(135deg, #dc2626, #991b1b)';
           this.disabled = false;
         }, 2000);
@@ -2656,27 +2658,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const notification = document.createElement('div');
     notification.className = `cart-notification cart-notification-${type}`;
     notification.innerHTML = `
-      <div class="cart-notification-content">
-        <span class="cart-notification-icon">${type === 'success' ? '✓' : '✗'}</span>
-        <span class="cart-notification-message">${message}</span>
-      </div>
+    <div class="cart-notification-content">
+    <span class="cart-notification-icon">${type === 'success' ? '✓' : '✗'}</span>
+    <span class="cart-notification-message">${message}</span>
+    </div>
     `;
     
     // Add styles
     notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: ${type === 'success' ? 'linear-gradient(135deg, #059669, #047857)' : 'linear-gradient(135deg, #dc2626, #b91c1c)'};
-      color: white;
-      padding: 15px 20px;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      z-index: 10000;
-      transform: translateX(400px);
-      transition: all 0.3s ease;
-      font-weight: 600;
-      backdrop-filter: blur(10px);
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${type === 'success' ? 'linear-gradient(135deg, #059669, #047857)' : 'linear-gradient(135deg, #dc2626, #b91c1c)'};
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
     `;
     
     document.body.appendChild(notification);
@@ -2699,36 +2701,36 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-// Match Top Trends card width to Super Deals card width
-(function(){
-  function setTrendCardWidth(){
-    var dealCard = document.querySelector('.super-deals-section .deal-card');
-    var wrapper = document.querySelector('.top-trends-wrapper');
-    if(!dealCard || !wrapper) return;
-    var style = getComputedStyle(dealCard);
-    // Calculate the outer width including margin
-    var rect = dealCard.getBoundingClientRect();
-    var marginLeft = parseFloat(style.marginLeft) || 0;
-    var marginRight = parseFloat(style.marginRight) || 0;
-    var total = rect.width + marginLeft + marginRight;
-    // Set CSS variable and attribute to enable CSS rule
-    wrapper.style.setProperty('--trend-card-width', total + 'px');
-    wrapper.setAttribute('data-trend-card-width', 'true');
-  }
-
-  // Debounce helper
-  function debounce(fn, wait){
-    var t;
-    return function(){
-      clearTimeout(t);
-      t = setTimeout(fn, wait || 100);
+  // Match Top Trends card width to Super Deals card width
+  (function(){
+    function setTrendCardWidth(){
+      var dealCard = document.querySelector('.super-deals-section .deal-card');
+      var wrapper = document.querySelector('.top-trends-wrapper');
+      if(!dealCard || !wrapper) return;
+      var style = getComputedStyle(dealCard);
+      // Calculate the outer width including margin
+      var rect = dealCard.getBoundingClientRect();
+      var marginLeft = parseFloat(style.marginLeft) || 0;
+      var marginRight = parseFloat(style.marginRight) || 0;
+      var total = rect.width + marginLeft + marginRight;
+      // Set CSS variable and attribute to enable CSS rule
+      wrapper.style.setProperty('--trend-card-width', total + 'px');
+      wrapper.setAttribute('data-trend-card-width', 'true');
     }
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    setTrendCardWidth();
-    window.addEventListener('resize', debounce(setTrendCardWidth, 120));
-  });
-})();
-</script>
+    
+    // Debounce helper
+    function debounce(fn, wait){
+      var t;
+      return function(){
+        clearTimeout(t);
+        t = setTimeout(fn, wait || 100);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function(){
+      setTrendCardWidth();
+      window.addEventListener('resize', debounce(setTrendCardWidth, 120));
+    });
+  })();
+  </script>
 

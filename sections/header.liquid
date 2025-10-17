@@ -2,7 +2,15 @@
   Header section with navigation and search
 {% endcomment %}
 
+{% if template.name != 'index' %}
+
+<header class="header main-page">
+
+{% else %}
+
 <header class="header">
+
+{% endif %}
 
   <!-- Main Header -->
   <div class="header-main">
@@ -21,7 +29,7 @@
             {% if settings.logo != blank %}
               <img src="{{ settings.logo | img_url: '200x' }}" alt="{{ shop.name }}" class="logo-image">
             {% else %}
-              <img src="{{ 'image1.jpg' | asset_url }}" alt="{{ shop.name }}" class="logo-image">
+              <img src="{{ 'image2.png' | asset_url }}" alt="{{ shop.name }}" class="logo-image">
             {% endif %}
           </a>
         </div>
@@ -66,7 +74,7 @@
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
-            <span class="wishlist-count">0</span>
+            <span class="wishlist-count"></span>
           </a>
 
           <!-- Cart -->
@@ -133,6 +141,11 @@
                 <!-- Forgot Password removed per request -->
               {% endif %}
             </div>
+          </div>
+          <!-- Language selector (moved from footer) -->
+          <div class="header-language" id="header-language" style="display:flex; align-items:center;">
+            <h4 class="visually-hidden">Language</h4>
+            <div id="google_translate_element" style="display:block; margin-left:0.4rem;"></div>
           </div>
         </div>
       </div>
@@ -737,27 +750,60 @@ document.addEventListener('DOMContentLoaded', function() {
     header.classList.remove('scrolled');
   }
 });
-
+document.getElementsByClassName('goog-te-gadget').TextContent = "";
 });
 
 </script>
 
 <style>
+
 /* Header Styles */
 .header {
-  background: linear-gradient(135deg, #000000, #1a1a1a);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  position: sticky;
+  /* background: linear-gradient(135deg, #000000, #1a1a1a); */
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); */
+  position: fixed ;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid #ff8800;
+  backdrop-filter: blur(1px);
+  /* border-bottom: 2px solid #ff8800; */
   width: 100%;
+  background: transparent;
+}
+
+.header.main-page{
+  position: sticky;
+  background-color: black ;
+}
+
+.header-nav{
+  background: transparent !important;
+}
+
+.goog-te-gadget {
+  font-size: 0px;
 }
 
 .header.scrolled{
-  position: fixed !important;
+  position: fixed;
+  background-color: white;
 }
+
+.header.scrolled a , .header.scrolled .account-toggle{
+  color: black !important;
+}
+
+.header.scrolled .goog-te-combo{
+  color: black;
+}
+
+.header.scrolled .hamburger-line{
+  background: black;
+}
+
+.header-language{
+  margin-top: 0 !important;
+}
+
 
 /* Ensure main content doesn't get hidden behind sticky header */
 .header + main,
@@ -775,6 +821,7 @@ document.addEventListener('DOMContentLoaded', function() {
   padding: 1.2rem 2.5rem;
   max-width: 140rem;
   margin: 0 auto;
+  padding-bottom: 0;
 }
 
 .header-content {
@@ -812,6 +859,25 @@ document.addEventListener('DOMContentLoaded', function() {
 .header-logo {
   flex-shrink: 0;
   transition: transform 0.3s ease;
+}
+
+.header a{
+  outline: none;
+}
+
+.header-logo img{
+  object-fit: cover;
+  height: 50px;
+}
+
+.header.scrolled .header-logo img{
+  filter: invert();
+}
+
+@media screen and (min-width: 760px) {
+  .header-logo img{
+    transform: scale(1.8);
+  }
 }
 
 .logo-link {
@@ -1944,6 +2010,56 @@ html {
   margin-top: 0.5rem;
 }
 
+/* Header language selector styles */
+.header-language {
+  display: flex;
+  align-items: center;
+}
+.header-language .goog-te-combo {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.6rem;
+  font-size: 1.2rem;
+}
+.header-language .goog-te-combo option {
+  color: #111;
+}
+
+/* Nudge the language box down a bit on desktop for visual alignment */
+@media (min-width: 769px) {
+  .header-language {
+    margin-top: 0.6rem; /* small downward shift */
+    transform: translateY(0.2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-language { margin-top: 0; transform: none; }
+}
+
+/* Hide header language selector on small screens (we'll expose it in account dropdown) */
+@media (max-width: 768px) {
+  .header-language { display: none !important; }
+  .account-dropdown-menu #google_translate_element { display: block; margin: 1rem; }
+}
+
+/* Center the translate widget inside the account dropdown on mobile */
+@media (max-width: 768px) {
+  .account-dropdown-menu #google_translate_element {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    width: 100%;
+  }
+  .account-dropdown-menu #google_translate_element .goog-te-combo {
+    width: auto !important;
+    min-width: 110px;
+  }
+}
+
 .account-dropdown-menu.active {
   opacity: 1;
   visibility: visible;
@@ -2134,3 +2250,105 @@ html {
 
 
 </style>
+
+<!-- Mobile helper: shorten Google Translate labels (English -> en, Spanish -> sp) -->
+<script>
+  (function(){
+    function shortenGoogleTranslateLabels() {
+      try {
+        var sel = document.querySelector('.goog-te-combo');
+        if (!sel) return false;
+        if (window.innerWidth > 768) return false; // only on mobile
+        for (var i = 0; i < sel.options.length; i++) {
+          var opt = sel.options[i];
+          var txt = (opt.text || '').trim().toLowerCase();
+          if (txt === 'english' || /english/i.test(txt)) opt.text = 'en';
+          if (txt === 'spanish' || /spanish/i.test(txt)) opt.text = 'sp';
+        }
+        return true;
+      } catch (e) { return false; }
+    }
+
+    function restoreFullLanguageLabels() {
+      try {
+        var sel = document.querySelector('.goog-te-combo');
+        if (!sel) return false;
+        // Only modify when on mobile and widget is inside account menu
+        var container = document.getElementById('google_translate_element');
+        var accountMenu = document.querySelector('.account-dropdown-menu');
+        if (!container || !accountMenu || !accountMenu.contains(container)) return false;
+        for (var i = 0; i < sel.options.length; i++) {
+          var opt = sel.options[i];
+          var value = (opt.value || '').toLowerCase();
+          // If the value matches the language code, set full name
+          if (value === 'en' || /english/i.test(opt.text)) opt.text = 'English';
+          if (value === 'es' || /spanish/i.test(opt.text)) opt.text = 'Spanish';
+        }
+        return true;
+      } catch (e) { return false; }
+    }
+
+    var attempts = 0;
+    var interval = setInterval(function(){
+      attempts++;
+      var ok = shortenGoogleTranslateLabels();
+      // also attempt to restore full labels if the widget was moved into account menu
+      var restored = restoreFullLanguageLabels();
+      if ((ok || restored) || attempts > 20) clearInterval(interval);
+    }, 300);
+
+    window.addEventListener('orientationchange', shortenGoogleTranslateLabels);
+    window.addEventListener('resize', function(){ if (window.innerWidth <= 768) shortenGoogleTranslateLabels(); });
+
+    // Move the google translate element into account dropdown on mobile
+    function moveTranslateToAccount() {
+      try {
+        var container = document.getElementById('google_translate_element');
+        var headerLang = document.getElementById('header-language');
+        var accountMenu = document.querySelector('.account-dropdown-menu');
+        if (!container || !headerLang || !accountMenu) return false;
+
+        if (window.innerWidth <= 768) {
+          // move into account menu if not already there
+          if (!accountMenu.contains(container)) {
+            container.dataset.moved = '1';
+            accountMenu.appendChild(container);
+          }
+        } else {
+          // move back to header if we previously moved it
+          if (container.dataset.moved === '1' && !headerLang.contains(container)) {
+            headerLang.appendChild(container);
+            delete container.dataset.moved;
+          }
+        }
+        return true;
+      } catch (e) { return false; }
+    }
+
+    // Poll until both google widget and account menu exist, then move appropriately
+    var moveAttempts = 0;
+    var moveInterval = setInterval(function(){
+      moveAttempts++;
+      var done = moveTranslateToAccount();
+      // after moving, if on mobile restore full labels inside account dropdown
+      if (done && window.innerWidth <= 768) restoreFullLanguageLabels();
+      if (done || moveAttempts > 30) clearInterval(moveInterval);
+    }, 300);
+
+    window.addEventListener('resize', moveTranslateToAccount);
+    window.addEventListener('orientationchange', moveTranslateToAccount);
+  })();
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const wishlistCountEl = document.querySelector('.wishlist-count');
+  if (!wishlistCountEl) return;
+
+  // Get wishlist data from localStorage
+  const wishlist = localStorage.getItem('shopify-wishlist');
+  const wishlistArray = wishlist ? JSON.parse(wishlist) : [];
+
+  // Show count in header
+  wishlistCountEl.textContent = wishlistArray.length;
+});
+
+</script>
